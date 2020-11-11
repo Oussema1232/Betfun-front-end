@@ -1,58 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react";
+import { Route, Redirect, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import Betfunlogo from "./commun/logos/betfunalllogo";
+import Login from "./components/logcomponents/loginForm";
+import Register from "./components/logcomponents/registerForm";
+import Confirmation from "./components/logcomponents/registerconfirmation";
+import "react-toastify/dist/ReactToastify.css";
+import "./index.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <>
+      <ToastContainer />
+
+      <Switch>
+        <Route
+          path="/register/confirmation"
+          render={(props) => <Confirmation {...props} />}
+        />
+
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Redirect from="/" exact to="/login" />
+      </Switch>
+    </>
   );
 }
 
 export default App;
+
+//withrouter

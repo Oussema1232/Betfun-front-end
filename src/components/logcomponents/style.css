@@ -1,0 +1,66 @@
+.textclass {
+  width: 96%;
+  background-color: rgba(0, 0, 0, 0.9);
+  font-size: medium;
+  color: white;
+  margin-top: 10px;
+  border: 1px solid rgb(20, 19, 19);
+  height: 37px;
+  border-radius: 3px;
+  border-bottom-right-radius: 1;
+  border-bottom-left-radius: 1;
+  box-sizing: border-box;
+}
+.selectcontainerclass {
+  width: 40%;
+  /* background-color: rgba(0, 0, 0, 0.9); */
+  font-size: medium;
+  color: white;
+  margin-top: 10px;
+  border: 1px solid rgb(20, 19, 19);
+  height: 37px;
+  border-radius: 3px;
+  border-bottom-right-radius: 1;
+  border-bottom-left-radius: 1;
+  box-sizing: border-box;
+}
+.selectclass {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  font-size: medium;
+  color: white;
+
+  border: 1px solid rgb(20, 19, 19);
+  height: 37px;
+  border-radius: 3px;
+  border-bottom-right-radius: 1;
+  border-bottom-left-radius: 1;
+  box-sizing: border-box;
+}
+
+.buttonclass {
+  width: 96%;
+  height: 40px;
+  font-size: large;
+  margin-top: 10px;
+  border: 1px solid#4e0000;
+  border-radius: 3px;
+  background-color: #4e0000;
+  color: white;
+  cursor: pointer;
+}
+
+.errorclass {
+  width: 96%;
+  background-color: #f8f8ff;
+  font-size: medium;
+  color: rgb(20, 19, 19);
+  margin-top: 0px;
+  border: 1px solid rgb(20, 19, 19);
+  padding: 5px;
+  border-radius: 3px;
+  border-top-right-radius: 0;
+  font-weight: bold;
+  border-top-left-radius: 0;
+  box-sizing: border-box;
+}

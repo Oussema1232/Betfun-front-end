@@ -1,0 +1,7 @@
+{
+  "apiUrl": "http://localhost:3001/api",
+  "auth": "/auth",
+  "users": "/users",
+  "countries": "/countries",
+  "confirmation": "/confirmation"
+}
