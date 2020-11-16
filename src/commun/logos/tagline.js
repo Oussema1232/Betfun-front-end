@@ -6,7 +6,7 @@ export default function Tagline() {
       style={{
         fontFamily: "'Lobster Two', cursive",
         color: "black",
-        fontSize: "2vw",
+        fontSize: "1.8vw",
         marginLeft: "40%",
         marginTop: -10,
 

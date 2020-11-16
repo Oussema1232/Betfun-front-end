@@ -22,7 +22,9 @@ const Select = ({
           value={value}
           name={name}
         >
-          <option value="">Country</option>
+          <option value="" >
+            Country
+          </option>
 
           {options.map((option) => (
             <option key={option.id} value={option.id}>

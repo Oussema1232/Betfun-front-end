@@ -7,7 +7,7 @@ export const countrySlice = createSlice({
   name: "countries",
   initialState: {
     list: [],
-    loading: "false",
+    loading: false,
     errors: {},
     onsuccess: {},
   },
@@ -24,6 +24,9 @@ export const countrySlice = createSlice({
       state.loading = false;
       state.onsuccess.message = action.payload.message;
     },
+    countryServerFail: (state, action) => {
+      state.loading = false;
+    },
   },
 });
 
@@ -31,6 +34,7 @@ const {
   countriesReceived,
   countriesRequested,
   countriesRequestFail,
+  countryServerFail,
 } = countrySlice.actions;
 const url = config.countries;
 
@@ -41,6 +45,7 @@ export const loadCountries = () => (dispatch, getState) => {
       onStart: countriesRequested.type,
       onError: countriesRequestFail.type,
       onSuccess: countriesReceived.type,
+      onServerFail: countryServerFail.type,
     })
   );
 };

@@ -15,10 +15,14 @@ class Confirmation extends Component {
       this.props.location.pathname.lastIndexOf("/") + 1
     );
 
+    const pathname = this.props.location.pathname.slice(
+      1,
+      this.props.location.pathname.lastIndexOf("/")
+    );
     this.setState({ message: "", showmessage: false });
     try {
-      const response = await http.get(
-        `http://localhost:3001/api/confirmation/${token}`
+      const response = await http.post(
+        `http://localhost:3001/api/confirmation/${token}`,pathname
       );
       this.setState({ message: response.data.message, showmessage: true });
     } catch (err) {

@@ -7,6 +7,7 @@ export const userSlice = createSlice({
   name: "users",
   initialState: {
     list: [],
+    loading: false,
     errors: {},
     onsuccess: {},
   },
@@ -15,13 +16,19 @@ export const userSlice = createSlice({
     userAdded: (state, action) => {
       state.list.push(action.payload.data);
       state.onsuccess.message = action.payload.message;
+      state.loading = false;
     },
     addUserRequestBegan: (state, action) => {
       state.errors = {};
-      state.onsuccess={}
+      state.onsuccess = {};
+      state.loading = true;
     },
     addUserRequestFail: (state, action) => {
       state.errors.message = action.payload;
+      state.loading = false;
+    },
+    addServerFail: (state, action) => {
+      state.loading = false;
     },
 
     userDeleted: (state, action) => {
@@ -35,6 +42,7 @@ const {
   userDeleted,
   addUserRequestFail,
   addUserRequestBegan,
+  addServerFail,
 } = userSlice.actions;
 const url = config.users;
 
@@ -44,6 +52,7 @@ export const deleteUser = (userId) =>
     method: "delete",
     data: userId,
     onSuccess: userDeleted.type,
+    onServerFail: addServerFail.type,
   });
 
 export const addUser = (user) =>
@@ -54,6 +63,7 @@ export const addUser = (user) =>
     onStart: addUserRequestBegan.type,
     onError: addUserRequestFail.type,
     onSuccess: userAdded.type,
+    onServerFail: addServerFail.type,
   });
 
 // {type:"api/CallBegan",payload:{

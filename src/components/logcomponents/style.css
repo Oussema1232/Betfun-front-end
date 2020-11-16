@@ -1,15 +1,21 @@
 .textclass {
-  width: 96%;
   background-color: rgba(0, 0, 0, 0.9);
   font-size: medium;
+  padding-left: 3px;
   color: white;
-  margin-top: 10px;
+  flex-grow: 1;
   border: 1px solid rgb(20, 19, 19);
   height: 37px;
-  border-radius: 3px;
-  border-bottom-right-radius: 1;
-  border-bottom-left-radius: 1;
+
+  border-bottom-right-radius: 1px;
+  border-bottom-left-radius: 1px;
+  border-top-left-radius: 3px;
   box-sizing: border-box;
+}
+
+.textclass::placeholder {
+  color: #adadad;
+  opacity: 0.9; /* Firefox */
 }
 .selectcontainerclass {
   width: 40%;
@@ -26,7 +32,7 @@
 }
 .selectclass {
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 1);
   font-size: medium;
   color: white;
 
@@ -41,26 +47,77 @@
 .buttonclass {
   width: 96%;
   height: 40px;
-  font-size: large;
+  font-weight: bolder;
+  font-size: 22px;
   margin-top: 10px;
-  border: 1px solid#4e0000;
+  border: 5px solid#4e0000;
   border-radius: 3px;
-  background-color: #4e0000;
-  color: white;
+  background-color: #eaebdf;
+  color: #4e0000;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sidebuttonclass {
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  top: 5px;
+  right: 10px;
+  position: absolute;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.0942176);
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.0942176);
+  color: #333444;
+  cursor: pointer;
+}
+
+.resendlink {
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 70px;
+  font-size: 17px;
+  margin-top: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.0942176);
+  border-radius: 3px;
+  background-color: #e6ab2d;
+  color: #ffffff;
   cursor: pointer;
 }
 
 .errorclass {
   width: 96%;
-  background-color: #f8f8ff;
-  font-size: medium;
-  color: rgb(20, 19, 19);
+  user-select: none;
+  font-size: small;
+  color: rgb(177, 39, 39);
   margin-top: 0px;
-  border: 1px solid rgb(20, 19, 19);
+
   padding: 5px;
   border-radius: 3px;
   border-top-right-radius: 0;
   font-weight: bold;
   border-top-left-radius: 0;
   box-sizing: border-box;
+}
+
+.classContainer {
+  flex-grow: 1;
+}
+
+.linkforgetpassword {
+  font-size: 13px;
+  color: "blue";
+  text-decoration: "none";
+  margin-top: 10;
+  user-select: "none";
+  color: "#1769aa";
+  display: "block";
+  margin-top: 12;
 }

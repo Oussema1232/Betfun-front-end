@@ -7,7 +7,15 @@ import * as actions from "../../features/actions/api";
 const api = ({ dispatch }) => (next) => async (action) => {
   if (action.type !== actions.apiCallBegan.type) return next(action);
 
-  const { url, method, onSuccess, onStart, onError, data } = action.payload;
+  const {
+    url,
+    method,
+    onSuccess,
+    onStart,
+    onError,
+    data,
+    onServerFail,
+  } = action.payload;
 
   if (onStart) dispatch({ type: onStart });
   next(action); //we call next(action) to make the next dispatch appear in dev tools
@@ -20,7 +28,6 @@ const api = ({ dispatch }) => (next) => async (action) => {
       data,
     });
 
-    
     dispatch(actions.apiCallSuccess(response.data));
     console.log("response", response.data);
     if (onSuccess) dispatch({ type: onSuccess, payload: response.data });
@@ -28,6 +35,11 @@ const api = ({ dispatch }) => (next) => async (action) => {
     dispatch(actions.apiCallFailed(err.message));
     if (onError && err.response && err.response.status === 400)
       dispatch({ type: onError, payload: err.response.data });
+    if (
+      (err.message == "Network Error" || err.response.status === 500) &&
+      onServerFail
+    )
+      dispatch({ type: onServerFail });
   }
 };
 

@@ -157,3 +157,98 @@
   stroke-width: 0.0479;
   stroke-miterlimit: 10;
 }
+
+.mooncontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(
+    30deg,
+    rgba(24, 44, 81, 0.9),
+    rgba(9, 16, 30, 0.9)
+  );
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  z-index: 10000;
+  padding-bottom: 10px;
+}
+
+.moon {
+  background-image: linear-gradient(30deg, #13223f, #0e1a30);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.moon::before {
+  content: "";
+  background: #c7938b;
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  z-index: -1;
+  animation: 800ms moonlight linear infinite alternate;
+}
+
+@keyframes moonlight {
+  0% {
+    transform: translate(-34px, 34px) scale(0.9);
+  }
+  50% {
+    transform: translate(0px, 0px) scale(1.02);
+    box-shadow: 0 0 10px #f9f3f2, 0 0 80px 8px #c7938b;
+    background: #efdbd8;
+  }
+  100% {
+    transform: translate(34px, -34px) scale(0.9);
+  }
+}
+
+.staricon {
+  fill: #13223f;
+  stroke: #13223f;
+  stroke-width: 2.6841;
+  stroke-miterlimit: 10;
+  animation: 800ms starlight infinite;
+}
+
+@keyframes starlight {
+  0% {
+    fill: #13223f;
+    stroke: #13223f;
+  }
+  20% {
+    fill: #13223f;
+    stroke: #13223f;
+  }
+
+  50% {
+    fill: #efdbd8;
+    stroke: #efdbd8;
+  }
+  80% {
+    fill: #13223f;
+    stroke: #13223f;
+  }
+
+  100% {
+    fill: #13223f;
+    stroke: #13223f;
+  }
+}
+
+.spin {
+  -webkit-animation: fa-spin 1s infinite linear;
+  animation: fa-spin 1s infinite linear;
+}
+
+@keyframes fa-spin {
+  0% {
+    transform: rotate(360deg);
+  }
+}

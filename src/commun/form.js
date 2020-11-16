@@ -5,7 +5,7 @@ import Input from "./input";
 import Select from "./select";
 
 class Form extends Component {
-  state = { data: {}, check: false, errors: {} };
+  state = { data: {}, check: false, slasheye: true, errors: {} };
 
   onchange = ({ currentTarget: input }) => {
     let data = { ...this.state.data };
@@ -41,6 +41,10 @@ class Form extends Component {
     return errors;
   };
 
+  setslash = () => {
+    this.setState({ slasheye: !this.state.slasheye });
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
     const errors = this.validation();
@@ -52,21 +56,27 @@ class Form extends Component {
   renderInput = (
     name,
     label,
+    placeholder,
     classInputContainer,
     classInput,
     classError,
+    eyeicon,
+
     type = "text"
   ) => {
-    const { data, errors } = this.state;
+    const { data, errors, slasheye } = this.state;
     return (
       <Input
         classInputContainer={classInputContainer}
         classInput={classInput}
         classError={classError}
-        placeholder={name}
+        placeholder={placeholder}
         name={name}
         type={type}
         label={label}
+        eyeicon={eyeicon}
+        slash={slasheye}
+        onclick={this.setslash}
         error={errors[name]}
         value={data[name]}
         onChange={this.onchange}
