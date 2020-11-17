@@ -26,8 +26,8 @@ function App() {
       <ToastContainer style={{ zIndex: 10001 }} />
       {/* <Resetpassword /> */}
       <Switch>
-        <Route path="/account/resetpassword" component={Resetpassword} />
-        <Route path="/account/checkemail" component={Checkemail} />
+        <LogRoute path="/account/resetpassword" component={Resetpassword} />
+        <LogRoute path="/account/checkemail" component={Checkemail} />
         <LogRoute path="/register/confirmation" component={Confirmation} />
         <LogRoute path="/register" exact component={Register} />
         <LogRoute path="/login" exact component={Login} />

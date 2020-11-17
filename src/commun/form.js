@@ -22,7 +22,7 @@ class Form extends Component {
     _.forEach(data, function (value, key) {
       dataaftertrim[key] = value.trim();
     });
-    console.log(dataaftertrim);
+    
     const { error } = Joi.validate(dataaftertrim, this.schema, options);
     if (!error) return null;
     const errors = {};

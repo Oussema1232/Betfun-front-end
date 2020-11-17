@@ -123,3 +123,6 @@ export default class Checkemail extends Form {
     );
   }
 }
+
+//sends request to endpoint emailreset verification if it's allright it sends link to the user on this email
+//when clicking on the link it opens component resetpassword

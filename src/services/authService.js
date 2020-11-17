@@ -2,17 +2,17 @@ import http from "./httpService";
 import config from "../config.json";
 import jwtDecode from "jwt-decode";
 
-const myToken = "token";
+export const myToken = "token";
 
 http.setJwt(localStorage.getItem(myToken));
 
 export async function login(email, userpassword) {
-  const { data: jwt } = await http.post(`${config.apiUrl}/auth`, {
+  const response = await http.post(`${config.apiUrl}/auth`, {
     email,
     userpassword,
   });
 
-  localStorage.setItem(myToken, jwt);
+  localStorage.setItem(myToken, response.data.token);
 }
 
 export function loginWithjwt(jwt) {

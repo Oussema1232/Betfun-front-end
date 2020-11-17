@@ -1,11 +1,14 @@
 import React from "react";
 import Joi from "joi-browser";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import http from "../../services/httpService";
 import auth from "../../services/authService";
+import { savecurrentUser } from "../../features/currentuser/currentuserSlice";
 import Form from "../../commun/form";
 import Betfunlogo from "../../commun/logos/betfunalllogo";
 import LoadingComponent from "../../commun/logos/loadingcomponent";
+import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
 import Input from "../../commun/input";
 
 import "./style.css";
@@ -15,12 +18,13 @@ class Login extends Form {
     data: { email: "", userpassword: "" },
     errors: {},
     slasheye: true,
-    forbidden: false,
-    emailtoken: "",
-    message: "",
-    showemail: false,
-    showmessage: false,
-    loading: false,
+    forbidden: false, //if forbidden then we show that you wanna login with non confirmed email
+    emailtoken: "", //we save the email token when the data is correct but the account is nonconfirmed
+    message: "", //message when we send request to send a verification email if you click on resend button
+    showemail: false, //becomes true if the request is successful we tell you to go check your email
+    showmessage: false, //if true we show response message
+    loadinglogin: false,
+    loadingresend: false,
   };
 
   schema = {
@@ -36,7 +40,7 @@ class Login extends Form {
       message: "",
       showmessage: false,
       showemail: false,
-      loading: false,
+      loadingresend: true,
     });
 
     try {
@@ -47,6 +51,7 @@ class Login extends Form {
         message: response.data.message,
         showmessage: true,
         showemail: true,
+        loadingresend: false,
       });
     } catch (err) {
       if (err.response && err.response.status === 400) {
@@ -55,6 +60,7 @@ class Login extends Form {
           showmessage: true,
         });
       }
+      this.setState({ loadingresend: false });
     }
   };
 
@@ -64,13 +70,13 @@ class Login extends Form {
 
   dosubmit = async () => {
     try {
-      this.setState({ loading: true });
+      this.setState({ loadinglogin: true });
       const { email, userpassword } = this.state.data;
       await auth.login(email, userpassword);
-      const { state } = this.props.location;
-      window.location = state ? state.from.pathname : "/";
+      this.props.savecurrentUser();
+      this.props.history.replace("/");
     } catch (err) {
-      this.setState({ loading: false });
+      this.setState({ loadinglogin: false });
       if (err.response && err.response.status === 400) {
         const errors = { ...this.state.errors };
         errors.email = err.response.data;
@@ -78,12 +84,13 @@ class Login extends Form {
       } else if (err.response && err.response.status === 403) {
         this.setState({ emailtoken: err.response.data.data, forbidden: true });
       }
+      this.setState({ loadinglogin: false });
     }
   };
   render() {
     return (
       <>
-        <LoadingComponent show={this.state.loading} />
+        <LoadingComponent show={this.state.loadinglogin} />
         <div
           style={{
             backgroundColor: "#e9eac9",
@@ -168,7 +175,11 @@ class Login extends Form {
                       click on the button bellow to resend it
                     </div>
                     <button className="resendlink" onClick={this.sendrequest}>
-                      Resend link
+                      {!this.state.loadingresend ? (
+                        "Resend"
+                      ) : (
+                        <Spincrescentcomponenet color="#e9eac9" />
+                      )}
                     </button>
                   </div>
                 ) : (
@@ -215,4 +226,16 @@ class Login extends Form {
   }
 }
 
-export default Login;
+const mapDispatchToProps = { savecurrentUser };
+
+const mapStateToProps = (state) => ({
+  currentuser: state.betfundata.currentuser.data,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+//send request to login confirmation if we click on resend so it sendsus the user a mail to cofirm his account
+//endpoint sendverificationmail
+//when clicking on link sent it sends us to the component registerconfirmation
+
+//if you click on forget password it sends you to an other component whicj is checkemailreset

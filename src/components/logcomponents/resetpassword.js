@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import _ from "lodash";
+import { connect } from "react-redux";
+import { savecurrentUser } from "../../features/currentuser/currentuserSlice";
 import auth from "../../services/authService";
 import Input from "../../commun/input";
 import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
@@ -9,7 +11,7 @@ import http from "../../services/httpService";
 
 import "./style.css";
 
-export default class Resetpassword extends Component {
+class Resetpassword extends Component {
   state = {
     data: { userpassword: "", confirmuserpassword: "" },
     email: "",
@@ -136,8 +138,8 @@ export default class Resetpassword extends Component {
         { userpassword: this.state.data.userpassword }
       );
       await auth.login(this.state.email, this.state.data.userpassword);
-      const { state } = this.props.location;
-      window.location = state ? state.from.pathname : "/";
+      this.props.savecurrentUser();
+      this.props.history.replace("/");
     } catch (err) {
       if (err.response && err.response.status === 400) {
         this.setState({
@@ -181,7 +183,7 @@ export default class Resetpassword extends Component {
             <>
               {this.state.showform ? (
                 <>
-                  <h6>Type down your new password</h6>
+                  <h4>Type down your new password</h4>
                   <form
                     style={{
                       width: "100%",
@@ -262,3 +264,20 @@ export default class Resetpassword extends Component {
     );
   }
 }
+
+const mapDispatchToProps = { savecurrentUser };
+
+const mapStateToProps = (state) => ({
+  currentuser: state.betfundata.currentuser.data,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Resetpassword);
+
+//when this component is called it sends a request to api/confirmation/token with token is the email token in the link that was sent to the user
+//and the path
+//if the path is this path of reseting password and emailtoken is okay it the response is {
+// message: "Your email has been verified successfully",
+//data: decoded.email,}
+//we save email and token from the path
+//and set showform to true and show the form to type down the new password
+//on submit we send request to resetpassword with email token and we change password and get response if response is pkay we login immediately

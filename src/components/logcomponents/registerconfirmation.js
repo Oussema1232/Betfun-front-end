@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-
+import { savecurrentUser } from "../../features/currentuser/currentuserSlice";
+import auth from "../../services/authService";
 import http from "../../services/httpService";
 import { connect } from "react-redux";
+import { faClosedCaptioning } from "@fortawesome/free-solid-svg-icons";
 
 class Confirmation extends Component {
-  state = { message: "", showmessage: false };
+  state = { message: "", showmessage: false, showerror: false };
 
   componentDidMount() {
     this.sendrequest();
@@ -19,24 +21,77 @@ class Confirmation extends Component {
       1,
       this.props.location.pathname.lastIndexOf("/")
     );
-    this.setState({ message: "", showmessage: false });
+    this.setState({ message: "", showmessage: false, showerror: false });
     try {
       const response = await http.post(
-        `http://localhost:3001/api/confirmation/${token}`,pathname
+        `http://localhost:3001/api/confirmation/${token}`,
+        { data: pathname }
       );
-      this.setState({ message: response.data.message, showmessage: true });
+
+      this.setState({
+        message: response.data.message,
+        showmessage: true,
+        showerror: false,
+      });
     } catch (err) {
       if (err.response && err.response.status === 400) {
         this.setState({
           message: err.response.data.message,
-          showmessage: true,
+          showerror: true,
+          showmessage: false,
         });
       }
     }
   };
   render() {
-    return <div>{this.state.showmessage && <h2>{this.state.message}</h2>}</div>;
+    return (
+      <div
+        style={{
+          backgroundColor: "#e9eac9",
+          width: "100%",
+
+          minHeight: "100vh",
+          height: "100%",
+          paddingBottom: 10,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            width: "70%",
+            minWidth: 300,
+
+            backgroundColor: "#f5f5e5",
+            marginTop: 70,
+            padding: 10,
+            borderRadius: 3,
+            boxShadow: "0px 0px 3px 4px #dddfad",
+          }}
+        >
+          {(this.state.showmessage || this.state.showerror) && (
+            <>
+              <h2 style={{ marginLeft: 20 }}>{this.state.message}</h2>
+              {this.state.showmessage && (
+                <h3>Now go back to login page and start betting..</h3>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    );
   }
 }
+const mapDispatchToProps = { savecurrentUser };
 
-export default connect()(Confirmation);
+const mapStateToProps = (state) => ({
+  currentuser: state.betfundata.currentuser.data,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Confirmation);
+
+
+//when this component is called it sends a request to api/confirmation/token with token is the email token in the link that was sent to the user
+//and the path
+//this endpoint is confirmmail it verifies the path and the emailtoken if the path is the path of this component and token is valid
+//it updates confirm to be true

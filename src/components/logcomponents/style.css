@@ -35,7 +35,6 @@
   background-color: rgba(0, 0, 0, 1);
   font-size: medium;
   color: white;
-
   border: 1px solid rgb(20, 19, 19);
   height: 37px;
   border-radius: 3px;
@@ -70,11 +69,14 @@
   font-size: 17px;
   font-weight: bold;
   margin-top: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.0942176);
+  /* border: 1px solid rgba(0, 0, 0, 0.0942176); */
+  border: 1px solid #070427;
   border-radius: 3px;
-  background-color: rgba(0, 0, 0, 0.0942176);
-  color: #333444;
+  background-color: rgba(255, 185, 82, 0.7);
+  /* color: #333444; */
+  color: #070427;
   cursor: pointer;
+  
 }
 
 .resendlink {
@@ -83,7 +85,8 @@
   padding-top: 5px;
   padding-bottom: 5px;
   width: 70px;
-  font-size: 17px;
+  font-size: 14px;
+  font-weight: bold;
   margin-top: 10px;
   border: 1px solid rgba(0, 0, 0, 0.0942176);
   border-radius: 3px;

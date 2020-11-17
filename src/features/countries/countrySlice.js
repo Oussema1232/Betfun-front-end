@@ -14,6 +14,8 @@ export const countrySlice = createSlice({
   reducers: {
     countriesRequested: (state, action) => {
       state.loading = true;
+      state.errors = {};
+      state.errors = {};
     },
     countriesRequestFail: (state, action) => {
       state.loading = false;

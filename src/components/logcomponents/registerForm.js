@@ -43,7 +43,7 @@ class Register extends Form {
   };
 
   dosubmit = () => {
-    this.setState({ check: true });
+    this.setState({ check: true });  //check is used to check when do submit is trigered that means when errors in local state are emty because when changing inputs check becomes false
     if (_.size(this.state.errors) < 1) {
       const user = this.state.data;
       this.props.addUser(user);
@@ -100,7 +100,7 @@ class Register extends Form {
                   "errorclass"
                 )}
                 {this.props.addUserErrors.message &&
-                  _.size(this.state.errors) < 1 &&
+                  _.size(this.state.errors) < 1 &&  //this condition can be ignored because if yoou have check true then errors is already empty
                   this.state.check === true && (
                     <div className="errorclass">
                       {this.props.addUserErrors.message}
@@ -167,7 +167,7 @@ const mapDispatchToProps = { addUser, loadCountries };
 
 const mapStateToProps = (state) => ({
   countries: state.betfundata.countries.list,
-
+  users: state.betfundata.users.list,
   loadcountries: state.betfundata.countries.loading,
   addUserErrors: state.betfundata.users.errors,
   emailtoken: state.betfundata.users.onsuccess.message,
@@ -176,3 +176,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
+
+//when calling users endpoint to post user data if it's allright a email will be send to confirm the email with a token
+//the endpoint response is {data:user,message:emailtoken}
+//when clicking on the email link you open registerconfirmation component
