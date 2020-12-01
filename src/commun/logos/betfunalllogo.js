@@ -1,6 +1,7 @@
 import React from "react";
 import Tagline from "./tagline";
 
+
 export default function Betfunalllogo() {
   return (
     <div
@@ -1288,7 +1289,7 @@ export default function Betfunalllogo() {
           </g>
         </g>
       </svg>
-      <Tagline />
+      {/* <Tagline /> */}
     </div>
   );
 }

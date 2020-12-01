@@ -36,7 +36,8 @@ const api = ({ dispatch }) => (next) => async (action) => {
     if (onError && err.response && err.response.status === 400)
       dispatch({ type: onError, payload: err.response.data });
     if (
-      (err.message == "Network Error" || err.response.status === 500) &&
+      (err.message == "Network Error" ||
+        err.response.status === 500 ) &&
       onServerFail
     )
       dispatch({ type: onServerFail });

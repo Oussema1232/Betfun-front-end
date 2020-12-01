@@ -15,6 +15,7 @@ import Checkemail from "./components/logcomponents/checkemailreset";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
+import Animationscreen from "./screens/animationscreen2";
 
 function App() {
   useEffect(() => {
@@ -24,8 +25,11 @@ function App() {
   return (
     <>
       <ToastContainer style={{ zIndex: 10001 }} />
-      {/* <Resetpassword /> */}
-      <Switch>
+      {/* <Animationscreen /> */}
+
+      <Mainscreen />
+
+      {/* <Switch>
         <LogRoute path="/account/resetpassword" component={Resetpassword} />
         <LogRoute path="/account/checkemail" component={Checkemail} />
         <LogRoute path="/register/confirmation" component={Confirmation} />
@@ -35,7 +39,7 @@ function App() {
         <Route path="/not-found" component={Notfound} />
         <Redirect from="/" exact to="/Accueil" />
         <Redirect to="/not-Found" component={Notfound} />
-      </Switch>
+      </Switch> */}
     </>
   );
 }

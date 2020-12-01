@@ -83,15 +83,15 @@ export default class Checkemail extends Form {
         >
           {!this.state.showmessage ? (
             <>
-              <h5>
-                I Bet that you forgot your password..Type down your email to
-                recieve a verfication link
-              </h5>
+              <h4>
+                Type down your email to recieve a verfication link so you can
+                reset your password 
+              </h4>
               <form
                 style={{
                   width: "100%",
                   // border: "1px solid red",
-                  paddingTop: 6,
+
                   paddingBottom: 6,
                 }}
               >
@@ -105,7 +105,7 @@ export default class Checkemail extends Form {
                 )}
 
                 {this.renderButton(
-                  !this.state.loading ? "Reset" : <Spincrescentcomponenet />,
+                  !this.state.loading ? "Send" : <Spincrescentcomponenet />,
                   "resendlink"
                 )}
               </form>

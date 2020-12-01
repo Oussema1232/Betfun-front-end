@@ -93,7 +93,7 @@ class Login extends Form {
         <LoadingComponent show={this.state.loadinglogin} />
         <div
           style={{
-            backgroundColor: "#e9eac9",
+            backgroundColor: "#ede5e5",
             width: "100%",
 
             minHeight: "100vh",
