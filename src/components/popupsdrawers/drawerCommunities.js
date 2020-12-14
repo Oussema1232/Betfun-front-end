@@ -1,70 +1,31 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { savecurrentCommunity } from "../../features/currentcommunity/currentcommunitySlice";
+import { loadCommunities } from "../../features/communities/communitySlice";
 import MyDrawer from "../../commun/drawer";
 
-export default class DrawerCommunities extends Component {
-  more = [
-    {
-      name: "Football",
-    },
-    {
-      name: "Handball",
-    },
-    {
-      name: "Basketball",
-    },
-    {
-      name: "Volleyball",
-    },
+class DrawerCommunities extends Component {
+  componentDidMount() {
+    this.props.loadCommunities();
+  }
 
-    {
-      name: "Tennis",
-    },
-    {
-      name: "American football",
-    },
-    {
-      name: "Rugby",
-    },
-    {
-      name: "Combat Sports",
-    },
-    {
-      name: "Water sports",
-    },
-    {
-      name: "Winter sports",
-    },
-    {
-      name: "Hockey",
-    },
-    {
-      name: "Dodge-ball",
-    },
-    {
-      name: "Cricket",
-    },
-    {
-      name: "Badminton",
-    },
-    {
-      name: "Auto racing",
-    },
-    {
-      name: "Outdoor adventure activities",
-    },
-
-    {
-      name: "Other",
-    },
-  ];
   render() {
     return (
       <MyDrawer
         handleDrawerClose={this.props.handleDrawerClose}
+        onclickItem={savecurrentCommunity}
         open={this.props.open}
         title={{ name: "Communities" }}
-        content={this.more}
+        content={this.props.communities}
       />
     );
   }
 }
+
+const mapDispatchToProps = { loadCommunities };
+
+const mapStateToProps = (state) => ({
+  communities: state.betfundata.communities.list,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DrawerCommunities);

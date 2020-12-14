@@ -158,6 +158,17 @@
   stroke-miterlimit: 10;
 }
 
+.sadcheer0 {
+  fill: #000067;
+}
+.sadcheer1 {
+  fill: #ffffff;
+  stroke: #000067;
+  stroke-width: 2.2314;
+  stroke-linejoin: round;
+  stroke-miterlimit: 10;
+}
+
 .mooncontainer {
   display: flex;
   justify-content: center;
@@ -425,6 +436,13 @@
   -moz-user-select: none;
 }
 
+.drawerItem {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  min-height: 50px;
+}
+
 @media only screen and (max-width: 600px) {
   .blogo {
     width: 20px;
@@ -432,10 +450,11 @@
 }
 
 .cheerContainer {
-  width: 30px;
+  width: 40px;
   cursor: pointer;
   -moz-user-select: none;
   -webkit-user-select: none;
+  align-self: flex-end;
 }
 
 .cheer0 {
@@ -467,9 +486,9 @@
   stroke-miterlimit: 10;
 }
 .cheer5 {
-  fill: #db7093;
-  stroke: #ffffff;
-  stroke-width: 0.0374;
+  fill: #d14774;
+  stroke: #d14774;
+  stroke-width: 0.1;
   stroke-miterlimit: 10;
 }
 
@@ -504,6 +523,58 @@
 .cheerblack5 {
   fill: #4c4c4e;
   stroke: #4c4c4e;
-  stroke-width: 0.0374;
+  stroke-width: 0.0562;
   stroke-miterlimit: 10;
 }
+
+.betstabLine {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid #0e4686;
+  height: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.betsTableAndSelectContainer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.betsTableContainer {
+  height: 500px;
+  overflow: auto;
+}
+
+.headerBets {
+  border-bottom: 3px solid rgba(230, 171, 45, 1);
+  background-color: #eeeeee;
+  font-weight: bold;
+  color: #070427;
+}
+
+.betsTabCellule {
+  width: 33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 450px) {
+  .betsTableAndSelectContainer {
+    font-size: 13px;
+  }
+}
+@media only screen and (max-width: 300px) {
+  .betsTableAndSelectContainer {
+    font-size: 9px;
+  }
+}
+

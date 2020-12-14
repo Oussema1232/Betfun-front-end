@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
+import { createStore } from "redux";
 import "../src/commun/logos/style.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-
+import { PersistGate } from "redux-persist/integration/react";
 import store from "./app/store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
@@ -17,7 +17,9 @@ const render = () => {
     <React.StrictMode>
       <Provider store={store}>
         <ConnectedRouter history={history}>
+          {/* <PersistGate loading={null} persistor={store.persistor}> */}
           <App />
+          {/* </PersistGate> */}
         </ConnectedRouter>
       </Provider>
     </React.StrictMode>,

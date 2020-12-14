@@ -3,8 +3,8 @@ import { createSelector } from "reselect";
 import * as actions from "../actions/api";
 import config from "../../config.json";
 
-export const countrySlice = createSlice({
-  name: "countries",
+export const communitySlice = createSlice({
+  name: "communities",
   initialState: {
     list: [],
     loading: false,
@@ -12,50 +12,50 @@ export const countrySlice = createSlice({
     onsuccess: {},
   },
   reducers: {
-    countriesRequested: (state, action) => {
+    communitiesRequested: (state, action) => {
       state.loading = true;
       state.onsuccess = {};
       state.errors = {};
     },
-    countriesRequestFail: (state, action) => {
+    communitiesRequestFail: (state, action) => {
       state.loading = false;
-      state.errors.message = "Couldn't load countries";
+      state.errors.message = "Couldn't load communities";
     },
-    countriesReceived: (state, action) => {
+    communitiesReceived: (state, action) => {
       state.list = action.payload.data;
       state.loading = false;
       state.onsuccess.message = action.payload.message;
     },
-    countryServerFail: (state, action) => {
+    communityServerFail: (state, action) => {
       state.loading = false;
     },
   },
 });
 
 const {
-  countriesReceived,
-  countriesRequested,
-  countriesRequestFail,
-  countryServerFail,
-} = countrySlice.actions;
-const url = config.countries;
+  communitiesReceived,
+  communitiesRequested,
+  communitiesRequestFail,
+  communityServerFail,
+} = communitySlice.actions;
+const url = config.communities;
 
-export const loadCountries = () => (dispatch, getState) => {
+export const loadCommunities = () => (dispatch, getState) => {
   return dispatch(
     actions.apiCallBegan({
       url: url,
-      onStart: countriesRequested.type,
-      onError: countriesRequestFail.type,
-      onSuccess: countriesReceived.type,
-      onServerFail: countryServerFail.type,
+      onStart: communitiesRequested.type,
+      onError: communitiesRequestFail.type,
+      onSuccess: communitiesReceived.type,
+      onServerFail: communityServerFail.type,
     })
   );
 };
 
 export const selectCountryById = (userId) =>
   createSelector(
-    (state) => state.betfundata.countries.list,
+    (state) => state.betfundata.communities.list,
     (users) => users.filter((user) => user.id === userId)
   );
 
-export default countrySlice.reducer;
+export default communitySlice.reducer;

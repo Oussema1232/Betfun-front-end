@@ -1,1 +1,9 @@
+.betsScreenContainer {
+  margin-top: 84px;
+}
 
+@media only screen and (max-width: 600px) {
+  .betsScreenContainer {
+    margin-top: 50px;
+  }
+}

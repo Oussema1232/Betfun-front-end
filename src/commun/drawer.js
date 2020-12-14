@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -10,6 +12,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 export default function MyDrawer(props) {
+  const dispatch = useDispatch();
   const drawerWidth = 275;
   const useStyles = makeStyles((theme) => ({
     title: {
@@ -48,9 +51,11 @@ export default function MyDrawer(props) {
 
   const classes = useStyles();
   const theme = useTheme();
-
+  const changelocation = (location) => {
+    window.location = location;
+  };
   return (
-    <div className="drawer">
+    <div >
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -78,19 +83,38 @@ export default function MyDrawer(props) {
           </div>
         </div>
         <Divider />
-        {props.content.map((c) => (
-          <div
-            className="drawerItem"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              padding: 5,
-              minHeight: 50,
-            }}
+        {props.content.map((c, index) => (
+          <Link
+            key={c.id}
+            to={
+              c.domainname
+                ? `/yourgame/yourbets/${c.domainname}/${c.id}`
+                : c.communityname
+                ? `/communities/${c.communityname}/${c.id}`
+                : c.pathname && c.pathname
+            }
+            style={{ textDecoration: "none", color: "black" }}
           >
-            {c.icon && <div style={{ width: 60 }}>{c.icon}</div>}
-            <div>{c.name}</div>
-          </div>
+            <div
+              key={index}
+              className="drawerItem"
+              onClick={() => {
+                props.onclickItem && dispatch(props.onclickItem(c));
+                // changelocation(
+                //   c.domainname
+                //     ? `/yourgame/yourbets/${c.domainname}/${c.id}`
+                //     : c.communityname
+                //     ? `/communities/${c.communityname}/${c.id}`
+                //     : c.pathname && c.pathname
+                // );
+              }}
+            >
+              {c.icon && <div style={{ width: 60 }}>{c.logo}</div>}
+              {c.name && <div>{c.name}</div>}
+              {c.domainname && <div>{c.domainname}</div>}
+              {c.communityname && <div>{c.communityname}</div>}
+            </div>
+          </Link>
         ))}
       </Drawer>
     </div>

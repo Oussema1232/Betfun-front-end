@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Route, Redirect, Switch } from "react-router-dom";
 import background from "../../src/sky.jpg";
 import Betfunalllogo from "../commun/logos/betfunalllogo";
 
 import "./style.css";
 import Navbar from "../components/navbar/navbar";
 import BetdomainNavbar from "../components/navbar/betdomainNavbar";
-import Publication from "../components/logcomponents/publication/publication";
+import Welcome from "./welcome";
+import BetsScreen from "./betscreen";
+
 class Mainscreen extends Component {
   render() {
     return (
@@ -16,15 +19,12 @@ class Mainscreen extends Component {
           flexDirection: "column",
           height: "100%",
           width: "100%",
-
-          backgroundColor: "#ede5e5",
-          // backgroundColor: "#f4f4f7",
-          // backgroundImage: `url(${background})`,
         }}
       >
-        <Navbar />
-        <BetdomainNavbar />
-        <Publication />
+        <Switch>
+          <Route path="/welcome" component={Welcome} />
+          <Route path="/yourgame" component={BetsScreen} />
+        </Switch>
       </div>
     );
   }

@@ -2,25 +2,29 @@
   flex-grow: 1;
   background-color: #ede5e5;
   border-bottom: 2px solid #d5cece;
-  height: 100%;
+  width: 100%;
   padding-right: 15px;
   padding-left: 10px;
   box-sizing: border-box;
+  position: fixed;
   display: flex;
   align-items: center;
+  z-index: 999;
 }
 .betdomainNavbar {
   flex-grow: 1;
   background-color: #070427;
-  color: #d5cece;
+
   border-bottom: 2px solid #e6ab2d;
   border-top: 2px solid #e6ab2d;
-  height: 100%;
-  padding-right: 20px;
-  padding-left: 20px;
-
+  max-height: 100px;
+  width: 100%;
+  padding-right: 30px;
+  position: fixed;
   padding-top: 5px;
   padding-bottom: 5px;
+  z-index: 999;
+  color: #d5cece;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
@@ -31,6 +35,8 @@
   padding-right: 3px;
   font-weight: bold;
   padding-left: 3px;
+  color: #d5cece;
+  text-decoration: none;
   cursor: pointer;
 }
 .betdomainNavbarItemsContainerDesktop {
@@ -74,8 +80,9 @@
 }
 
 .desktopDomainLogoNameContainer {
-  margin-right: 20px;
   display: flex;
+  width: 20%;
+
   flex-direction: column;
   align-items: center;
   /* border-right: 1px solid #e6ab2d; */
@@ -124,6 +131,7 @@
 
   .domainNamePhone {
     display: block;
+
     font-weight: bold;
     font-size: 13px;
   }
@@ -173,4 +181,21 @@
   .logosearchContainer {
     margin-right: 3px;
   }
+
+  .domainNamePhone {
+    margin-left: 10px;
+  }
+}
+
+.drawerdomainItem:hover {
+  background-color: #1f1d3c;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.drawerdomainItem {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  min-height: 50px;
 }

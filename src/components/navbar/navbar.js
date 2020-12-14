@@ -1,4 +1,9 @@
 import React, { Component } from "react";
+import Toolbar from "@material-ui/core/Toolbar";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { savecurrentDomain } from "../../features/currentdomain/currentdomainSlice";
+
 import SearchIcon from "@material-ui/icons/Search";
 import Blogo from "../../commun/logos/blogo";
 import SearchInput from "../../commun/searchinput";
@@ -17,13 +22,14 @@ import MyDrawerCommunities from "../popupsdrawers/drawerCommunities";
 import MyDrawerDomains from "../popupsdrawers/drawerBetfunDomains";
 import "./style.css";
 
-export default class Navbar extends Component {
+class Navbar extends Component {
   state = {
     opendrawernotifications: false,
     opendrawercommunities: false,
     opendrawerDomains: false,
   };
 
+  
   openDrawerNotifications = () => {
     this.setState({
       opendrawercommunities: false,
@@ -64,9 +70,11 @@ export default class Navbar extends Component {
         <div className="navbarbetfun">
           <div className="logosearchContainer">
             <div className="blogosearchContainer">
-              <div className="blogo">
-                <Blogo />
-              </div>
+              <Link to="/welcome">
+                <div className="blogo">
+                  <Blogo />
+                </div>
+              </Link>
               <SearchInput />
             </div>
           </div>
@@ -130,6 +138,7 @@ export default class Navbar extends Component {
           </div>
         </div>
         <MyDrawerNotification
+          // onclickItem={this.props.savecurrentDomain}
           open={this.state.opendrawernotifications}
           handleDrawerClose={this.closeDrawerNotifications}
         />
@@ -145,3 +154,12 @@ export default class Navbar extends Component {
     );
   }
 }
+
+const mapDispatchToProps = { savecurrentDomain };
+
+const mapStateToProps = (state) => ({
+  currentdomain: state.betfundata.currentdomain.data,
+  
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

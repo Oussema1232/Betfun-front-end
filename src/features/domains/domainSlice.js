@@ -3,8 +3,8 @@ import { createSelector } from "reselect";
 import * as actions from "../actions/api";
 import config from "../../config.json";
 
-export const countrySlice = createSlice({
-  name: "countries",
+export const domainSlice = createSlice({
+  name: "domains",
   initialState: {
     list: [],
     loading: false,
@@ -12,50 +12,50 @@ export const countrySlice = createSlice({
     onsuccess: {},
   },
   reducers: {
-    countriesRequested: (state, action) => {
+    domainsRequested: (state, action) => {
       state.loading = true;
       state.onsuccess = {};
       state.errors = {};
     },
-    countriesRequestFail: (state, action) => {
+    domainsRequestFail: (state, action) => {
       state.loading = false;
-      state.errors.message = "Couldn't load countries";
+      state.errors.message = "Couldn't load domains";
     },
-    countriesReceived: (state, action) => {
+    domainsReceived: (state, action) => {
       state.list = action.payload.data;
       state.loading = false;
       state.onsuccess.message = action.payload.message;
     },
-    countryServerFail: (state, action) => {
+    domainServerFail: (state, action) => {
       state.loading = false;
     },
   },
 });
 
 const {
-  countriesReceived,
-  countriesRequested,
-  countriesRequestFail,
-  countryServerFail,
-} = countrySlice.actions;
-const url = config.countries;
+  domainsReceived,
+  domainsRequested,
+  domainsRequestFail,
+  domainServerFail,
+} = domainSlice.actions;
+const url = config.domains;
 
-export const loadCountries = () => (dispatch, getState) => {
+export const loadDomains = () => (dispatch, getState) => {
   return dispatch(
     actions.apiCallBegan({
       url: url,
-      onStart: countriesRequested.type,
-      onError: countriesRequestFail.type,
-      onSuccess: countriesReceived.type,
-      onServerFail: countryServerFail.type,
+      onStart: domainsRequested.type,
+      onError: domainsRequestFail.type,
+      onSuccess: domainsReceived.type,
+      onServerFail: domainServerFail.type,
     })
   );
 };
 
 export const selectCountryById = (userId) =>
   createSelector(
-    (state) => state.betfundata.countries.list,
+    (state) => state.betfundata.domains.list,
     (users) => users.filter((user) => user.id === userId)
   );
 
-export default countrySlice.reducer;
+export default domainSlice.reducer;

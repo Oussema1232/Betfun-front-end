@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { nanoid } from "nanoid";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Redirect, Switch, withRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Login from "./components/logcomponents/loginForm";
 import Register from "./components/logcomponents/registerForm";
@@ -16,19 +16,20 @@ import Checkemail from "./components/logcomponents/checkemailreset";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import Animationscreen from "./screens/animationscreen2";
+import Navbar from "./components/navbar/navbar";
 
 function App() {
-  useEffect(() => {
-    const id = nanoid(6);
-    console.log("this is the code", id);
-  }, []);
+  // useEffect(() => {
+  //   const id = nanoid(6);
+  //   console.log("this is the code", id);
+  // }, []);
   return (
     <>
       <ToastContainer style={{ zIndex: 10001 }} />
       {/* <Animationscreen /> */}
 
+      <Navbar />
       <Mainscreen />
-
       {/* <Switch>
         <LogRoute path="/account/resetpassword" component={Resetpassword} />
         <LogRoute path="/account/checkemail" component={Checkemail} />

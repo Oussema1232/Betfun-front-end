@@ -25,6 +25,7 @@
     "react-slick": "^0.27.13",
     "react-toastify": "^6.1.0",
     "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1"
   },
   "scripts": {

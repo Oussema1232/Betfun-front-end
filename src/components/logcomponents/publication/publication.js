@@ -11,9 +11,12 @@ import {
 import InsertCommentIcon from "@material-ui/icons/InsertComment";
 import ShareIcon from "@material-ui/icons/Share";
 import Cheer from "../../../commun/logos/cheer";
+
 import SendIcon from "@material-ui/icons/Send";
+import Usermoonavatar from "../../../commun/usermoonavatar";
 
 export default class Publication extends Component {
+  state = { showreaction: false };
   render() {
     return (
       <div className="publicationContainer">
@@ -29,33 +32,9 @@ export default class Publication extends Component {
                 fontFamily: "'Lato', sans-serif",
                 fontSize: 15,
                 fontWeight: 600,
-                // border: "1px solid #4e0000 ",
-                marginBottom: 200,
-                // backgroundColor: "black",
               }}
             >
-              <div
-                style={{
-                  width: 85,
-                  height: 85,
-                  // border: "1px solid blue",
-                  borderRadius: "50%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  boxShadow: "-22px 0px 0 0  #070427",
-                }}
-              >
-                <img
-                  src="cr7profile.jpg"
-                  style={{
-                    width: 75,
-                    height: 75,
-                    borderRadius: "50%",
-                    userSelect: "none",
-                  }}
-                />
-              </div>
+              <Usermoonavatar src="cr7profile.jpg" alt="cr7" />
 
               <div
                 style={{
@@ -146,6 +125,7 @@ export default class Publication extends Component {
                     width: "100%",
                     height: "100%",
                     display: "flex",
+                    // borderBottom: "1px solid #d6d6e2",
                     flexDirection: "column",
                     backgroundColor: "#ffffff",
                     paddingRight: 5,
@@ -162,12 +142,13 @@ export default class Publication extends Component {
                     <div
                       style={{
                         display: "flex",
-                        width: 150,
+                        width: 160,
                         // border: "1px solid blue",
                         justifyContent: "space-between",
                       }}
                     >
                       <Cheer />
+
                       <motion.div
                         whileHover={{ y: -3 }}
                         style={{
@@ -222,27 +203,27 @@ export default class Publication extends Component {
                       Bet domains
                     </div>
                   </div>
-                  <div style={{ display: "flex" }}>
-                    <div
-                      style={{
-                        fontSize: 10,
-                        marginLeft: 4,
-                        color: "#4c4c4e",
-                        cursor: "pointer",
-                      }}
-                    >
-                      999 Cheers
-                    </div>
-                    <div
-                      style={{
-                        color: "#4c4c4e",
-                        cursor: "pointer",
-                        fontSize: 10,
-                        marginLeft: 20,
-                      }}
-                    >
-                      1001 comments
-                    </div>
+                </div>
+                <div style={{ display: "flex", alignSelf: "flex-start" }}>
+                  <div
+                    style={{
+                      fontSize: 10,
+                      marginLeft: 4,
+                      color: "#696969",
+                      cursor: "pointer",
+                    }}
+                  >
+                    9 Cheer
+                  </div>
+                  <div
+                    style={{
+                      color: "#696969",
+                      cursor: "pointer",
+                      fontSize: 10,
+                      marginLeft: 20,
+                    }}
+                  >
+                    1001 comments
                   </div>
                 </div>
               </div>

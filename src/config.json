@@ -2,6 +2,16 @@
   "apiUrl": "http://localhost:3001/api",
   "auth": "/auth",
   "users": "/users",
+  "domains": "/betdomains",
+  "gameweeks": "/gameweeks",
+  "matches": "/calendar",
+  "userdomains": "/userdomains",
+  "communities": "/communities",
+  "leaguesgenres": "/leaguesgenres",
+  "leagues": "/leagues",
+  "seasons": "/seasons",
+  "bets": "/bets",
+  "betdetails": "/betdetails",
   "countries": "/countries",
   "confirmation": "/confirmation"
 }
