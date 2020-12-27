@@ -7,14 +7,18 @@ export const seasonSlice = createSlice({
   name: "seasons",
   initialState: {
     list: [],
+    latestseason: {},
     loading: false,
     errors: {},
     onsuccess: {},
   },
   reducers: {
     seasonsRequested: (state, action) => {
+      state.list = [];
+      state.error = {};
       state.loading = true;
       state.onsuccess = {};
+
       state.errors = {};
     },
     seasonsRequestFail: (state, action) => {
@@ -23,6 +27,7 @@ export const seasonSlice = createSlice({
     },
     seasonsReceived: (state, action) => {
       state.list = action.payload.data;
+      state.latestseason = state.list[state.list.length - 1];
       state.loading = false;
       state.onsuccess.message = action.payload.message;
     },
@@ -51,5 +56,10 @@ export const loadSeasons = (params) => (dispatch, getState) => {
     })
   );
 };
+
+export const seasonsFinished = createSelector(
+  (state) => state.betfundata.seasons,
+  (seasons) => seasons.list.filter((s) => s.isFinished)
+);
 
 export default seasonSlice.reducer;

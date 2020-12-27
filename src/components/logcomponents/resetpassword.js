@@ -248,7 +248,7 @@ class Resetpassword extends Component {
                       {!this.state.loading ? (
                         "Reset"
                       ) : (
-                        <Spincrescentcomponenet color="#e9eac9" />
+                        <Spincrescentcomponenet color="#e9eac9" size="1x" />
                       )}
                     </button>
                     {this.state.reseterror && <h5>{this.state.reseterror}</h5>}

@@ -178,7 +178,7 @@ class Login extends Form {
                       {!this.state.loadingresend ? (
                         "Resend"
                       ) : (
-                        <Spincrescentcomponenet color="#e9eac9" />
+                        <Spincrescentcomponenet color="#e9eac9" size="1x" />
                       )}
                     </button>
                   </div>

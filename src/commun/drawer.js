@@ -55,7 +55,7 @@ export default function MyDrawer(props) {
     window.location = location;
   };
   return (
-    <div >
+    <div>
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -88,7 +88,7 @@ export default function MyDrawer(props) {
             key={c.id}
             to={
               c.domainname
-                ? `/yourgame/yourbets/${c.domainname}/${c.id}`
+                ? `/game/bets/${c.domainname}/${c.id}`
                 : c.communityname
                 ? `/communities/${c.communityname}/${c.id}`
                 : c.pathname && c.pathname

@@ -16,7 +16,7 @@ export const betdetailSlice = createSlice({
   reducers: {
     betdetailsRequested: (state, action) => {
       state.loading = true;
-      // state.list = [];
+      state.list = [];
       state.souslist = [];
       state.onsuccess = {};
       state.errors = {};
@@ -79,7 +79,6 @@ export const editbetdetailsguesses = (id, guesses) =>
     url: `${url}/${id}`,
     method: "put",
     data: { betdetails: guesses },
-    // onSuccess: bugEdited.type,
   });
 
 export default betdetailSlice.reducer;

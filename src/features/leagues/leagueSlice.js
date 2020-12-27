@@ -16,7 +16,6 @@ export const leagueSlice = createSlice({
       state.loading = true;
       state.onsuccess = {};
       state.errors = {};
-      
     },
     leaguesRequestFail: (state, action) => {
       state.loading = false;
@@ -52,5 +51,12 @@ export const loadLeagues = (parametres) => (dispatch, getState) => {
     })
   );
 };
+
+export const createLeague = (league) =>
+  actions.apiCallBegan({
+    url: url,
+    method: "post",
+    data: league,
+  });
 
 export default leagueSlice.reducer;

@@ -1,5 +1,6 @@
 .betsScreenContainer {
   margin-top: 84px;
+  background-color: #ede5e5;
 }
 
 @media only screen and (max-width: 600px) {

@@ -83,7 +83,7 @@ class Navbar extends Component {
             <FontAwesomeIcon
               icon={faDiceD6}
               size="lg"
-              color="black"
+              color="#02010f"
               style={{ cursor: "pointer" }}
               onClick={this.openDrawerDomains}
             />

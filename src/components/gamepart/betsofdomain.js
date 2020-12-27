@@ -22,18 +22,46 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
 
     boxSizing: "border-box",
-    backgroundColor: theme.palette.background.paper,
+
     display: "flex",
   },
 
   formControl: {
     margin: theme.spacing(1),
 
-    minWidth: 120,
+    minWidth: 80,
     maxWidth: 200,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 10,
+      margin: 0,
+    },
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
+  },
+  tab: {
+    borderRight: `1px solid #e6ab2d`,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 10,
+      paddingLeft: 1,
+    },
+  },
+
+  faketabs: {
+    height: 224,
+    width: 150,
+    marginRight: 10,
+    [theme.breakpoints.down("sm")]: {
+      marginRight: 2,
+      width: 100,
+    },
+  },
+  tabs: {
+    height: 224,
+    marginRight: 10,
+    [theme.breakpoints.down("sm")]: {
+      marginRight: 2,
+    },
   },
 }));
 
@@ -67,12 +95,13 @@ export default function VerticalTabs(props) {
   };
 
   return (
-    <div style={{ marginTop: 100 }}>
+    <div style={{ marginTop: 100, backgroundColor: "#ede5e5" }}>
       <div className={classes.root}>
         <Tabs
           orientation="vertical"
           variant="scrollable"
           indicatorColor="primary"
+          className={classes.tabs}
           value={seasons[0] && !value ? seasons[0].id : value}
           aria-label="Vertical tabs example"
         >
@@ -81,26 +110,29 @@ export default function VerticalTabs(props) {
               label={s.name}
               value={s.id}
               onClick={() => setValue(s.id)}
-              style={{ borderRight: `1px solid #e6ab2d` }}
+              className={classes.tab}
             />
           ))}
         </Tabs>
         <div className="betsTableAndSelectContainer">
-          <div
-            style={{
-              flexGrow: 1,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: 10,
-            }}
-          >
-            <div style={{ display: "flex", marginLeft: 50 }}>
-              <Usermoonavatar src="../../../cr7profile.jpg" alt="cr7" />
-              <h3 style={{ alignSelf: "flex-end" }}>Cristiano Ronaldo</h3>
+          <div className="betusermoonsortContainer">
+            <div className="betusermoonnameContainer">
+              <Usermoonavatar
+                src="../../../cr7profile.jpg"
+                alt="cr7"
+                dimentionmoon={65}
+                dimentionimage={55}
+                boxshadowcolor="#070427"
+              />
+
+              <h3 style={{ alignSelf: "flex-end", fontSize: 15 }}>
+                Cristiano Ronaldo
+              </h3>
             </div>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="sort-by">Sorted By</InputLabel>
+              <InputLabel htmlFor="sort-by" style={{ fontSize: 13 }}>
+                Sorted By
+              </InputLabel>
               <NativeSelect
                 value={state.Sorted_By}
                 onChange={handleChangeSort}
@@ -110,31 +142,75 @@ export default function VerticalTabs(props) {
                 }}
               >
                 <option aria-label="None" value="" />
-                <option value="asc">Points ascendant</option>
-                <option value="desc">Points descendant</option>
+                <option value="asc">Pts asc</option>
+                <option value="desc">Pts desc</option>
               </NativeSelect>
-              {/* <FormHelperText>Some important helper text</FormHelperText> */}
             </FormControl>
           </div>
 
-          <div className="betsTableContainer">
+          <div className="betsTableContainer" style={{ fontSize: 13 }}>
             <div className="betstabLine headerBets">
-              <div className="betsTabCellule">Gameweek</div>
-              <div className="betsTabCellule">Played at</div>
-              <div className="betsTabCellule">Points</div>
+              <div
+                className="betsTabCellule"
+                style={{
+                  width: "50%",
+                  fontWeight: "normal",
+                  wordBreak: "normal",
+                }}
+              >
+                GW
+              </div>
+              <div
+                className="betsTabCellule"
+                style={{
+                  width: "30%",
+                  fontWeight: "normal",
+                  wordBreak: "normal",
+                }}
+              >
+                Played at
+              </div>
+              <div
+                className="betsTabCellule"
+                style={{
+                  width: "20%",
+                  minWidth: 45,
+                  fontWeight: "normal",
+                  wordBreak: "normal",
+                }}
+              >
+                Pts
+              </div>
             </div>
             {state.Sorted_By != ""
               ? _.orderBy(bets, "points", state.Sorted_By).map((bet) => (
                   <Link
-                    to={`/yourgame/betguess/${currentdomain.name}/${bet.id}`}
+                    to={`/game/betguess/${currentdomain.name}/${bet.id}`}
+                    style={{ textDecoration: "none" }}
                   >
                     <TabPanel
                       value={seasons[0] && !value ? seasons[0].id : value}
                       index={bet.seasonId}
                     >
-                      <div className="betsTabCellule">{bet.gameweekname}</div>
-                      <div className="betsTabCellule">{bet.created_at}</div>
-                      <div className="betsTabCellule">
+                      <div className="betsTabCellule" style={{ width: "50%" }}>
+                        {bet.gameweekname}
+                      </div>
+                      <div
+                        className="betsTabCellule"
+                        style={{
+                          width: "30%",
+                          display: "flex",
+                          flexDirection: "column",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        <div className="playedatBetDate">{bet.date}</div>
+                        <div className="playedatBetTime">{bet.time}</div>
+                      </div>
+                      <div
+                        className="betsTabCellule"
+                        style={{ width: "20%", minWidth: 45 }}
+                      >
                         {bet.points ? bet.points : "TBD"}
                       </div>
                     </TabPanel>
@@ -142,16 +218,34 @@ export default function VerticalTabs(props) {
                 ))
               : bets.map((bet) => (
                   <Link
-                    to={`/yourgame/betguess/${currentdomain.name}/${bet.id}`}
+                    to={`/game/betguess/${currentdomain.name}/${bet.id}`}
+                    style={{
+                      textDecoration: "none",
+                    }}
                   >
                     <TabPanel
                       value={seasons[0] && !value ? seasons[0].id : value}
                       index={bet.seasonId}
                     >
-                      <div className="betsTabCellule">{bet.gameweekname}</div>
-                      <div className="betsTabCellule">{bet.created_at}</div>
-                      <div className="betsTabCellule">
-                        {bet.points ? bet.points : "TBD"}
+                      <div className="betsTabCellule" style={{ width: "50%" }}>
+                        {bet.gameweekname}hacilou hedhi loula
+                      </div>
+                      <div
+                        className="betsTabCellule"
+                        style={{
+                          width: "30%",
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                      >
+                        <div className="playedatBetDate">{bet.date}</div>
+                        <div className="playedatBetTime">{bet.time}</div>
+                      </div>
+                      <div
+                        className="betsTabCellule"
+                        style={{ width: "20%", minWidth: 45 }}
+                      >
+                        {bet.points ? bet.points : "TBD"}323
                       </div>
                     </TabPanel>
                   </Link>

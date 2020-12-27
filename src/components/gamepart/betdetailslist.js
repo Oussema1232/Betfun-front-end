@@ -18,13 +18,14 @@ import Tab from "@material-ui/core/Tab";
 import TabPanel from "../../commun/panelTab";
 import Usermoonavatar from "../../commun/usermoonavatar";
 import Betdetail from "../../commun/betdetail";
+import { Divider } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
 
     boxSizing: "border-box",
-    backgroundColor: theme.palette.background.paper,
+
     display: "flex",
   },
 
@@ -58,6 +59,12 @@ export default function BetdetailsList(props) {
     setGuess(newguess);
   };
 
+  const guesseslist = [
+    { value: "'1'", name: "1" },
+    { value: "'x'", name: "x" },
+    { value: "'2'", name: "2" },
+  ];
+
   useEffect(() => {
     console.log("hi hi captain betdetails");
     dispatch(loadBetdetails(`/${props.match.params.betId}`));
@@ -66,65 +73,62 @@ export default function BetdetailsList(props) {
   const classes = useStyles();
 
   return (
-    <div style={{ marginTop: 100 }}>
+    <div style={{ marginTop: 100, backgroundColor: "#ede5e5" }}>
       <div className={classes.root}>
         <div className="betsTableAndSelectContainer">
-          <div
-            style={{
-              flexGrow: 1,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: 10,
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-
-                marginLeft: 50,
-              }}
-            >
-              <Usermoonavatar src="../../../cr7profile.jpg" alt="cr7" />
-              <h3 style={{ alignSelf: "flex-end" }}>Cristiano Ronaldo</h3>
+          <div className="betusermoonsortContainer">
+            <div className="betusermoonnameContainer">
+              <Usermoonavatar
+                src="../../../cr7profile.jpg"
+                alt="cr7"
+                dimentionmoon={65}
+                dimentionimage={55}
+                boxshadowcolor="#070427"
+              />
+              <div className="username">
+                Cristiano Ronaldo wild mas3oudia inabara
+              </div>
             </div>
 
             {betdetails[0] && (
-              <h4>{`Gameweek ${betdetails[0].gameweekname}`}</h4>
+              <div
+                style={{ fontWeight: "bold" }}
+              >{`GW : ${betdetails[0].gameweekname}`}</div>
             )}
           </div>
 
-          <div className="betsTableContainer">
-            <div className="betstabLine headerBets">
-              <div className="betsTabCellule">Team1</div>
-              <div className="betsTabCellule">Team2</div>
-              <div className="betsTabCellule">1</div>
-              <div className="betsTabCellule">x</div>
-              <div className="betsTabCellule">2</div>
-              <div className="betsTabCellule">guess</div>
-              <div className="betsTabCellule">bingo</div>
-              <div className="betsTabCellule">goals1</div>
-              <div className="betsTabCellule">goals2</div>
-            </div>
+          <div
+            className="betsTableContainer"
+            style={{ borderBottom: "1px solid white" }}
+          >
             {betdetails.map((betdetail) => (
               <Betdetail
+                guesseslist={guesseslist}
                 betdetail={betdetail}
+                showsmalldate={true}
+                showresults={true}
                 initialValue={`'${betdetail.guess}'`}
                 updateguess={sousListBetdetailsUpdated}
               />
             ))}
           </div>
+          <div
+            className="createbetorleagueButton buttonsubmit"
+            style={{
+              width: 100,
+              fontSize: 15,
+              height: 20,
+            }}
+            onClick={() =>
+              dispatch(
+                editbetdetailsguesses(props.match.params.betId, newguesseslist)
+              )
+            }
+          >
+            Submit
+          </div>
         </div>
       </div>
-      <button
-        onClick={() =>
-          dispatch(
-            editbetdetailsguesses(props.match.params.betId, newguesseslist)
-          )
-        }
-      >
-        submit
-      </button>
     </div>
   );
 }

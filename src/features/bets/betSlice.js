@@ -7,7 +7,6 @@ export const betSlice = createSlice({
   name: "bets",
   initialState: {
     list: [],
-
     loading: false,
     errors: {},
     onsuccess: {},
@@ -17,6 +16,7 @@ export const betSlice = createSlice({
       state.loading = true;
       state.onsuccess = {};
       state.errors = {};
+      state.list = [];
     },
     betsRequestFail: (state, action) => {
       state.loading = false;
@@ -52,5 +52,12 @@ export const loadBets = (parametres) => (dispatch, getState) => {
     })
   );
 };
+
+export const createBet = (bet) =>
+  actions.apiCallBegan({
+    url: url,
+    method: "post",
+    data: bet,
+  });
 
 export default betSlice.reducer;

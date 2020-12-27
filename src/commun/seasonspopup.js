@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import onClickOutside from "react-onclickoutside";
-import { loadSeasons } from "../features/seasons/seasonSlice";
+
 
 class Seasonspopup extends Component {
   state = { visibility: false };
@@ -32,7 +32,7 @@ class Seasonspopup extends Component {
               style={{
                 maxWidth: 250,
                 width: 100,
-                backgroundColor: "#ffcb05",
+                backgroundColor: this.props.color,
                 overflow: "auto",
                 borderTopRightRadius: 10,
                 borderTopLeftRadius: 10,
@@ -42,16 +42,29 @@ class Seasonspopup extends Component {
                 flexDirection: "column",
                 color: "black",
                 alignItems: "center",
+                marginLeft: -20,
               }}
             >
               {this.props.seasons.map((s) => (
-                <Link
-                  to={`/yourgame/calendar/${this.props.currentdomain.name}/${s.name}/${this.props.currentdomain.id}/${s.id}`}
-                >
-                  <div style={{ fontSize: 15, fontWeight: "bold", padding: 5 }}>
-                    {s.name}
-                  </div>
-                </Link>
+                <>
+                  {this.props.link ? (
+                    <Link
+                      to={`/game/${this.props.thepathname}/${this.props.currentdomain.name}/${s.name}/${this.props.currentdomain.id}/${s.id}`}
+                    >
+                      <div
+                        style={{ fontSize: 15, fontWeight: "bold", padding: 5 }}
+                      >
+                        {s.name}
+                      </div>
+                    </Link>
+                  ) : (
+                    <div
+                      style={{ fontSize: 15, fontWeight: "bold", padding: 5 }}
+                    >
+                      {s.name}
+                    </div>
+                  )}
+                </>
               ))}
             </motion.div>
           )}

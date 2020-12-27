@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Skeleton from "@material-ui/lab/Skeleton";
 import { nanoid } from "nanoid";
 import { Route, Redirect, Switch, withRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -29,6 +30,7 @@ function App() {
       {/* <Animationscreen /> */}
 
       <Navbar />
+
       <Mainscreen />
       {/* <Switch>
         <LogRoute path="/account/resetpassword" component={Resetpassword} />

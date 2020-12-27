@@ -20,6 +20,7 @@
   max-height: 100px;
   width: 100%;
   padding-right: 30px;
+  min-height: 84.5px;
   position: fixed;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -72,7 +73,7 @@
   display: flex;
   justify-content: space-around;
   min-width: 300px;
-  color: #070427;
+  color: #02010f;
 
   flex-grow: 1;
   font-size: large;
@@ -120,6 +121,7 @@
   .betdomainNavbar {
     padding-right: 10px;
     padding-left: 10px;
+    min-height: auto;
   }
 
   .betdomainNavbarItemsContainerDesktop {

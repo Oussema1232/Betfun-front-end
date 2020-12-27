@@ -34,7 +34,12 @@ export default class Publication extends Component {
                 fontWeight: 600,
               }}
             >
-              <Usermoonavatar src="cr7profile.jpg" alt="cr7" />
+              <Usermoonavatar
+                src="cr7profile.jpg"
+                alt="cr7"
+                dimentionimage={75}
+                dimentionmoon={85}
+              />
 
               <div
                 style={{

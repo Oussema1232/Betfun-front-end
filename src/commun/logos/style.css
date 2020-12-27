@@ -529,15 +529,19 @@
 
 .betstabLine {
   display: flex;
+  color: #001c00;
+  background-color: #ede5e5;
   justify-content: space-around;
   align-items: center;
-  border-bottom: 1px solid #0e4686;
-  height: 40px;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  border-top: 1px solid white;
+  min-height: 40px;
+  margin: 0px;
+  padding: 5px;
   box-sizing: border-box;
+}
+.betstabLine:hover {
+  background-color: #fbf9f9;
+  border-top: 1px solid #d5cece;
 }
 
 .betsTableAndSelectContainer {
@@ -549,32 +553,443 @@
 }
 
 .betsTableContainer {
-  height: 500px;
+  height: 100%;
   overflow: auto;
 }
 
 .headerBets {
-  border-bottom: 3px solid rgba(230, 171, 45, 1);
-  background-color: #eeeeee;
-  font-weight: bold;
-  color: #070427;
+  border-top: 1px solid #b4b3be;
+
+  background-color: #e6e5e9;
+  cursor: auto;
+  color: #02010f;
+}
+.headerBets:hover {
+  border-top: 1px solid #b4b3be;
+
+  background-color: #e6e5e9;
+
+  color: #02010f;
 }
 
 .betsTabCellule {
-  width: 33%;
+  display: flex;
+  padding: 2px;
+  box-sizing: border-box;
+  word-break: break-all;
+  align-items: center;
+  justify-content: center;
+  color: #02010f;
+  font-family: "Montserrat", sans-serif;
+}
+
+.betusermoonsortContainer {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.betusermoonnameContainer {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  margin-left: 50px;
+}
+
+.username {
+  align-self: center;
+  font-weight: bold;
+}
+
+.matchteams {
+  width: 50%;
+}
+.playedatBetDate {
+  font-size: 14px;
+}
+.playedatBetTime {
+  font-size: 12px;
+}
+
+.team1 {
+  justify-content: flex-end;
+  width: 50%;
+}
+.team2 {
+  justify-content: flex-start;
+  width: 50%;
+}
+
+.sultanContainer {
+  display: flex;
+  background-color: #040217;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid #e6ab2d;
+
+  color: #eeeeee;
+  padding-bottom: 10px;
+
+  width: 100%;
+  margin-top: -14.8px;
+}
+
+.sultanBarglibeseasonicon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.sultanBarTitle {
+  display: flex;
+  /* border: 1px solid red; */
+  flex-shrink: 0;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.sultanpointsContainer {
+  font-size: 15px;
+  width: 200px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+  /* border: 1px solid yellow; */
+}
+
+.kingsBar {
+  display: flex;
+  background-color: #2e0000;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid #e6ab2d;
+  font-weight: bold;
+  color: #eeeeee;
+  padding-bottom: 5;
+  padding-top: 5;
+  width: 100%;
+}
+.kingsqueentitle {
+  font-size: 30px;
+  margin-left: 20px;
+}
+
+.kingItemsContainer {
+  display: flex;
+  flex-direction: column;
+  padding-left: 5px;
+  padding-right: 5px;
+  box-sizing: border-box;
+}
+
+.kingphotocontainer {
+  display: block;
+}
+
+.kinuserphotocontainer {
+  width: 40%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  padding-left: 28px;
+  min-height: 40px;
+  box-sizing: border-box;
+}
+
+.countryLogoContainer {
+  width: 200px;
+  flex-shrink: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid white; */
+}
+
+.createbetorleagueButton {
+  width: 150px;
+  height: 30px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  text-decoration: none;
+  border: 5px solid#4e0000;
+  border-radius: 3px;
+  background-color: #4e0000;
+  color: #eeeeee;
+  cursor: pointer;
+  user-select: none;
+}
+
+.buttonsubmit {
+  margin-left: 28px;
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 700px) {
+  .sultanContainer {
+    margin-top: -35.8px;
+  }
+  .sultanpointsContainer {
+    font-size: 10px;
+    width: 150px;
+  }
+  .countryLogoContainer {
+    width: 150px;
+    /* border: 1px solid white; */
+  }
+  .matchteams {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  .team1 {
+    justify-content: flex-end;
+  }
+  .team2 {
+    justify-content: flex-start;
+  }
+  .betdetailscontainer {
+    flex-direction: column;
+  }
+
+  .betguessscorecontainer {
+    width: 100%;
+  }
+  .headerBets {
+    border-bottom: none;
+  }
+  .headerBets:hover {
+    border-bottom: none;
+  }
 }
 
 @media only screen and (max-width: 450px) {
   .betsTableAndSelectContainer {
     font-size: 13px;
   }
+  .kingItemsContainer {
+    padding: 0;
+  }
+  .kingItem {
+    font-size: 9px;
+  }
+  .sultanBar {
+    font-size: 20px;
+  }
+  .kingsqueentitle {
+    font-size: 20px;
+  }
+  .sultanBarTitle {
+    font-size: 20px;
+  }
+  .sultanpointsContainer {
+    padding-left: 4px;
+    box-sizing: border-box;
+  }
+  .betusermoonsortContainer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .betusermoonnameContainer {
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+
+  .buttonsubmit {
+    margin-left: 2px;
+    margin-top: 20px;
+  }
 }
 @media only screen and (max-width: 300px) {
   .betsTableAndSelectContainer {
     font-size: 9px;
   }
+  .kingsqueentitle {
+    font-size: 15px;
+  }
+  .kingphotocontainer {
+    display: none;
+  }
+  .kinuserphotocontainer {
+    padding-left: 6px;
+  }
+  .playedatBetDate {
+    font-size: 10px;
+  }
+  .playedatBetTime {
+    font-size: 8px;
+  }
 }
 
+.crown0 {
+  fill: #ffb952;
+}
+.crown1 {
+  fill: #4e0000;
+}
+.crown2 {
+  fill: #070427;
+}
+.crown3 {
+  fill: #e6ab2d;
+}
+.crown4 {
+  fill: #ffb652;
+}
+.crown5 {
+  fill: none;
+}
+.crown6 {
+  fill: #ffffff;
+}
+.crown7 {
+  fill: none;
+  stroke: #ffb952;
+  stroke-miterlimit: 10;
+}
+/*crown 8 star */
+.crown8 {
+  fill: #e6ab2d;
+  stroke: #e6ab2d;
+  stroke-width: 3.1639;
+  stroke-miterlimit: 10;
+}
+.crown9 {
+  fill: #ffb952;
+  stroke: #e6ab2d;
+  stroke-width: 1.9212;
+  stroke-miterlimit: 10;
+  stroke-width: 3.1639;
+  stroke-miterlimit: 10;
+}
+.crown10 {
+  fill: #4f4f4f;
+}
+.crown11 {
+  fill: #00004c;
+}
+.crown12 {
+  fill: #666693;
+}
+.crown13 {
+  fill: #7f7fa5;
+}
+.crown14 {
+  fill: #9999b7;
+}
+.crown15 {
+  fill: #eeeeee;
+  stroke: #000000;
+  stroke-width: 0.2238;
+  stroke-miterlimit: 10;
+}
+.crown16 {
+  fill: #ffffff;
+  stroke: #000000;
+  stroke-width: 0.2238;
+  stroke-miterlimit: 10;
+}
+.crown17 {
+  fill: #eeeeee;
+  stroke: #000000;
+  stroke-width: 0.2247;
+  stroke-miterlimit: 10;
+}
+.crown18 {
+  fill: #ffffff;
+  stroke: #000000;
+  stroke-width: 0.2247;
+  stroke-miterlimit: 10;
+}
+.crown19 {
+  fill: #026440;
+}
+.crown20 {
+  fill: #04b171;
+}
+.crown21 {
+  fill: #8ffdd5;
+}
+.crown22 {
+  fill: #9d0000;
+  stroke: #000000;
+  stroke-width: 0.4337;
+  stroke-miterlimit: 10;
+}
+.crown23 {
+  fill: #c43b3b;
+}
+.crown24 {
+  fill: #9d0000;
+}
+.crown25 {
+  fill: #9d0000;
+  stroke: #000000;
+  stroke-width: 0.4427;
+  stroke-miterlimit: 10;
+}
+.crown26 {
+  fill: #eeeeee;
+  stroke: #000000;
+  stroke-width: 0.2285;
+  stroke-miterlimit: 10;
+}
+
+.imagesultan {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #e6ab2d;
+  animation-name: sultan;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes sultan {
+  0% {
+    border-color: rgb(185, 38, 38);
+  }
+  10% {
+    border-color: rgb(198, 224, 46);
+  }
+  20% {
+    border-color: #f50057;
+  }
+  30% {
+    border-color: orangered;
+  }
+  40% {
+    border-color: rgb(235, 27, 27);
+  }
+  50% {
+    border-color: rgb(199, 22, 155);
+  }
+  60% {
+    border-color: rgb(198, 224, 46);
+  }
+  70% {
+    border-color: #f50057;
+  }
+  80% {
+    border-color: rgb(0, 0, 255);
+  }
+  90% {
+    border-color: rgb(2, 248, 23);
+  }
+  100% {
+    border-color: rgb(0, 255, 255);
+  }
+}

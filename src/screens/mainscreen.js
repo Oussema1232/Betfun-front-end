@@ -23,7 +23,7 @@ class Mainscreen extends Component {
       >
         <Switch>
           <Route path="/welcome" component={Welcome} />
-          <Route path="/yourgame" component={BetsScreen} />
+          <Route path="/game" component={BetsScreen} />
         </Switch>
       </div>
     );

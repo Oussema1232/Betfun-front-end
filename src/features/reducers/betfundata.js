@@ -11,9 +11,11 @@ import leaguegenreReducer from "../leaguesgenres/leaguegenreSlice";
 import leagueReducer from "../leagues/leagueSlice.js";
 import betReducer from "../bets/betSlice.js";
 import betdetailReducer from "../betdetails/betdetailSlice.js";
+import leaguedetailReducer from "../leaguedetails/leaguedetailSlice.js";
 import seasonReducer from "../seasons/seasonSlice.js";
 import matcheReducer from "../matches/matcheSlice.js";
 import gameweekReducer from "../gameweeks/gameweekSlice.js";
+import titleReducer from "../titles/titleSlice.js";
 
 export default combineReducers({
   users: userReducer,
@@ -26,9 +28,11 @@ export default combineReducers({
   communities: communityReducer,
   leaguesgenres: leaguegenreReducer,
   leagues: leagueReducer,
+  leaguedetails: leaguedetailReducer,
   bets: betReducer,
   betdetails: betdetailReducer,
   seasons: seasonReducer,
   matches: matcheReducer,
   gameweeks: gameweekReducer,
+  titles: titleReducer,
 });

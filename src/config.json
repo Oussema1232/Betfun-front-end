@@ -5,6 +5,7 @@
   "domains": "/betdomains",
   "gameweeks": "/gameweeks",
   "matches": "/calendar",
+  "titles": "/titles",
   "userdomains": "/userdomains",
   "communities": "/communities",
   "leaguesgenres": "/leaguesgenres",

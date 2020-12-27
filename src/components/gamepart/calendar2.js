@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
-import Skeleton from "@material-ui/lab/Skeleton";
 import { makeStyles } from "@material-ui/core/styles";
+import Skeleton from "@material-ui/lab/Skeleton";
 import { loadMatches } from "../../features/matches/matcheSlice";
 import { loadGameweeks } from "../../features/gameweeks/gameweekSlice.js";
 import { savecurrentDomain } from "../../features/currentdomain/currentdomainSlice";
@@ -14,9 +14,10 @@ import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Spincrescentcomponent from "../../commun/logos/spincrescentcomponent";
+
 import TabPanel from "../../commun/panelTab";
 import Usermoonavatar from "../../commun/usermoonavatar";
+import Spincrescentcomponent from "../../commun/logos/spincrescentcomponent";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
   tab: {
     borderRight: `1px solid #e6ab2d`,
+    color: "#02010f",
     [theme.breakpoints.down("sm")]: {
       fontSize: 10,
       paddingLeft: 1,
@@ -54,13 +56,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Fixtures(props) {
+export default function Calendar(props) {
   //you have to make usernav as a redux state to show wich profile ou are on
 
   const dispatch = useDispatch();
-  const gameweeks = useSelector(
-    (state) => state.betfundata.matches.fixturegameweeks
-  );
+  const gameweeks = useSelector((state) => state.betfundata.gameweeks.list);
   const loadgameweeks = useSelector(
     (state) => state.betfundata.gameweeks.loading
   );
@@ -74,9 +74,7 @@ export default function Fixtures(props) {
       loadGameweeks(`/${props.match.params.seasonId}/${currentdomain.id}`)
     );
     dispatch(
-      loadMatches(
-        `/fixtures/${props.match.params.seasonId}/${currentdomain.id}`
-      )
+      loadMatches(`/matches/${props.match.params.seasonId}/${currentdomain.id}`)
     );
   }, [props.match.params.seasonId, props.match.params.domainId]);
   //get in component did mount or useeffect the bets of a certain domain
@@ -92,7 +90,7 @@ export default function Fixtures(props) {
             <div
               style={{
                 width: "100%",
-                height: "30vh",
+                height: "40vh",
                 position: "absolute",
                 display: "flex",
 
@@ -131,7 +129,12 @@ export default function Fixtures(props) {
                 height={24}
                 width={60}
               />
-
+              <Skeleton
+                animation="pulse"
+                variant="rect"
+                height={30}
+                width={150}
+              />
               <Skeleton
                 animation="pulse"
                 variant="rect"
@@ -187,6 +190,22 @@ export default function Fixtures(props) {
               {props.match.params.seasonname}
             </div>
 
+            <Link
+              className="createbetorleagueButton"
+              to={`/game/bets/createbet/${"cristiano.ronaldo"}/${
+                currentdomain.name
+              }/${props.match.params.seasonname}/${
+                gameweeks[0] && !gameweekvalue.name
+                  ? gameweeks[0].name
+                  : gameweekvalue.name
+              }/${10}/${
+                gameweeks[0] && !gameweekvalue.id
+                  ? gameweeks[0].id
+                  : gameweekvalue.id
+              }`}
+            >
+              <div>Create Bet</div>
+            </Link>
             <div className="betsTableContainer">
               {matches.map((m) => (
                 <TabPanel
@@ -204,7 +223,6 @@ export default function Fixtures(props) {
                       flexDirection: "column",
                       marginTop: 10,
                       fontWeight: "bold",
-                      // border: "1px solid yellow",
                     }}
                   >
                     {m.days.map((matche) => (
@@ -224,12 +242,11 @@ export default function Fixtures(props) {
                               className="betsTabCellule"
                               style={{
                                 width: "45%",
-
-                                // border: "1px solid red",
                                 justifyContent: "flex-end",
                               }}
                             >
                               <div>{mtch.team1}</div>
+
                               <img
                                 src="../../../../../csslogo.png"
                                 style={{
@@ -239,30 +256,32 @@ export default function Fixtures(props) {
                                 }}
                               />
                             </div>
+
                             <div
                               className="betsTabCellule playedatBetTime"
                               style={{
                                 width: "10%",
                                 fontWeight: "normal",
-
                                 wordBreak: "normal",
                               }}
                             >
                               {mtch.time}
                             </div>
+
                             <div
                               className="betsTabCellule"
                               style={{
                                 width: "45%",
                                 justifyContent: "flex-start",
+                                flexGrow: 1,
                               }}
                             >
                               <img
                                 src="../../../../../csslogo.png"
                                 style={{
                                   width: 25,
-                                  marginLeft: 5,
                                   marginRight: 5,
+                                  marginLeft: 5,
                                 }}
                               />
                               <div>{mtch.team2}</div>

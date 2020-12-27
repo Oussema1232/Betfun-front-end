@@ -6,11 +6,14 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import DrawerDomainItems from "../popupsdrawers/drawerdomainitems";
 import Seasonspopup from "../../commun/seasonspopup";
 import { loadSeasons } from "../../features/seasons/seasonSlice";
+import { seasonsFinished } from "../../features/seasons/seasonSlice";
 
 import "./style.css";
 
 class BetdomainNavbar extends Component {
-  state = { opendrawerdomainitems: false, seasonsvisibility: false };
+  state = {
+    opendrawerdomainitems: false,
+  };
 
   componentDidMount() {
     this.props.loadSeasons(`/${this.props.currentdomain.id}`);
@@ -21,10 +24,6 @@ class BetdomainNavbar extends Component {
   };
   closeDrawerDomainItems = () => {
     this.setState({ opendrawerdomainitems: false });
-  };
-
-  bouncevisibility = () => {
-    this.setState({ seasonsvisiblity: !this.state.seasonsvisibility });
   };
 
   render() {
@@ -42,7 +41,7 @@ class BetdomainNavbar extends Component {
               }}
             >
               <img
-                src="../../../ftf.png"
+                src="../../../../ftf.png"
                 alt="ftf"
                 style={{
                   width: 50,
@@ -57,35 +56,52 @@ class BetdomainNavbar extends Component {
           </div>
           <div className="betdomainNavbarItemsContainerDesktop">
             <Link
-              to={`/yourgame/yourleagues/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
+              to={`/game/leagues/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
               className="betdomainNavbarItem"
             >
               <div className="betdomainNavbarItem">Leagues</div>
             </Link>
             <Link
-              to={`/yourgame/yourbets/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
+              to={`/game/bets/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
               className="betdomainNavbarItem"
             >
               <div>Bet</div>
             </Link>
-            <div className="betdomainNavbarItem">Fixtures</div>
-            {/* <Link
-              to={`/yourgame/calendar/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
-              className="betdomainNavbarItem"
-            > */}
+            {this.props.latestseason && (
+              <Link
+                to={`/game/fixtures/${this.props.currentdomain.name}/${this.props.latestseason.name}/${this.props.currentdomain.id}/${this.props.latestseason.id}`}
+                className="betdomainNavbarItem"
+              >
+                <div className="betdomainNavbarItem">Fixtures</div>
+              </Link>
+            )}
             <div>
-              <Seasonspopup seasons={this.props.seasons}>
-                <div
-                  className="betdomainNavbarItem"
-                  onClick={this.bouncevisibility}
-                >
-                  Calendar
-                </div>
+              <Seasonspopup
+                seasons={this.props.seasons}
+                thepathname="calendar"
+                color="#ffcb05"
+                link={true}
+              >
+                <div className="betdomainNavbarItem">Calendar</div>
               </Seasonspopup>
             </div>
 
-            {/* </Link> */}
-            <div className="betdomainNavbarItem">Titles</div>
+            <div>
+              <Seasonspopup
+                link={this.props.finishedseasons.length >= 1 ? true : false}
+                color={
+                  this.props.finishedseasons.length >= 1 ? "#ffcb05" : "#d10d2f"
+                }
+                seasons={
+                  this.props.finishedseasons.length >= 1
+                    ? this.props.finishedseasons
+                    : [{ name: "Ongoing seasons, no titles yet" }]
+                }
+                thepathname="titles"
+              >
+                <div className="betdomainNavbarItem">Titles</div>
+              </Seasonspopup>
+            </div>
           </div>
           <div className="domainNamePhone">{this.props.currentdomain.name}</div>
           <div className="fabarContainer">
@@ -113,6 +129,8 @@ const mapDispatchToProps = { loadSeasons };
 const mapStateToProps = (state) => ({
   currentdomain: state.betfundata.currentdomain.data,
   seasons: state.betfundata.seasons.list,
+  finishedseasons: seasonsFinished(state),
+  latestseason: state.betfundata.seasons.latestseason,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BetdomainNavbar);

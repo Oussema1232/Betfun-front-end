@@ -134,7 +134,7 @@ class Register extends Form {
               )}
               {this.renderButton(
                 this.props.loadingregister ? (
-                  <Spincrescentcomponenet color="#4e0000" />
+                  <Spincrescentcomponenet color="#4e0000" size="1x" />
                 ) : (
                   "Sign Up"
                 ),

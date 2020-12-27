@@ -234,7 +234,7 @@ export default function MyDrawer(props) {
                     <Link
                       key={s.id}
                       style={{ textDecoration: "none" }}
-                      to={`/yourgame/calendar/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
+                      to={`/game/calendar/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
                     >
                       <div className="drawerseason">{s.name}</div>
                     </Link>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Superbettor from "../commun/logos/levels/superbettor/superbettor";
 
 import background from "../../src/sky.jpg";
 import background2 from "../../src/sky2.jpg";
@@ -80,14 +79,7 @@ export default function Animationscreen2() {
                   backgroundRepeat: "no-repeat",
                 }}
                 whileTap={{ scale: 0.88 }}
-              >
-                <Superbettor
-                  levelname="Super"
-                  firstcolor="rgb(170, 0, 4)"
-                  secondcolor="rgb(230, 171, 45)"
-                  rotate={[-1, 1]}
-                />
-              </motion.div>
+              ></motion.div>
               <motion.div
                 style={{
                   width: 200,
@@ -100,14 +92,7 @@ export default function Animationscreen2() {
                   backgroundRepeat: "no-repeat",
                 }}
                 whileTap={{ scale: 0.88 }}
-              >
-                <Superbettor
-                  levelname="Hitman"
-                  firstcolor="rgb(0, 255, 255)"
-                  secondcolor="rgb(217, 224, 33)"
-                  rotate={[-1, 1]}
-                />
-              </motion.div>
+              ></motion.div>
               <motion.div
                 style={{
                   width: 200,
@@ -120,14 +105,7 @@ export default function Animationscreen2() {
                   backgroundRepeat: "no-repeat",
                 }}
                 whileTap={{ scale: 0.88 }}
-              >
-                <Superbettor
-                  levelname="kryptonite"
-                  firstcolor="rgb(0, 255, 0)"
-                  secondcolor="#0060aa"
-                  rotate={[-1, 1]}
-                />
-              </motion.div>
+              ></motion.div>
               <motion.div
                 style={{
                   width: 200,
