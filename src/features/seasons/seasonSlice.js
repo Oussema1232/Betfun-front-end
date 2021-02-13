@@ -61,5 +61,9 @@ export const seasonsFinished = createSelector(
   (state) => state.betfundata.seasons,
   (seasons) => seasons.list.filter((s) => s.isFinished)
 );
+export const seasonsUnfinished = createSelector(
+  (state) => state.betfundata.seasons,
+  (seasons) => seasons.list.filter((s) => !s.isFinished)
+);
 
 export default seasonSlice.reducer;

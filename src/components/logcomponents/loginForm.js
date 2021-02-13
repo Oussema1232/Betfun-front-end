@@ -96,7 +96,7 @@ class Login extends Form {
             backgroundColor: "#ede5e5",
             width: "100%",
 
-            minHeight: "100vh",
+            // minHeight: "100vh",
             height: "100%",
             paddingBottom: 10,
             display: "flex",

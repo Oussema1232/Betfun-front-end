@@ -29,7 +29,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
     });
 
     dispatch(actions.apiCallSuccess(response.data));
-    console.log("response", response.data);
+    
     if (onSuccess) dispatch({ type: onSuccess, payload: response.data });
   } catch (err) {
     dispatch(actions.apiCallFailed(err.message));

@@ -60,7 +60,7 @@ class Register extends Form {
 
           minHeight: "100vh",
           height: "100%",
-          paddingBottom: 10,
+          // paddingBottom: 10,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import onClickOutside from "react-onclickoutside";
 
-
 class Seasonspopup extends Component {
   state = { visibility: false };
 
@@ -32,7 +31,7 @@ class Seasonspopup extends Component {
               style={{
                 maxWidth: 250,
                 width: 100,
-                backgroundColor: this.props.color,
+                backgroundColor: this.props.backgroundColor,
                 overflow: "auto",
                 borderTopRightRadius: 10,
                 borderTopLeftRadius: 10,
@@ -40,7 +39,7 @@ class Seasonspopup extends Component {
                 zIndex: 998,
                 display: "flex",
                 flexDirection: "column",
-                color: "black",
+
                 alignItems: "center",
                 marginLeft: -20,
               }}
@@ -49,17 +48,28 @@ class Seasonspopup extends Component {
                 <>
                   {this.props.link ? (
                     <Link
-                      to={`/game/${this.props.thepathname}/${this.props.currentdomain.name}/${s.name}/${this.props.currentdomain.id}/${s.id}`}
+                      style={{ textDecoration: "none" }}
+                      to={`/betfun/game/${this.props.thepathname}/${this.props.currentdomain.name}/${s.name}/${this.props.currentdomain.id}/${s.id}`}
                     >
                       <div
-                        style={{ fontSize: 15, fontWeight: "bold", padding: 5 }}
+                        style={{
+                          fontSize: 15,
+                          fontWeight: "bold",
+                          padding: 5,
+                          color: this.props.color,
+                        }}
                       >
                         {s.name}
                       </div>
                     </Link>
                   ) : (
                     <div
-                      style={{ fontSize: 15, fontWeight: "bold", padding: 5 }}
+                      style={{
+                        fontSize: 15,
+                        fontWeight: "bold",
+                        padding: 5,
+                        color: this.props.color,
+                      }}
                     >
                       {s.name}
                     </div>

@@ -7,19 +7,25 @@ import { loadLeaguesgenres } from "../../features/leaguesgenres/leaguegenreSlice
 import { loadLeagues } from "../../features/leagues/leagueSlice.js";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import Skeleton from "@material-ui/lab/Skeleton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowCircleUp,
   faArrowCircleDown,
   faCircle,
 } from "@fortawesome/free-solid-svg-icons";
+
 import TabPanel from "../../commun/panelTab";
 import Usermoonavatar from "../../commun/usermoonavatar";
+import LeagueModal from "../../commun/modal";
+import CreateLeagueModal from "../../commun/createleague";
+import JoinLeagueModal from "../../commun/joinleague";
+import SkullLeagues from "../../commun/skulldata";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-
+    paddingBottom: 20,
     boxSizing: "border-box",
 
     display: "flex",
@@ -32,15 +38,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-  faketabs: {
-    height: 224,
-    width: 150,
-    marginRight: 10,
-    [theme.breakpoints.down("sm")]: {
-      marginRight: 2,
-      width: 100,
-    },
-  },
   tabs: {
     height: 224,
     minWidth: 55,
@@ -57,7 +54,22 @@ export default function LeaguesList(props) {
   const leaguesgenres = useSelector(
     (state) => state.betfundata.leaguesgenres.list
   );
+
+  const loadingLeaguesGenres = useSelector(
+    (state) => state.betfundata.leaguesgenres.loading
+  );
+
+  const leaguesGenresError = useSelector(
+    (state) => state.betfundata.leaguesgenres.errors.message
+  );
+
   const leagues = useSelector((state) => state.betfundata.leagues.list);
+  const loadingLeagues = useSelector(
+    (state) => state.betfundata.leagues.loading
+  );
+  const leaguesError = useSelector(
+    (state) => state.betfundata.leagues.errors.message
+  );
   const currentdomain = useSelector(
     (state) => state.betfundata.currentdomain.data
   );
@@ -71,151 +83,224 @@ export default function LeaguesList(props) {
 
   return (
     <div style={{ marginTop: 100, backgroundColor: "#ede5e5" }}>
-      <div className={classes.root}>
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          indicatorColor="primary"
-          className={classes.tabs}
-          value={leaguesgenres[0] && !value ? leaguesgenres[0].id : value}
-          aria-label="Vertical tabs example"
-        >
-          {leaguesgenres.map((genre) => (
-            <Tab
-              label={genre.name}
-              value={genre.id}
-              className={classes.tab}
-              onClick={() => setValue(genre.id)}
-              style={{ borderRight: `1px solid #e6ab2d` }}
+      {loadingLeaguesGenres || loadingLeagues ? (
+        <SkullLeagues flexDirection="row" justifyContent="space-betweeen">
+          <div className="betusermoonnameContainer">
+            <Skeleton
+              animation="pulse"
+              variant="circle"
+              height={60}
+              width={60}
             />
-          ))}
-        </Tabs>
-        <div className="betsTableAndSelectContainer">
-          <div className="betusermoonsortContainer">
-            <div className="betusermoonnameContainer">
-              <Usermoonavatar
-                src="../../../cr7profile.jpg"
-                alt="cr7"
-                dimentionmoon={65}
-                dimentionimage={55}
-                boxshadowcolor="#070427"
-              />
-              <div className="username">
-                Cristiano Ronaldo wild mas3oudia inabara
-              </div>
-            </div>
-            <div style={{ display: "flex", alignItems: "flex-end" }}>
-              <div
-                className="createbetorleagueButton"
-                style={{ marginRight: 3, width: 70, fontSize: 15, height: 20 }}
-              >
-                Join
-              </div>
-              <div
-                className="createbetorleagueButton"
-                style={{ width: 70, fontSize: 15, height: 20 }}
-              >
-                Create
-              </div>
-            </div>
+            <Skeleton
+              animation="pulse"
+              variant="text"
+              height={24}
+              width={70}
+              style={{ alignSelf: "center", marginLeft: 8 }}
+            />
           </div>
-
-          <div className="betsTableContainer" style={{ fontSize: 13 }}>
-            <div className="betstabLine headerBets">
-              <div
-                className="betsTabCellule"
-                style={{
-                  width: "40%",
-                  fontWeight: "normal",
-                  wordBreak: "normal",
-                }}
-              >
-                League
-              </div>
-              <div
-                className="betsTabCellule"
-                style={{
-                  width: "10%",
-                  minWidth: 30,
-                  fontWeight: "normal",
-                  wordBreak: "normal",
-                }}
-              />
-
-              <div
-                className="betsTabCellule"
-                style={{
-                  width: "25%",
-                  fontWeight: "normal",
-                  wordBreak: "normal",
-                }}
-              >
-                Rank
-              </div>
-              <div
-                className="betsTabCellule"
-                style={{
-                  width: "25%",
-                  fontWeight: "normal",
-                  wordBreak: "normal",
-                }}
-              >
-                Last Rank
-              </div>
-            </div>
-            {leagues.map((league) => (
-              <Link
-                to={`/game/leaguedetail/${league.name}/${currentdomain.name}/${league.leagueId}/${league.seasonId}`}
-                style={{ textDecoration: "none" }}
-              >
-                <TabPanel
-                  value={
-                    leaguesgenres[0] && !value ? leaguesgenres[0].id : value
-                  }
-                  index={league.genreId}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-end",
+              marginRight: 10,
+              alignSelf: "center",
+            }}
+          >
+            <Skeleton animation="pulse" variant="rect" height={24} width={75} />
+            <Skeleton
+              animation="pulse"
+              variant="rect"
+              height={24}
+              width={75}
+              style={{ marginLeft: 10 }}
+            />
+          </div>
+        </SkullLeagues>
+      ) : (
+        <>
+          {leaguesGenresError || leaguesError ? (
+            <div className="loadingerrorMessage">
+              {leaguesGenresError && (
+                <div
+                  className="betstabLine headerBets"
+                  style={{
+                    fontSize: 20,
+                    backgroundColor: "#ede5e5",
+                    border: "none",
+                    fontWeight: "bold",
+                  }}
                 >
-                  <div className="betsTabCellule" style={{ width: "40%" }}>
-                    {league.name}malari9hedhi56789025678902
-                  </div>
-                  <div
-                    className="betsTabCellule"
-                    style={{
-                      width: "10%",
-                      minWidth: 10,
-                      fontWeight: "normal",
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon={
-                        league.userRank == league.oldRank
-                          ? faCircle
-                          : league.userRank > league.oldRank
-                          ? faArrowCircleUp
-                          : faArrowCircleDown
-                      }
-                      size="  "
-                      color={
-                        league.userRank == league.oldRank
-                          ? "#838193"
-                          : league.userRank > league.oldRank
-                          ? "green"
-                          : "red"
-                      }
-                      style={{ cursor: "pointer" }}
+                  {leaguesGenresError}...
+                </div>
+              )}
+              {leaguesError && (
+                <div
+                  className="betstabLine headerBets"
+                  style={{
+                    fontSize: 20,
+                    backgroundColor: "#ede5e5",
+                    border: "none",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {leaguesError}...
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className={classes.root}>
+              <Tabs
+                orientation="vertical"
+                variant="scrollable"
+                indicatorColor="primary"
+                className={classes.tabs}
+                value={leaguesgenres[0] && !value ? leaguesgenres[0].id : value}
+                aria-label="Vertical tabs example"
+              >
+                {leaguesgenres.map((genre) => (
+                  <Tab
+                    label={genre.name}
+                    value={genre.id}
+                    className={classes.tab}
+                    onClick={() => setValue(genre.id)}
+                    style={{ borderRight: `1px solid #e6ab2d` }}
+                  />
+                ))}
+              </Tabs>
+              <div className="betsTableAndSelectContainer">
+                <div className="betusermoonsortContainer">
+                  <div className="betusermoonnameContainer">
+                    <Usermoonavatar
+                      src="../../../cr7profile.jpg"
+                      alt="cr7"
+                      dimentionmoon={65}
+                      dimentionimage={55}
+                      boxshadowcolor="#070427"
                     />
+                    <div className="username">Cristiano Ronaldo</div>
                   </div>
-                  <div className="betsTabCellule" style={{ width: "25%" }}>
-                    {league.userRank}
+                  <div style={{ display: "flex", alignItems: "flex-end" }}>
+                    <CreateLeagueModal
+                      userId={6}
+                      seasonId={leagues[0] && leagues[0].seasonId}
+                    />
+
+                    <JoinLeagueModal userId={6} />
                   </div>
-                  <div className="betsTabCellule" style={{ width: "25%" }}>
-                    {league.oldRank}
+                </div>
+
+                <div className="betsTableContainer" style={{ fontSize: 13 }}>
+                  <div className="betstabLine headerBets">
+                    <div
+                      className="betsTabCellule"
+                      style={{
+                        width: "40%",
+                        fontWeight: "normal",
+                        wordBreak: "normal",
+                      }}
+                    >
+                      League
+                    </div>
+                    <div
+                      className="betsTabCellule"
+                      style={{
+                        width: "10%",
+                        minWidth: 30,
+                        fontWeight: "normal",
+                        wordBreak: "normal",
+                      }}
+                    />
+
+                    <div
+                      className="betsTabCellule"
+                      style={{
+                        width: "25%",
+                        fontWeight: "normal",
+                        wordBreak: "normal",
+                      }}
+                    >
+                      Rank
+                    </div>
+                    <div
+                      className="betsTabCellule"
+                      style={{
+                        width: "25%",
+                        fontWeight: "normal",
+                        wordBreak: "normal",
+                      }}
+                    >
+                      Last Rank
+                    </div>
                   </div>
-                </TabPanel>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
+                  {leagues.map((league) => (
+                    <Link
+                      to={`/game/leaguedetail/${league.name}/${currentdomain.name}/${league.leagueId}/${league.seasonId}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <TabPanel
+                        value={
+                          leaguesgenres[0] && !value
+                            ? leaguesgenres[0].id
+                            : value
+                        }
+                        index={league.genreId}
+                      >
+                        <div
+                          className="betsTabCellule"
+                          style={{ width: "40%" }}
+                        >
+                          {league.name}
+                        </div>
+                        <div
+                          className="betsTabCellule"
+                          style={{
+                            width: "10%",
+                            minWidth: 10,
+                            fontWeight: "normal",
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={
+                              league.userRank == league.oldRank
+                                ? faCircle
+                                : league.userRank > league.oldRank
+                                ? faArrowCircleUp
+                                : faArrowCircleDown
+                            }
+                            size="  "
+                            color={
+                              league.userRank == league.oldRank
+                                ? "#838193"
+                                : league.userRank > league.oldRank
+                                ? "green"
+                                : "red"
+                            }
+                            style={{ cursor: "pointer" }}
+                          />
+                        </div>
+                        <div
+                          className="betsTabCellule"
+                          style={{ width: "25%" }}
+                        >
+                          {league.userRank}
+                        </div>
+                        <div
+                          className="betsTabCellule"
+                          style={{ width: "25%" }}
+                        >
+                          {league.oldRank}
+                        </div>
+                      </TabPanel>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }

@@ -2,21 +2,19 @@
   display: none;
 }
 
+.drawerseason {
+  width: 96%;
+  padding: 5px;
+  min-height: 35px;
+  background-color: #e6ab2d;
+  font-weight: bold;
+  color: #070427;
+}
+.drawerseason:hover {
+  background-color: #cf9928;
+}
 @media only screen and (max-width: 700px) {
   .drawer {
     display: block;
-    
-  }
-
-  .drawerseason {
-    width: 96%;
-    padding: 5px;
-    min-height: 35px;
-    background-color: #e6ab2d;
-    font-weight: bold;
-    color: #070427;
-  }
-  .drawerseason:hover {
-    background-color: #cf9928;
   }
 }

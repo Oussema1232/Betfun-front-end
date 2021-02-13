@@ -21,3 +21,22 @@ code {
 .Toastify__toast--dark {
   border: 2px solid white;
 }
+
+.cursor {
+  width: 2rem;
+  height: 2rem;
+  color: red;
+  font-weight: 900;
+  font-family: "Indie Flower", cursive;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 255, 0.3);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 3000;
+  pointer-events: none;
+}

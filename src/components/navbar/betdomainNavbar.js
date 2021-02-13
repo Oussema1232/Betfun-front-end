@@ -56,20 +56,20 @@ class BetdomainNavbar extends Component {
           </div>
           <div className="betdomainNavbarItemsContainerDesktop">
             <Link
-              to={`/game/leagues/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
+              to={`/betfun/game/bets/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
+              className="betdomainNavbarItem"
+            >
+              <div>Bets</div>
+            </Link>
+            <Link
+              to={`/betfun/game/leagues/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
               className="betdomainNavbarItem"
             >
               <div className="betdomainNavbarItem">Leagues</div>
             </Link>
-            <Link
-              to={`/game/bets/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
-              className="betdomainNavbarItem"
-            >
-              <div>Bet</div>
-            </Link>
             {this.props.latestseason && (
               <Link
-                to={`/game/fixtures/${this.props.currentdomain.name}/${this.props.latestseason.name}/${this.props.currentdomain.id}/${this.props.latestseason.id}`}
+                to={`/betfun/game/fixtures/${this.props.currentdomain.name}/${this.props.latestseason.name}/${this.props.currentdomain.id}/${this.props.latestseason.id}`}
                 className="betdomainNavbarItem"
               >
                 <div className="betdomainNavbarItem">Fixtures</div>
@@ -77,25 +77,50 @@ class BetdomainNavbar extends Component {
             )}
             <div>
               <Seasonspopup
-                seasons={this.props.seasons}
+                seasons={
+                  !this.props.seasonsError
+                    ? this.props.seasons
+                    : [{ name: this.props.seasonsError }]
+                }
                 thepathname="calendar"
-                color="#ffcb05"
-                link={true}
+                backgroundColor={
+                  !this.props.seasonsError ? "#ffcb05" : "#d10d2f"
+                }
+                color="#02010f"
+                link={!this.props.seasonsError ? true : false}
               >
                 <div className="betdomainNavbarItem">Calendar</div>
               </Seasonspopup>
             </div>
-
+            <Link
+              to={`/betfun/game/levels/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
+              className="betdomainNavbarItem"
+            >
+              <div>Levels</div>
+            </Link>
             <div>
               <Seasonspopup
-                link={this.props.finishedseasons.length >= 1 ? true : false}
-                color={
-                  this.props.finishedseasons.length >= 1 ? "#ffcb05" : "#d10d2f"
+                link={
+                  !this.props.seasonsError
+                    ? this.props.finishedseasons.length >= 1
+                      ? true
+                      : false
+                    : false
                 }
+                backgroundColor={
+                  !this.props.seasonsError
+                    ? this.props.finishedseasons.length >= 1
+                      ? "#ffcb05"
+                      : "#fbf9f9"
+                    : "#d10d2f"
+                }
+                color="#02010f"
                 seasons={
-                  this.props.finishedseasons.length >= 1
-                    ? this.props.finishedseasons
-                    : [{ name: "Ongoing seasons, no titles yet" }]
+                  !this.props.seasonsError
+                    ? this.props.finishedseasons.length >= 1
+                      ? this.props.finishedseasons
+                      : [{ name: "Ongoing seasons, no titles yet" }]
+                    : [{ name: this.props.seasonsError }]
                 }
                 thepathname="titles"
               >
@@ -118,6 +143,9 @@ class BetdomainNavbar extends Component {
           open={this.state.opendrawerdomainitems}
           handleDrawerClose={this.closeDrawerDomainItems}
           seasons={this.props.seasons}
+          theLatestseason={this.props.latestseason}
+          theFinishedseasons={this.props.finishedseasons}
+          theseasonsError={this.props.seasonsError}
         />
       </div>
     );
@@ -129,6 +157,7 @@ const mapDispatchToProps = { loadSeasons };
 const mapStateToProps = (state) => ({
   currentdomain: state.betfundata.currentdomain.data,
   seasons: state.betfundata.seasons.list,
+  seasonsError: state.betfundata.seasons.errors.message,
   finishedseasons: seasonsFinished(state),
   latestseason: state.betfundata.seasons.latestseason,
 });

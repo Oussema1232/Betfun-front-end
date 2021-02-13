@@ -8,12 +8,15 @@ export const betSlice = createSlice({
   initialState: {
     list: [],
     loading: false,
+    loadingCreate: false,
     errors: {},
     onsuccess: {},
+    onCreateSuccess: {},
   },
   reducers: {
     betsRequested: (state, action) => {
       state.loading = true;
+      state.onCreateSuccess = {};
       state.onsuccess = {};
       state.errors = {};
       state.list = [];
@@ -27,8 +30,25 @@ export const betSlice = createSlice({
       state.loading = false;
       state.onsuccess.message = action.payload.message;
     },
+
+    BetCreatedRequest: (state, action) => {
+      state.loadingCreate = true;
+      state.onCreateSuccess = {};
+      state.errors = {};
+    },
+    BetBackendCreated: (state, action) => {
+      state.loadingCreate = false;
+      state.onCreateSuccess.message = "Bet created successfully";
+    },
+
+    BetCreatedRequestFail: (state, action) => {
+      state.loadingCreate = false;
+
+      state.errors.message = action.payload.message;
+    },
     betServerFail: (state, action) => {
       state.loading = false;
+      state.loadingCreate = false;
     },
   },
 });
@@ -38,6 +58,9 @@ const {
   betsRequested,
   betsRequestFail,
   betServerFail,
+  BetCreatedRequest,
+  BetBackendCreated,
+  BetCreatedRequestFail,
 } = betSlice.actions;
 const url = config.bets;
 
@@ -55,6 +78,10 @@ export const loadBets = (parametres) => (dispatch, getState) => {
 
 export const createBet = (bet) =>
   actions.apiCallBegan({
+    onStart: BetCreatedRequest.type,
+    onSuccess: BetBackendCreated.type,
+    onError: BetCreatedRequestFail.type,
+    onServerFail: betServerFail.type,
     url: url,
     method: "post",
     data: bet,

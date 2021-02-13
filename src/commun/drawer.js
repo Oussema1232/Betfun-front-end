@@ -40,7 +40,7 @@ export default function MyDrawer(props) {
     drawerHeader: {
       display: "flex",
       alignItems: "center",
-      // padding: theme.spacing(0, 1),
+
       ...theme.mixins.toolbar,
       justifyContent: "flex-start",
     },
@@ -51,9 +51,7 @@ export default function MyDrawer(props) {
 
   const classes = useStyles();
   const theme = useTheme();
-  const changelocation = (location) => {
-    window.location = location;
-  };
+
   return (
     <div>
       <Drawer
@@ -100,16 +98,9 @@ export default function MyDrawer(props) {
               className="drawerItem"
               onClick={() => {
                 props.onclickItem && dispatch(props.onclickItem(c));
-                // changelocation(
-                //   c.domainname
-                //     ? `/yourgame/yourbets/${c.domainname}/${c.id}`
-                //     : c.communityname
-                //     ? `/communities/${c.communityname}/${c.id}`
-                //     : c.pathname && c.pathname
-                // );
               }}
             >
-              {c.icon && <div style={{ width: 60 }}>{c.logo}</div>}
+              {c.icon && <div style={{ marginRight: 10 }}>{c.icon}</div>}
               {c.name && <div>{c.name}</div>}
               {c.domainname && <div>{c.domainname}</div>}
               {c.communityname && <div>{c.communityname}</div>}

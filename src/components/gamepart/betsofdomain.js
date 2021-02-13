@@ -13,16 +13,16 @@ import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-
+import Skeleton from "@material-ui/lab/Skeleton";
 import TabPanel from "../../commun/panelTab";
 import Usermoonavatar from "../../commun/usermoonavatar";
+import SkullBets from "../../commun/skulldata";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-
+    paddingBottom: 20,
     boxSizing: "border-box",
-
     display: "flex",
   },
 
@@ -59,8 +59,11 @@ const useStyles = makeStyles((theme) => ({
   tabs: {
     height: 224,
     marginRight: 10,
+    margin: 10,
     [theme.breakpoints.down("sm")]: {
       marginRight: 2,
+      display: "flex",
+      flexDirection: "column",
     },
   },
 }));
@@ -70,13 +73,26 @@ export default function VerticalTabs(props) {
 
   const dispatch = useDispatch();
   const seasons = useSelector((state) => state.betfundata.seasons.list);
+
+  const loadingSeasons = useSelector(
+    (state) => state.betfundata.seasons.loading
+  );
+  const seasonsError = useSelector(
+    (state) => state.betfundata.seasons.errors.message
+  );
+
   const bets = useSelector((state) => state.betfundata.bets.list);
+  const loadingBets = useSelector((state) => state.betfundata.bets.loading);
+  const betsError = useSelector(
+    (state) => state.betfundata.bets.errors.message
+  );
+
   const currentdomain = useSelector(
     (state) => state.betfundata.currentdomain.data
   );
   useEffect(() => {
     dispatch(loadSeasons(`/${currentdomain.id}`));
-    dispatch(loadBets(`/all/seasons/${10}/${currentdomain.id}`));
+    dispatch(loadBets(`/all/seasons/${6}/${currentdomain.id}`));
   }, [props.match.params.id]);
   //get in component did mount or useeffect the bets of a certain domain
 
@@ -96,163 +112,223 @@ export default function VerticalTabs(props) {
 
   return (
     <div style={{ marginTop: 100, backgroundColor: "#ede5e5" }}>
-      <div className={classes.root}>
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          indicatorColor="primary"
-          className={classes.tabs}
-          value={seasons[0] && !value ? seasons[0].id : value}
-          aria-label="Vertical tabs example"
-        >
-          {seasons.map((s) => (
-            <Tab
-              label={s.name}
-              value={s.id}
-              onClick={() => setValue(s.id)}
-              className={classes.tab}
+      {loadingSeasons || loadingBets ? (
+        <SkullBets flexDirection="row" justifyContent="space-between">
+          <div className="betusermoonnameContainer">
+            <Skeleton
+              animation="pulse"
+              variant="circle"
+              height={60}
+              width={60}
             />
-          ))}
-        </Tabs>
-        <div className="betsTableAndSelectContainer">
-          <div className="betusermoonsortContainer">
-            <div className="betusermoonnameContainer">
-              <Usermoonavatar
-                src="../../../cr7profile.jpg"
-                alt="cr7"
-                dimentionmoon={65}
-                dimentionimage={55}
-                boxshadowcolor="#070427"
-              />
-
-              <h3 style={{ alignSelf: "flex-end", fontSize: 15 }}>
-                Cristiano Ronaldo
-              </h3>
-            </div>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="sort-by" style={{ fontSize: 13 }}>
-                Sorted By
-              </InputLabel>
-              <NativeSelect
-                value={state.Sorted_By}
-                onChange={handleChangeSort}
-                inputProps={{
-                  name: "Sorted_By",
-                  id: "sort-by",
-                }}
-              >
-                <option aria-label="None" value="" />
-                <option value="asc">Pts asc</option>
-                <option value="desc">Pts desc</option>
-              </NativeSelect>
-            </FormControl>
+            <Skeleton
+              animation="pulse"
+              variant="text"
+              height={24}
+              width={70}
+              style={{ alignSelf: "center", marginLeft: 8 }}
+            />
           </div>
-
-          <div className="betsTableContainer" style={{ fontSize: 13 }}>
-            <div className="betstabLine headerBets">
+          <Skeleton
+            animation="pulse"
+            variant="rect"
+            height={24}
+            width={85}
+            style={{ alignSelf: "center", marginRight: 10 }}
+          />
+        </SkullBets>
+      ) : (
+        <>
+          {seasonsError || betsError ? (
+            <div className="loadingerrorMessage">
               <div
-                className="betsTabCellule"
+                className="betstabLine headerBets"
                 style={{
-                  width: "50%",
-                  fontWeight: "normal",
-                  wordBreak: "normal",
+                  fontSize: 20,
+                  backgroundColor: "#ede5e5",
+                  border: "none",
+                  fontWeight: "bold",
                 }}
               >
-                GW
+                {seasonsError} ...
               </div>
               <div
-                className="betsTabCellule"
+                className="betstabLine headerBets"
                 style={{
-                  width: "30%",
-                  fontWeight: "normal",
-                  wordBreak: "normal",
+                  fontSize: 20,
+                  backgroundColor: "#ede5e5",
+                  border: "none",
+                  fontWeight: "bold",
                 }}
               >
-                Played at
-              </div>
-              <div
-                className="betsTabCellule"
-                style={{
-                  width: "20%",
-                  minWidth: 45,
-                  fontWeight: "normal",
-                  wordBreak: "normal",
-                }}
-              >
-                Pts
+                {betsError} ...
               </div>
             </div>
-            {state.Sorted_By != ""
-              ? _.orderBy(bets, "points", state.Sorted_By).map((bet) => (
-                  <Link
-                    to={`/game/betguess/${currentdomain.name}/${bet.id}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <TabPanel
-                      value={seasons[0] && !value ? seasons[0].id : value}
-                      index={bet.seasonId}
-                    >
-                      <div className="betsTabCellule" style={{ width: "50%" }}>
-                        {bet.gameweekname}
-                      </div>
-                      <div
-                        className="betsTabCellule"
-                        style={{
-                          width: "30%",
-                          display: "flex",
-                          flexDirection: "column",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        <div className="playedatBetDate">{bet.date}</div>
-                        <div className="playedatBetTime">{bet.time}</div>
-                      </div>
-                      <div
-                        className="betsTabCellule"
-                        style={{ width: "20%", minWidth: 45 }}
-                      >
-                        {bet.points ? bet.points : "TBD"}
-                      </div>
-                    </TabPanel>
-                  </Link>
-                ))
-              : bets.map((bet) => (
-                  <Link
-                    to={`/game/betguess/${currentdomain.name}/${bet.id}`}
-                    style={{
-                      textDecoration: "none",
-                    }}
-                  >
-                    <TabPanel
-                      value={seasons[0] && !value ? seasons[0].id : value}
-                      index={bet.seasonId}
-                    >
-                      <div className="betsTabCellule" style={{ width: "50%" }}>
-                        {bet.gameweekname}hacilou hedhi loula
-                      </div>
-                      <div
-                        className="betsTabCellule"
-                        style={{
-                          width: "30%",
-                          display: "flex",
-                          flexDirection: "column",
-                        }}
-                      >
-                        <div className="playedatBetDate">{bet.date}</div>
-                        <div className="playedatBetTime">{bet.time}</div>
-                      </div>
-                      <div
-                        className="betsTabCellule"
-                        style={{ width: "20%", minWidth: 45 }}
-                      >
-                        {bet.points ? bet.points : "TBD"}323
-                      </div>
-                    </TabPanel>
-                  </Link>
+          ) : (
+            <div className={classes.root}>
+              <Tabs
+                orientation="vertical"
+                variant="scrollable"
+                indicatorColor="primary"
+                className={classes.tabs}
+                value={seasons[0] && !value ? seasons[0].id : value}
+                aria-label="Vertical tabs example"
+              >
+                {seasons.map((s) => (
+                  <Tab
+                    label={s.name}
+                    value={s.id}
+                    onClick={() => setValue(s.id)}
+                    className={classes.tab}
+                  />
                 ))}
-          </div>
-        </div>
-      </div>
+              </Tabs>
+              <div className="betsTableAndSelectContainer">
+                <div className="betusermoonsortContainer">
+                  <div className="betusermoonnameContainer">
+                    <Usermoonavatar
+                      src="../../../cr7profile.jpg"
+                      alt="cr7"
+                      dimentionmoon={65}
+                      dimentionimage={55}
+                      boxshadowcolor="#070427"
+                    />
+
+                    <div className="username">Cristiano Ronaldo</div>
+                  </div>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="sort-by" style={{ fontSize: 13 }}>
+                      Sorted By
+                    </InputLabel>
+                    <NativeSelect
+                      value={state.Sorted_By}
+                      onChange={handleChangeSort}
+                      inputProps={{
+                        name: "Sorted_By",
+                        id: "sort-by",
+                      }}
+                    >
+                      <option aria-label="None" value="" />
+                      <option value="asc">Pts asc</option>
+                      <option value="desc">Pts desc</option>
+                    </NativeSelect>
+                  </FormControl>
+                </div>
+
+                <div className="betsTableContainer" style={{ fontSize: 13 }}>
+                  <div className="betstabLine headerBets">
+                    <div
+                      className="betsTabCellule"
+                      style={{
+                        width: "50%",
+                        fontWeight: "normal",
+                        wordBreak: "normal",
+                      }}
+                    >
+                      GW
+                    </div>
+                    <div
+                      className="betsTabCellule"
+                      style={{
+                        width: "30%",
+                        fontWeight: "normal",
+                        wordBreak: "normal",
+                      }}
+                    >
+                      Played at
+                    </div>
+                    <div
+                      className="betsTabCellule"
+                      style={{
+                        width: "20%",
+                        minWidth: 45,
+                        fontWeight: "normal",
+                        wordBreak: "normal",
+                      }}
+                    >
+                      Pts
+                    </div>
+                  </div>
+                  {state.Sorted_By != ""
+                    ? _.orderBy(bets, "points", state.Sorted_By).map((bet) => (
+                        <Link
+                          to={`/betfun/game/betguess/${currentdomain.name}/${bet.id}`}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <TabPanel
+                            value={seasons[0] && !value ? seasons[0].id : value}
+                            index={bet.seasonId}
+                          >
+                            <div
+                              className="betsTabCellule"
+                              style={{ width: "50%" }}
+                            >
+                              {bet.gameweekname}
+                            </div>
+                            <div
+                              className="betsTabCellule"
+                              style={{
+                                width: "30%",
+                                display: "flex",
+                                flexDirection: "column",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              <div className="playedatBetDate">{bet.date}</div>
+                              <div className="playedatBetTime">{bet.time}</div>
+                            </div>
+                            <div
+                              className="betsTabCellule"
+                              style={{ width: "20%", minWidth: 45 }}
+                            >
+                              {bet.points ? bet.points : "TBD"}
+                            </div>
+                          </TabPanel>
+                        </Link>
+                      ))
+                    : bets.map((bet) => (
+                        <Link
+                          to={`/game/betguess/${currentdomain.name}/${bet.id}`}
+                          style={{
+                            textDecoration: "none",
+                          }}
+                        >
+                          <TabPanel
+                            value={seasons[0] && !value ? seasons[0].id : value}
+                            index={bet.seasonId}
+                          >
+                            <div
+                              className="betsTabCellule"
+                              style={{ width: "50%" }}
+                            >
+                              {bet.gameweekname}
+                            </div>
+                            <div
+                              className="betsTabCellule"
+                              style={{
+                                width: "30%",
+                                display: "flex",
+                                flexDirection: "column",
+                              }}
+                            >
+                              <div className="playedatBetDate">{bet.date}</div>
+                              <div className="playedatBetTime">{bet.time}</div>
+                            </div>
+                            <div
+                              className="betsTabCellule"
+                              style={{ width: "20%", minWidth: 45 }}
+                            >
+                              {bet.points ? bet.points : "TBD"}
+                            </div>
+                          </TabPanel>
+                        </Link>
+                      ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }

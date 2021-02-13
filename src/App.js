@@ -10,13 +10,15 @@ import ProtectedRoute from "./commun/protectedRoute";
 import LogRoute from "./commun/logroute";
 import Mainscreen from "./screens/mainscreen";
 import Notfound from "./screens/notfound";
-
+import KnowledgeScreen from "./screens/knowledgescreen";
 import Resetpassword from "./components/logcomponents/resetpassword";
 import Checkemail from "./components/logcomponents/checkemailreset";
+import Categoriesknowledge from "./components/questionsparts/categoriesbackdrop";
+import KnowledgeComponent from "./components/questionsparts/knowledgecomponent";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
-import Animationscreen from "./screens/animationscreen2";
+
 import Navbar from "./components/navbar/navbar";
 
 function App() {
@@ -27,11 +29,12 @@ function App() {
   return (
     <>
       <ToastContainer style={{ zIndex: 10001 }} />
-      {/* <Animationscreen /> */}
-
-      <Navbar />
-
-      <Mainscreen />
+      {/* <Navbar /> */}
+      <Switch>
+        <Route path="/betfun" component={Mainscreen} />
+        <Route path="/knowledge" component={KnowledgeScreen} />
+        <Redirect from="/" to="/betfun/welcome" />
+      </Switch>
       {/* <Switch>
         <LogRoute path="/account/resetpassword" component={Resetpassword} />
         <LogRoute path="/account/checkemail" component={Checkemail} />

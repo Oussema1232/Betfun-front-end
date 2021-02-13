@@ -1,0 +1,178 @@
+.quoteContainer {
+  min-height: 200;
+  width: 80%;
+
+  border: 2px solid black;
+  border-top-right-radius: 100px;
+  border-bottom-left-radius: 100px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.sideLimit {
+  display: none;
+}
+
+.islamiccolumnclass {
+  display: flex;
+  z-index: 100;
+}
+
+.bubble {
+  position: absolute;
+  max-width: 30em;
+  margin-top: 70px;
+
+  background-color: #fff;
+  padding: 1.125em 1.5em;
+  font-size: 1.25em;
+  border-radius: 1rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3),
+    0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2);
+}
+
+.bubble::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: 100%;
+  left: 1.5em;
+  border: 0.75rem solid transparent;
+  border-top: none;
+
+  border-bottom-color: #fff;
+  filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
+}
+
+.thought {
+  display: flex;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 30px;
+  min-width: 40px;
+  max-width: 220px;
+  min-height: 40px;
+  margin: 20px;
+  position: absolute;
+  margin-left: 50px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.thought:before,
+.thought:after {
+  content: "";
+  background-color: #fff;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  z-index: -1;
+}
+.thought:before {
+  width: 44px;
+  height: 44px;
+  top: -12px;
+  left: 28px;
+  box-shadow: -50px 30px 0 -12px #fff;
+}
+.thought:after {
+  bottom: -10px;
+  right: 26px;
+  width: 30px;
+  height: 30px;
+  box-shadow: 40px -34px 0 0 #fff, -28px -6px 0 -2px #fff,
+    -24px 17px 0 -6px #fff, -5px 25px 0 -10px #fff;
+}
+
+.domainpersondatacontainer {
+  width: 60%;
+
+  height: 100%;
+
+  box-sizing: border-box;
+
+  align-self: flex-start;
+
+  display: flex;
+}
+
+.domainpersondataname {
+  font-size: 15px;
+  margin-bottom: 3px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.domainpersondatapoints {
+  font-size: 13px;
+}
+.knowledgepersondatacontainer {
+  box-sizing: border-box;
+  width: 40%;
+  align-self: flex-start;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 3px dashed #eee;
+  color: #eeeeee;
+}
+
+.quotesoldiercontainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  border-left: 5px solid #4e0000;
+  border-right: 5px solid #4e0000;
+  align-items: center;
+}
+
+@media only screen and (max-width: 900px) {
+  .domainpersondatacontainer {
+    width: 100%;
+
+    padding-bottom: 1px;
+  }
+  .knowledgepersondatacontainer {
+    width: 100%;
+    border-left: 0px solid white;
+    border-top: 3px dashed #eee;
+    align-self: center;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .quoteContainer {
+    width: 100%;
+  }
+
+  .sideLimit {
+    display: block;
+    width: 25px;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .islamiccolumnclass {
+    display: none;
+  }
+  .quotesoldiercontainer {
+    border-left: 0px solid #4e0000;
+    border-right: 0px solid #4e0000;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .domainpersondataname {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+
+  .domainpersondatapoints {
+    font-size: 9px;
+  }
+}

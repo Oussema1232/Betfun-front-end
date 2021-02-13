@@ -7,25 +7,30 @@ import Betfunalllogo from "../commun/logos/betfunalllogo";
 import "./style.css";
 import Navbar from "../components/navbar/navbar";
 import BetdomainNavbar from "../components/navbar/betdomainNavbar";
-import Welcome from "./welcome";
+import Knowledge from "./knowledgescreen";
 import BetsScreen from "./betscreen";
+import WelcomeScreen from "./welcomeScreen";
+import Categoriesknowledge from "../components/questionsparts/categoriesbackdrop";
 
 class Mainscreen extends Component {
   render() {
     return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100%",
-          width: "100%",
-        }}
-      >
-        <Switch>
-          <Route path="/welcome" component={Welcome} />
-          <Route path="/game" component={BetsScreen} />
-        </Switch>
-      </div>
+      <>
+        <Navbar />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+
+            width: "100%",
+          }}
+        >
+          <Switch>
+            <Route path="/betfun/welcome" component={WelcomeScreen} />
+            <Route path="/betfun/game" component={BetsScreen} />
+          </Switch>
+        </div>
+      </>
     );
   }
 }

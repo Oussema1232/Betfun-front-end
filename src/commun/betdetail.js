@@ -162,6 +162,7 @@ export default function Betdetail(props) {
               value={guess}
               name="guess"
               onChange={handleGuessChange}
+              disabled={props.disabled}
             >
               {props.firstempty && <option value=""></option>}
               {props.guesseslist.map((guess) => (

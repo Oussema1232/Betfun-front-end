@@ -14,14 +14,14 @@ import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Spincrescentcomponent from "../../commun/logos/spincrescentcomponent";
+
 import TabPanel from "../../commun/panelTab";
-import Usermoonavatar from "../../commun/usermoonavatar";
+import SkullFixture from "../../commun/skulldata";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-
+    paddingBottom: 20,
     boxSizing: "border-box",
 
     display: "flex",
@@ -64,8 +64,16 @@ export default function Fixtures(props) {
   const loadgameweeks = useSelector(
     (state) => state.betfundata.gameweeks.loading
   );
+  const gameweeksError = useSelector(
+    (state) => state.betfundata.gameweeks.errors.message
+  );
+
   const matches = useSelector((state) => state.betfundata.matches.list);
   const loadmatches = useSelector((state) => state.betfundata.matches.loading);
+  const matchesError = useSelector(
+    (state) => state.betfundata.matches.errors.message
+  );
+
   const currentdomain = useSelector(
     (state) => state.betfundata.currentdomain.data
   );
@@ -87,196 +95,156 @@ export default function Fixtures(props) {
   return (
     <div style={{ marginTop: 100, backgroundColor: "#ede5e5" }}>
       {loadgameweeks || loadmatches ? (
+        <SkullFixture flexDirection="column">
+          <Skeleton animation="pulse" variant="text" height={24} width={60} />
+        </SkullFixture>
+      ) : (
         <>
-          <div className={classes.root}>
-            <div
-              style={{
-                width: "100%",
-                height: "30vh",
-                position: "absolute",
-                display: "flex",
-
-                alignItems: "center",
-              }}
-            >
-              <div style={{ width: 100, marginRight: 5, marginLeft: 10 }}></div>
+          {matchesError || gameweeksError ? (
+            <div className="loadingerrorMessage">
               <div
+                className="betstabLine headerBets"
                 style={{
-                  flexGrow: 1,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  fontSize: 20,
+                  backgroundColor: "#ede5e5",
+                  border: "none",
+                  fontWeight: "bold",
                 }}
               >
-                <Spincrescentcomponent color="#070427" size="2x" />
+                {gameweeksError} ...
+              </div>
+              <div
+                className="betstabLine headerBets"
+                style={{
+                  fontSize: 20,
+                  backgroundColor: "#ede5e5",
+                  border: "none",
+                  fontWeight: "bold",
+                }}
+              >
+                {matchesError} ...
               </div>
             </div>
-            <Skeleton
-              animation="pulse"
-              variant="rect"
-              height={224}
-              className={classes.faketabs}
-            />
-            <div
-              style={{
-                flexGrow: 1,
-                display: "flex",
-                flexDirection: "column",
-                height: "100%",
-              }}
-            >
-              <Skeleton
-                animation="pulse"
-                variant="text"
-                height={24}
-                width={60}
-              />
+          ) : (
+            <div className={classes.root}>
+              <Tabs
+                orientation="vertical"
+                variant="scrollable"
+                indicatorColor="primary"
+                className={classes.tabs}
+                value={
+                  gameweeks[0] && !gameweekvalue.id
+                    ? gameweeks[0].id
+                    : gameweekvalue.id
+                }
+                aria-label="Vertical tabs example"
+              >
+                {gameweeks.map((g) => (
+                  <Tab
+                    label={g.name}
+                    value={g.id}
+                    onClick={() => setGameweekvalue(g)}
+                    className={classes.tab}
+                  />
+                ))}
+              </Tabs>
+              <div className="betsTableAndSelectContainer">
+                <div style={{ marginBottom: 10, fontWeight: "bold" }}>
+                  {props.match.params.seasonname}
+                </div>
 
-              <Skeleton
-                animation="pulse"
-                variant="rect"
-                height={40}
-                style={{
-                  flexGrow: 1,
-                  marginTop: 10,
-                  borderBottom: `2px solid #e6ab2d`,
-                  borderTop: `2px solid #e6ab2d`,
-                }}
-              />
-              {[1, 2, 3, 4, 5].map((s) => (
-                <Skeleton
-                  key={s}
-                  animation="pulse"
-                  variant="rect"
-                  height={40}
-                  style={{
-                    flexGrow: 1,
-
-                    borderBottom: `1px solid white`,
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        </>
-      ) : (
-        <div className={classes.root}>
-          <Tabs
-            orientation="vertical"
-            variant="scrollable"
-            indicatorColor="primary"
-            className={classes.tabs}
-            value={
-              gameweeks[0] && !gameweekvalue.id
-                ? gameweeks[0].id
-                : gameweekvalue.id
-            }
-            aria-label="Vertical tabs example"
-          >
-            {gameweeks.map((g) => (
-              <Tab
-                label={g.name}
-                value={g.id}
-                onClick={() => setGameweekvalue(g)}
-                className={classes.tab}
-              />
-            ))}
-          </Tabs>
-          <div className="betsTableAndSelectContainer">
-            <div style={{ marginBottom: 10, fontWeight: "bold" }}>
-              {props.match.params.seasonname}
-            </div>
-
-            <div className="betsTableContainer">
-              {matches.map((m) => (
-                <TabPanel
-                  value={
-                    gameweeks[0] && !gameweekvalue.id
-                      ? gameweeks[0].id
-                      : gameweekvalue.id
-                  }
-                  index={m.gameweekId}
-                  isclass={true}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      marginTop: 10,
-                      fontWeight: "bold",
-                      // border: "1px solid yellow",
-                    }}
-                  >
-                    {m.days.map((matche) => (
+                <div className="betsTableContainer">
+                  {matches.map((m) => (
+                    <TabPanel
+                      value={
+                        gameweeks[0] && !gameweekvalue.id
+                          ? gameweeks[0].id
+                          : gameweekvalue.id
+                      }
+                      index={m.gameweekId}
+                      isclass={true}
+                    >
                       <div
                         style={{
                           display: "flex",
                           flexDirection: "column",
+                          marginTop: 10,
+                          fontWeight: "bold",
+                          // border: "1px solid yellow",
                         }}
                       >
-                        <div className="betstabLine headerBets">
-                          {matche.day}
-                        </div>
-
-                        {matche.matches.map((mtch) => (
-                          <div className="betstabLine">
-                            <div
-                              className="betsTabCellule"
-                              style={{
-                                width: "45%",
-
-                                // border: "1px solid red",
-                                justifyContent: "flex-end",
-                              }}
-                            >
-                              <div>{mtch.team1}</div>
-                              <img
-                                src="../../../../../csslogo.png"
-                                style={{
-                                  width: 25,
-                                  marginLeft: 5,
-                                  marginRight: 5,
-                                }}
-                              />
+                        {m.days.map((matche) => (
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                            }}
+                          >
+                            <div className="betstabLine headerBets">
+                              {matche.day}
                             </div>
-                            <div
-                              className="betsTabCellule playedatBetTime"
-                              style={{
-                                width: "10%",
-                                fontWeight: "normal",
 
-                                wordBreak: "normal",
-                              }}
-                            >
-                              {mtch.time}
-                            </div>
-                            <div
-                              className="betsTabCellule"
-                              style={{
-                                width: "45%",
-                                justifyContent: "flex-start",
-                              }}
-                            >
-                              <img
-                                src="../../../../../csslogo.png"
-                                style={{
-                                  width: 25,
-                                  marginLeft: 5,
-                                  marginRight: 5,
-                                }}
-                              />
-                              <div>{mtch.team2}</div>
-                            </div>
+                            {matche.matches.map((mtch) => (
+                              <div className="betstabLine">
+                                <div
+                                  className="betsTabCellule"
+                                  style={{
+                                    width: "45%",
+
+                                    // border: "1px solid red",
+                                    justifyContent: "flex-end",
+                                  }}
+                                >
+                                  <div>{mtch.team1}</div>
+                                  <img
+                                    src="../../../../../csslogo.png"
+                                    style={{
+                                      width: 25,
+                                      marginLeft: 5,
+                                      marginRight: 5,
+                                    }}
+                                  />
+                                </div>
+                                <div
+                                  className="betsTabCellule playedatBetTime"
+                                  style={{
+                                    width: "10%",
+                                    fontWeight: "normal",
+
+                                    wordBreak: "normal",
+                                  }}
+                                >
+                                  {mtch.time}
+                                </div>
+                                <div
+                                  className="betsTabCellule"
+                                  style={{
+                                    width: "45%",
+                                    justifyContent: "flex-start",
+                                  }}
+                                >
+                                  <img
+                                    src="../../../../../csslogo.png"
+                                    style={{
+                                      width: 25,
+                                      marginLeft: 5,
+                                      marginRight: 5,
+                                    }}
+                                  />
+                                  <div>{mtch.team2}</div>
+                                </div>
+                              </div>
+                            ))}
                           </div>
                         ))}
                       </div>
-                    ))}
-                  </div>
-                </TabPanel>
-              ))}
+                    </TabPanel>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          )}
+        </>
       )}
     </div>
   );

@@ -7,6 +7,7 @@ export const leagueSlice = createSlice({
   name: "leagues",
   initialState: {
     list: [],
+    monthsPlayedatdomain: [],
     loading: false,
     errors: {},
     onsuccess: {},
@@ -14,6 +15,8 @@ export const leagueSlice = createSlice({
   reducers: {
     leaguesRequested: (state, action) => {
       state.loading = true;
+      state.monthsPlayedatdomain = [];
+      state.list = [];
       state.onsuccess = {};
       state.errors = {};
     },
@@ -23,6 +26,9 @@ export const leagueSlice = createSlice({
     },
     leaguesReceived: (state, action) => {
       state.list = action.payload.data;
+      if (state.list.length >= 1) {
+        state.monthsPlayedatdomain = state.list[0].months;
+      }
       state.loading = false;
       state.onsuccess.message = action.payload.message;
     },

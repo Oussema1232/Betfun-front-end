@@ -10,8 +10,10 @@ export const betdetailSlice = createSlice({
     list: [],
     souslist: [],
     loading: false,
+    updatedetailsLoading: false,
     errors: {},
     onsuccess: {},
+    onUpdatesuccess: {},
   },
   reducers: {
     betdetailsRequested: (state, action) => {
@@ -20,14 +22,6 @@ export const betdetailSlice = createSlice({
       state.souslist = [];
       state.onsuccess = {};
       state.errors = {};
-    },
-
-    sousListBetdetailsUpdated: (state, action) => {
-      for (let i = 0; i < state.souslist.length; i++) {
-        if (state.souslist[i].idMatch == action.payload.idMatch) {
-          state.souslist[i].guess = action.payload.guess;
-        }
-      }
     },
 
     betdetailsRequestFail: (state, action) => {
@@ -47,8 +41,33 @@ export const betdetailSlice = createSlice({
         };
       }
     },
+    sousListBetdetailsUpdateRequest: (state, action) => {
+      state.updatedetailsLoading = true;
+      state.onUpdatesuccess = {};
+      state.errors = {};
+    },
+    sousListBetdetailsUpdated: (state, action) => {
+      for (let i = 0; i < state.souslist.length; i++) {
+        if (state.souslist[i].idMatch == action.payload.idMatch) {
+          state.souslist[i].guess = action.payload.guess;
+        }
+      }
+    },
+
+    sousListBetdetailsBackendUpdated: (state, action) => {
+      state.updatedetailsLoading = false;
+      state.onUpdatesuccess.message = "Updated successfully";
+    },
+
+    sousListBetdetailsUpdateRequestFail: (state, action) => {
+      state.updatedetailsLoading = false;
+      state.onUpdatesuccess = {};
+
+      state.errors.message = "Couldn't update your bet";
+    },
     betdetailServerFail: (state, action) => {
       state.loading = false;
+      state.updatedetailsLoading = false;
     },
   },
 });
@@ -59,6 +78,9 @@ export const {
   betdetailsRequestFail,
   betdetailServerFail,
   sousListBetdetailsUpdated,
+  sousListBetdetailsUpdateRequest,
+  sousListBetdetailsBackendUpdated,
+  sousListBetdetailsUpdateRequestFail,
 } = betdetailSlice.actions;
 const url = config.betdetails;
 
@@ -77,6 +99,10 @@ export const loadBetdetails = (parametres) => (dispatch, getState) => {
 export const editbetdetailsguesses = (id, guesses) =>
   actions.apiCallBegan({
     url: `${url}/${id}`,
+    onStart: sousListBetdetailsUpdateRequest.type,
+    onSuccess: sousListBetdetailsBackendUpdated.type,
+    onError: sousListBetdetailsUpdateRequestFail.type,
+    onServerFail: betdetailServerFail.type,
     method: "put",
     data: { betdetails: guesses },
   });

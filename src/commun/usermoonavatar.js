@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 export default function Usermoonavatar({
   dimentionmoon,
@@ -6,7 +7,8 @@ export default function Usermoonavatar({
   src,
   alt,
   boxshadowcolor,
-  
+
+  style,
 }) {
   return (
     <div
@@ -18,11 +20,10 @@ export default function Usermoonavatar({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        boxShadow: `-22px 0px 0 0 ${boxshadowcolor}`  ,
+        boxShadow: `-22px 0px 0 0 ${boxshadowcolor}`,
       }}
-      
     >
-      <img
+      {/* <img
         src={src}
         alt={alt}
         style={{
@@ -31,7 +32,26 @@ export default function Usermoonavatar({
           borderRadius: "50%",
           userSelect: "none",
         }}
-      />
+      /> */}
+      <div
+        style={{
+          backgroundColor: "#4c364d",
+          width: dimentionimage,
+          height: dimentionimage,
+          borderRadius: "50%",
+          userSelect: "none",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "#eceff1",
+          fontSize: 25,
+          border: "1px solid #263238",
+          fontWeight: "bold",
+          ...style,
+        }}
+      >
+        H
+      </div>
     </div>
   );
 }

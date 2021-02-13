@@ -1,43 +1,3 @@
-// import React, { Component } from "react";
-// import { Link } from "react-router-dom";
-// import MyDrawer from "../../commun/drawer";
-
-// export default class DrawerDomainItems extends Component {
-//   more = [
-//     {
-//       id: 0,
-//       name: "Leagues",
-//       pathname: "/yourgame/yourleagues",
-//     },
-//     {
-//       id: 1,
-//       name: "Bet",
-//     },
-//     {
-//       id: 2,
-//       name: "Fixtures",
-//     },
-//     {
-//       id: 3,
-//       name: "Calendar",
-//     },
-//     {
-//       id: 4,
-//       name: "Titles",
-//     },
-//   ];
-//   render() {
-//     return (
-//       <MyDrawer
-//         handleDrawerClose={this.props.handleDrawerClose}
-//         open={this.props.open}
-//         title={{ name: "Betfun" }}
-//         content={this.more}
-//       />
-//     );
-//   }
-// }
-
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -58,19 +18,26 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import "./style.css";
 
 export default function MyDrawer(props) {
+  const currentdomain = useSelector(
+    (state) => state.betfundata.currentdomain.data
+  );
+
   const more = [
     {
       id: 0,
-      domainnavbaritem: "Leagues",
-      pathname: "/yourgame/yourleagues",
+
+      domainnavbaritem: "Bet",
+      pathname: `/betfun/game/bets/${currentdomain.name}/${currentdomain.id}`,
     },
     {
       id: 1,
-      domainnavbaritem: "Bet",
+      domainnavbaritem: "Leagues",
+      pathname: `/betfun/game/leagues/${currentdomain.name}/${currentdomain.id}`,
     },
     {
       id: 2,
       domainnavbaritem: "Fixtures",
+      pathname: `/betfun/game/fixtures/${currentdomain.name}/${props.theLatestseason.name}/${currentdomain.id}/${props.theLatestseason.id}`,
     },
     {
       id: 3,
@@ -78,13 +45,14 @@ export default function MyDrawer(props) {
     },
     {
       id: 4,
+      domainnavbaritem: "Levels",
+      pathname: `/betfun/game/levels/${currentdomain.name}/${currentdomain.id}`,
+    },
+    {
+      id: 5,
       domainnavbaritem: "Titles",
     },
   ];
-
-  const currentdomain = useSelector(
-    (state) => state.betfundata.currentdomain.data
-  );
 
   const drawerWidth = 275;
   const useStyles = makeStyles((theme) => ({
@@ -170,9 +138,6 @@ export default function MyDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
 
-  const currentdomainId = useSelector(
-    (state) => state.betfundata.currentdomain.data.id
-  );
   return (
     <div className="drawer">
       <Drawer
@@ -209,7 +174,7 @@ export default function MyDrawer(props) {
         <Divider />
         {more.map((c, index) => (
           <>
-            {c.id !== 3 ? (
+            {c.id !== 3 && c.id !== 5 ? (
               <Link
                 key={c.id}
                 to={c.pathname && c.pathname}
@@ -229,17 +194,53 @@ export default function MyDrawer(props) {
                 >
                   <div>{c.domainnavbaritem}</div>
                 </AccordionSummary>
-                <AccordionDetails className={classes.accordiondetails}>
-                  {props.seasons.map((s) => (
-                    <Link
-                      key={s.id}
-                      style={{ textDecoration: "none" }}
-                      to={`/game/calendar/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
-                    >
-                      <div className="drawerseason">{s.name}</div>
-                    </Link>
-                  ))}
-                </AccordionDetails>
+                {c.id == 3 ? (
+                  <AccordionDetails className={classes.accordiondetails}>
+                    {props.seasons.map((s) => (
+                      <Link
+                        key={s.id}
+                        style={{ textDecoration: "none" }}
+                        to={`/game/calendar/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
+                      >
+                        <div className="drawerseason">{s.name}</div>
+                      </Link>
+                    ))}
+                  </AccordionDetails>
+                ) : (
+                  <AccordionDetails className={classes.accordiondetails}>
+                    {props.theseasonsError ? (
+                      <div
+                        className="drawerseason"
+                        style={{ backgroundColor: "#fbf9f9" }}
+                      >
+                        {props.theseasonsError}
+                      </div>
+                    ) : (
+                      <>
+                        {props.theFinishedseasons.length >= 1 ? (
+                          <>
+                            {props.theFinishedseasons.map((s) => (
+                              <Link
+                                key={s.id}
+                                style={{ textDecoration: "none" }}
+                                to={`/game/titles/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
+                              >
+                                <div className="drawerseason">{s.name}</div>
+                              </Link>
+                            ))}
+                          </>
+                        ) : (
+                          <div
+                            className="drawerseason"
+                            style={{ backgroundColor: "#cdccd3" }}
+                          >
+                            Ongoing seasons, no titles yet
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </AccordionDetails>
+                )}
               </Accordion>
             )}
           </>

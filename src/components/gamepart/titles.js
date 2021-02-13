@@ -14,6 +14,7 @@ import Tab from "@material-ui/core/Tab";
 import TabPanel from "../../commun/panelTab";
 import Usermoonavatar from "../../commun/usermoonavatar";
 import Crown from "../../commun/logos/crown.js";
+import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
 import SultanComponent from "../../commun/sultan.js";
 import KingsComponent from "../../commun/king.js";
 
@@ -48,6 +49,10 @@ export default function Titles(props) {
   };
   const sultan = useSelector((state) => state.betfundata.titles.sultan);
   const kings = useSelector((state) => state.betfundata.titles.list);
+  const loadingTitles = useSelector((state) => state.betfundata.titles.loading);
+  const titlesErrors = useSelector(
+    (state) => state.betfundata.titles.errors.message
+  );
   const countriesinvolved = useSelector(
     (state) => state.betfundata.titles.countriesInvolvedLastSeason
   );
@@ -61,59 +66,92 @@ export default function Titles(props) {
   }, [props.match.params.seasonId, props.match.params.domainId]);
 
   return (
-    <div
-      style={{
-        marginTop: 100,
-        color: "#eeeeee",
-        backgroundColor: "#2e0000",
-        minHeight: "100vh",
-      }}
-    >
-      <SultanComponent
-        sex="Male"
-        countrylogo="../../../../../tunisianflag.png"
-        profilepicture="../../../../../cr7profile.jpg"
-        username={sultan.username}
-        points={2600}
-        NTSultan={sultan.NTSultan}
-        season={props.match.params.seasonname}
-      />
-      <div className="kingsBar">
-        <div>
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="choosecountry" style={{ color: "#eeeeee" }}>
-              Country
-            </InputLabel>
-            <NativeSelect
-              value={choosecountry}
-              className={classes.select}
-              onChange={handleChangeSort}
-              inputProps={{
-                name: "chosencountry",
-                id: "choosecountry",
-                classes: {
-                  icon: classes.icon,
-                },
+    <>
+      {loadingTitles ? (
+        <div style={{ paddingLeft: "50%", paddingTop: "20%" }}>
+          <Spincrescentcomponenet size="2x" color="#070427" />
+        </div>
+      ) : (
+        <>
+          {titlesErrors ? (
+            <div className="loadingerrorMessage">
+              {titlesErrors && (
+                <div
+                  className="betstabLine headerBets"
+                  style={{
+                    fontSize: 20,
+                    backgroundColor: "#ede5e5",
+                    border: "none",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {titlesErrors}...
+                </div>
+              )}
+            </div>
+          ) : (
+            <div
+              style={{
+                marginTop: 100,
+                color: "#eeeeee",
+                backgroundColor: "#2e0000",
+                minHeight: "100vh",
               }}
             >
-              <option
-                value="All"
-                style={{ backgroundColor: "#e6ab2d", color: "#eeeeee" }}
-              >
-                All
-              </option>
-              {countriesinvolved.map((c) => (
-                <option value={c.id} style={{ backgroundColor: "#e6ab2d" }}>
-                  {c.name}
-                </option>
-              ))}
-            </NativeSelect>
-          </FormControl>
-        </div>
-        <div className="kingsqueentitle">Kings / Queens</div>
-      </div>
-
-      <KingsComponent kings={kings} countryId={choosecountry} />
-    </div>
+              <SultanComponent
+                sex="Male"
+                countrylogo="../../../../../tunisianflag.png"
+                profilepicture="../../../../../cr7profile.jpg"
+                username={sultan.username}
+                points={2600}
+                NTSultan={sultan.NTSultan}
+                season={props.match.params.seasonname}
+              />
+              <div className="kingsBar">
+                <div>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel
+                      htmlFor="choosecountry"
+                      style={{ color: "#eeeeee" }}
+                    >
+                      Country
+                    </InputLabel>
+                    <NativeSelect
+                      value={choosecountry}
+                      className={classes.select}
+                      onChange={handleChangeSort}
+                      inputProps={{
+                        name: "chosencountry",
+                        id: "choosecountry",
+                        classes: {
+                          icon: classes.icon,
+                        },
+                      }}
+                    >
+                      <option
+                        value="All"
+                        style={{ backgroundColor: "#e6ab2d", color: "#eeeeee" }}
+                      >
+                        All
+                      </option>
+                      {countriesinvolved.map((c) => (
+                        <option
+                          value={c.id}
+                          style={{ backgroundColor: "#e6ab2d" }}
+                        >
+                          {c.name}
+                        </option>
+                      ))}
+                    </NativeSelect>
+                  </FormControl>
+                </div>
+                <div className="kingsqueentitle">Kings / Queens</div>
+              </div>
+              <KingsComponent kings={kings} countryId={choosecountry} />
+            </div>
+          )}
+        </>
+      )}
+    </>
   );
 }

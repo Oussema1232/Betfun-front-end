@@ -5,8 +5,8 @@ export default function Cheer() {
   const [cheer, setCheer] = useState(false);
   return (
     <motion.div
-      whileHover={{ scale: 2.5, y: -20 }}
-      whileTap={{ scale: 2.5, y: -20 }}
+      whileHover={{ scale: 2, y: -20 }}
+      whileTap={{ scale: 2, y: -20 }}
       className="cheerContainer"
     >
       <svg onClick={() => setCheer(!cheer)} viewBox="0 0 50.16 67.53">
