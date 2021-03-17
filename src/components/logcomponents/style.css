@@ -1,10 +1,10 @@
 .textclass {
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: white;
   font-size: medium;
   padding-left: 3px;
-  color: white;
+  color: black;
   flex-grow: 1;
-  border: 1px solid rgb(20, 19, 19);
+  border: 1px solid #cccccc;
   height: 37px;
 
   border-bottom-right-radius: 1px;
@@ -28,7 +28,7 @@
   font-size: medium;
   color: white;
   margin-top: 10px;
-  border: 1px solid rgb(20, 19, 19);
+  border: 1px solid #cccccc;
   height: 37px;
   border-radius: 3px;
   border-bottom-right-radius: 1;
@@ -37,10 +37,10 @@
 }
 .selectclass {
   width: 100%;
-  background-color: rgba(0, 0, 0, 1);
+  background-color: white;
   font-size: medium;
-  color: white;
-  border: 1px solid rgb(20, 19, 19);
+  color: #171717;
+  border: 1px solid #2e383f;
   height: 37px;
   border-radius: 3px;
   border-bottom-right-radius: 1;
@@ -50,14 +50,16 @@
 
 .buttonclass {
   width: 96%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
   height: 40px;
-  font-weight: bolder;
-  font-size: 22px;
+  font-weight: bold;
+  font-size: 20px;
   margin-top: 10px;
-  border: 5px solid#4e0000;
   border-radius: 3px;
-  background-color: #eaebdf;
-  color: #4e0000;
+  background-color: #07617d;
+  color: #fbfbfb;
   cursor: pointer;
   user-select: none;
 }
@@ -67,7 +69,6 @@
   padding-left: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
-
   top: 5px;
   right: 10px;
   position: absolute;
@@ -93,10 +94,10 @@
   font-size: 16px;
   font-weight: bold;
   margin-top: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.0942176);
+
   border-radius: 3px;
-  background-color: #e6ab2d;
-  color: #ffffff;
+  background-color: #07617d;
+  color: #fbfbfb;
   cursor: pointer;
 }
 

@@ -19,10 +19,14 @@ export const domainSlice = createSlice({
     },
     domainsRequestFail: (state, action) => {
       state.loading = false;
-      state.errors.message = "Couldn't load domains";
+      state.errors.message = action.payload.message;
     },
     domainsReceived: (state, action) => {
       state.list = action.payload.data;
+      state.loading = false;
+      state.onsuccess.message = action.payload.message;
+    },
+    domainUpdated: (state, action) => {
       state.loading = false;
       state.onsuccess.message = action.payload.message;
     },
@@ -35,6 +39,7 @@ export const domainSlice = createSlice({
 const {
   domainsReceived,
   domainsRequested,
+  domainUpdated,
   domainsRequestFail,
   domainServerFail,
 } = domainSlice.actions;
@@ -51,11 +56,44 @@ export const loadDomains = () => (dispatch, getState) => {
     })
   );
 };
-
-export const selectCountryById = (userId) =>
-  createSelector(
-    (state) => state.betfundata.domains.list,
-    (users) => users.filter((user) => user.id === userId)
+export const updateDomain = (parametres, domain) => (dispatch, getState) => {
+  return dispatch(
+    actions.apiCallBegan({
+      onStart: domainsRequested.type,
+      onError: domainsRequestFail.type,
+      onSuccess: domainUpdated.type,
+      onServerFail: domainServerFail.type,
+      url: url + parametres,
+      method: "put",
+      data: domain,
+    })
   );
+};
+export const postDomain = (domain) => (dispatch, getState) => {
+  return dispatch(
+    actions.apiCallBegan({
+      onStart: domainsRequested.type,
+      onError: domainsRequestFail.type,
+      onSuccess: domainUpdated.type,
+      onServerFail: domainServerFail.type,
+      url: url,
+      method: "post",
+      data: domain,
+    })
+  );
+};
+
+export const deleteDomain = (params) => (dispatch, getState) => {
+  return dispatch(
+    actions.apiCallBegan({
+      onStart: domainsRequested.type,
+      onError: domainsRequestFail.type,
+      onSuccess: domainUpdated.type,
+      onServerFail: domainServerFail.type,
+      url: url + params,
+      method: "delete",
+    })
+  );
+};
 
 export default domainSlice.reducer;

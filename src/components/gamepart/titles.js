@@ -80,7 +80,7 @@ export default function Titles(props) {
                   className="betstabLine headerBets"
                   style={{
                     fontSize: 20,
-                    backgroundColor: "#ede5e5",
+                    backgroundColor: "#ececeb",
                     border: "none",
                     fontWeight: "bold",
                   }}
@@ -94,16 +94,15 @@ export default function Titles(props) {
               style={{
                 marginTop: 100,
                 color: "#eeeeee",
-                backgroundColor: "#2e0000",
+                backgroundColor: "#ececeb",
                 minHeight: "100vh",
               }}
             >
               <SultanComponent
                 sex="Male"
                 countrylogo="../../../../../tunisianflag.png"
-                profilepicture="../../../../../cr7profile.jpg"
-                username={sultan.username}
-                points={2600}
+                sultanusername={sultan.username}
+                points={sultan.points}
                 NTSultan={sultan.NTSultan}
                 season={props.match.params.seasonname}
               />
@@ -112,7 +111,7 @@ export default function Titles(props) {
                   <FormControl className={classes.formControl}>
                     <InputLabel
                       htmlFor="choosecountry"
-                      style={{ color: "#eeeeee" }}
+                      style={{ color: "#000" }}
                     >
                       Country
                     </InputLabel>
@@ -147,7 +146,22 @@ export default function Titles(props) {
                 </div>
                 <div className="kingsqueentitle">Kings / Queens</div>
               </div>
-              <KingsComponent kings={kings} countryId={choosecountry} />
+              {kings[0] ? (
+                <KingsComponent kings={kings} countryId={choosecountry} />
+              ) : (
+                <div
+                  style={{
+                    fontSize: 30,
+                    marginTop: 20,
+                    width: "90%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  There is no kings
+                </div>
+              )}
             </div>
           )}
         </>

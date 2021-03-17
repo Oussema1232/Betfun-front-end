@@ -146,7 +146,7 @@ export default function Domainpersonaldata() {
           <div
             style={{
               width: "33%",
-              color: "#eeeeee",
+              color: "black",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -157,7 +157,7 @@ export default function Domainpersonaldata() {
           <div
             style={{
               width: "33%",
-              color: "#eeeeee",
+              color: "black",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",

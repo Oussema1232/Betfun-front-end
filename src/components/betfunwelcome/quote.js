@@ -1,30 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteRight, faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 import knowledgeback from "../../img/knowledgeback2.jpg";
 import "./style.css";
-import Islamiccolumn from "../../commun/logos/islamiccolumn";
+import Islamiccolumn from "../../commun/logos/islamiccolumn2";
 
 export default function Quote(props) {
   return (
-    <div
-     className="quotesoldiercontainer"
-    >
+    <div className="quotesoldiercontainer">
       <div className="islamiccolumnclass">
-        <Islamiccolumn x={[-5, 5]} />
-        <AnimatePresence
-          initial={{ y: -5, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 150 }}
-          exit={{ y: -5, opacity: 0 }}
-        >
-          {props.showbubble && (
-            <motion.div className="bubble">
-              Plz comme back Bettor, Betfun needs you
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <Islamiccolumn x={[-5, 5]} y={[0, 5, 0]} dance={false} />
       </div>
       <div className="sideLimit"></div>
       <div className="quoteContainer">
@@ -34,7 +20,7 @@ export default function Quote(props) {
             height: 90,
             marginTop: -45,
             marginLeft: -45,
-            backgroundColor: "#ede5e5",
+            backgroundColor: "#ececeb",
             alignSelf: "flex-start",
             display: "flex",
             justifyContent: "center",
@@ -78,7 +64,7 @@ export default function Quote(props) {
           style={{
             width: 90,
             height: 90,
-            backgroundColor: "#ede5e5",
+            backgroundColor: "#ececeb",
             alignSelf: "flex-end",
             marginBottom: -45,
             marginRight: -45,
@@ -96,7 +82,7 @@ export default function Quote(props) {
         </div>
       </div>
       <div className="islamiccolumnclass">
-        <Islamiccolumn x={[-5, 5]} />
+        <Islamiccolumn x={[-5, 5]} y={[0, 5, 0]} dance={false} />
       </div>
       <div className="sideLimit"></div>
     </div>

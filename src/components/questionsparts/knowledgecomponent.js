@@ -12,7 +12,7 @@ export default function KnowledgeComponent(props) {
         backgroundImage: `url(${back})`,
         backgroundRepeat: "repeat",
         width: "100%",
-        fontFamily: "'Indie Flower', cursive",
+
         minHeight: "100vh",
         display: "flex",
         boxSizing: "border-box",

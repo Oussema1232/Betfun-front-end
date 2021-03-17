@@ -22,7 +22,7 @@ class Form extends Component {
     _.forEach(data, function (value, key) {
       dataaftertrim[key] = value.trim();
     });
-    
+
     const { error } = Joi.validate(dataaftertrim, this.schema, options);
     if (!error) return null;
     const errors = {};
@@ -86,14 +86,14 @@ class Form extends Component {
 
   renderButton = (label, classButton) => {
     return (
-      <button
+      <div
         type="submit"
         className={classButton}
         onClick={this.onSubmit}
         // disabled={this.validation()}
       >
-        {label}
-      </button>
+        <div>{label}</div>
+      </div>
     );
   };
 

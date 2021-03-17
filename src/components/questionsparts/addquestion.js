@@ -197,6 +197,8 @@ export default function Addquestion(props) {
         style={{
           display: "flex",
           flexDirection: "column",
+          justifyContent: "space-around",
+          flexGrow: 1,
           width: "98%",
         }}
       >
@@ -207,7 +209,7 @@ export default function Addquestion(props) {
           id="question"
           name="question"
           multiline
-          rows={4}
+          rows={6}
           rowsMax={8}
           variant="outlined"
           InputProps={{ className: classes.input }}
@@ -222,7 +224,7 @@ export default function Addquestion(props) {
           id="answer"
           name="answer"
           multiline
-          rowsMax={2}
+          rowsMax={3}
           variant="outlined"
           placeholder="Answer"
           InputProps={{ className: classes.input }}

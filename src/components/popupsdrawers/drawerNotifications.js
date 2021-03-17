@@ -23,7 +23,7 @@ export default class DrawerNotifications extends Component {
       name: "Settings",
       icon: (
         <FontAwesomeIcon
-          color="#e6ab2d"
+          color="#f9a828"
           icon={faCog}
           size="lg"
           style={{ cursor: "pointer" }}
@@ -35,7 +35,7 @@ export default class DrawerNotifications extends Component {
       name: "Log out",
       icon: (
         <FontAwesomeIcon
-          color="#e6ab2d"
+          color="#f9a828"
           icon={faSignOutAlt}
           size="lg"
           style={{ cursor: "pointer" }}

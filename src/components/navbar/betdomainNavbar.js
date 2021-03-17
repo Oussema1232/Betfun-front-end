@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Skeleton from "@material-ui/lab/Skeleton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import DrawerDomainItems from "../popupsdrawers/drawerdomainitems";
@@ -31,27 +32,45 @@ class BetdomainNavbar extends Component {
       <div>
         <div className="betdomainNavbar">
           <div className="desktopDomainLogoNameContainer ">
-            <div
-              style={{
-                width: 50,
-                height: 50,
-                borderRadius: "50%",
-                backgroundColor: "white",
-                overflow: "hidden",
-              }}
-            >
-              <img
-                src="../../../../ftf.png"
-                alt="ftf"
+            {this.props.currentdomain.logo ? (
+              <div
                 style={{
                   width: 50,
                   height: 50,
                   borderRadius: "50%",
+                  backgroundColor: "white",
+                  overflow: "hidden",
                 }}
+              >
+                <img
+                  src={this.props.currentdomain.logo}
+                  alt={this.props.currentdomain.name}
+                  style={{
+                    width: 50,
+                    height: 50,
+                    borderRadius: "50%",
+                  }}
+                />
+              </div>
+            ) : (
+              <Skeleton
+                animation="pulse"
+                variant="circle"
+                height={50}
+                width={50}
               />
-            </div>
+            )}
             <div className="domainNameDesktop">
-              {this.props.currentdomain.name}
+              {this.props.currentdomain.name ? (
+                <div>{this.props.currentdomain.name}</div>
+              ) : (
+                <Skeleton
+                  animation="pulse"
+                  variant="text"
+                  height={24}
+                  width={90}
+                />
+              )}
             </div>
           </div>
           <div className="betdomainNavbarItemsContainerDesktop">
@@ -84,7 +103,7 @@ class BetdomainNavbar extends Component {
                 }
                 thepathname="calendar"
                 backgroundColor={
-                  !this.props.seasonsError ? "#ffcb05" : "#d10d2f"
+                  !this.props.seasonsError ? "#ffcb05" : "#f9a828"
                 }
                 color="#02010f"
                 link={!this.props.seasonsError ? true : false}
@@ -98,6 +117,22 @@ class BetdomainNavbar extends Component {
             >
               <div>Levels</div>
             </Link>
+            {this.props.currentprofile.id !== this.props.currentuser.id && (
+              <Link
+                to={`/betfun/game/stats/${this.props.currentdomain.name}/${this.props.currentdomain.id}/${this.props.currentprofile.username}/${this.props.currentprofile.id}`}
+                className="betdomainNavbarItem"
+              >
+                <div>Stats</div>
+              </Link>
+            )}
+            {true && (
+              <Link
+                to={`/betfun/game/teams/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
+                className="betdomainNavbarItem"
+              >
+                <div>Teams</div>
+              </Link>
+            )}
             <div>
               <Seasonspopup
                 link={
@@ -156,6 +191,8 @@ const mapDispatchToProps = { loadSeasons };
 
 const mapStateToProps = (state) => ({
   currentdomain: state.betfundata.currentdomain.data,
+  currentprofile: state.betfundata.currentprofile.data,
+  currentuser: state.betfundata.currentuser.data,
   seasons: state.betfundata.seasons.list,
   seasonsError: state.betfundata.seasons.errors.message,
   finishedseasons: seasonsFinished(state),

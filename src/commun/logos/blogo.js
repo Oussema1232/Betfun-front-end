@@ -708,7 +708,7 @@ export default function Blogo() {
 		c0.09-5.84,3.88-10.5,8.53-10.61c-3.36,0.13-6.09,3.52-6.15,7.75c-0.07,4.37,2.73,7.97,6.24,8.06s6.41-3.39,6.48-7.76
 		c0.06-4.23-2.55-7.75-5.91-8.04C45.67,12.54,49.31,17.38,49.22,23.22z"
           />
-          <g>
+          {/* <g>
             <ellipse
               transform="matrix(0.1217 -0.9926 0.9926 0.1217 -16.7854 117.0051)"
               class="b17"
@@ -757,8 +757,8 @@ export default function Blogo() {
             <ellipse class="b22" cx="59.63" cy="66.02" rx="0.63" ry="0.79" />
             <ellipse class="b22" cx="56.08" cy="65.6" rx="0.63" ry="0.79" />
             <ellipse class="b22" cx="58.46" cy="65.48" rx="0.63" ry="0.79" />
-          </g>
-          <g>
+          </g> */}
+          {/* <g>
             <ellipse
               transform="matrix(0.9993 -0.0387 0.0387 0.9993 -2.5955 0.8193)"
               class="b17"
@@ -792,8 +792,8 @@ export default function Blogo() {
               class="b21"
               d="M18.42,67.27c0.01,0.36,0.4,0.65,0.88,0.63c0.48-0.02,0.86-0.32,0.85-0.68c-0.01-0.36-0.4-0.65-0.88-0.63
 			c-0.1,0-0.2,0.02-0.29,0.05c-0.2,0.09-0.37,0.21-0.49,0.35C18.45,67.07,18.42,67.17,18.42,67.27z"
-            />
-            <ellipse class="b24" cx="20.47" cy="64.91" rx="0.64" ry="0.79" />
+            /> */}
+            {/* <ellipse class="b24" cx="20.47" cy="64.91" rx="0.64" ry="0.79" />
             <ellipse class="b24" cx="17.07" cy="69.03" rx="0.64" ry="0.79" />
             <ellipse class="b24" cx="18.13" cy="69.79" rx="0.64" ry="0.79" />
             <ellipse class="b25" cx="19.34" cy="70.09" rx="0.64" ry="0.79" />
@@ -806,9 +806,9 @@ export default function Blogo() {
             <ellipse class="b24" cx="22.69" cy="66.06" rx="0.64" ry="0.79" />
             <ellipse class="b24" cx="18.04" cy="65.41" rx="0.64" ry="0.79" />
             <ellipse class="b24" cx="21.63" cy="65.22" rx="0.64" ry="0.79" />
-            <ellipse class="b24" cx="19.24" cy="64.95" rx="0.64" ry="0.79" />
-          </g>
-          <g>
+            <ellipse class="b24" cx="19.24" cy="64.95" rx="0.64" ry="0.79" /> */}
+          {/* </g> */}
+          {/* <g>
             <ellipse
               transform="matrix(0.0412 -0.9992 0.9992 0.0412 -29.134 103.501)"
               class="b17"
@@ -964,7 +964,7 @@ export default function Blogo() {
               rx="0.66"
               ry="0.79"
             />
-          </g>
+          </g> */}
         </g>
       </svg>
     </div>

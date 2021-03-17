@@ -94,6 +94,8 @@ class Login extends Form {
         <div
           style={{
             backgroundColor: "#ede5e5",
+            backgroundColor: "#dee1ec",
+            backgroundColor: "#ececeb",
             width: "100%",
 
             // minHeight: "100vh",
@@ -110,7 +112,7 @@ class Login extends Form {
               width: !this.state.showmessage ? "27.3%" : "70%",
               minWidth: !this.state.showmessage ? 250 : 300,
 
-              backgroundColor: "#f5f5e5",
+              backgroundColor: "#ffffff",
               marginTop: !this.state.showmessage ? 20 : 70,
               padding: 10,
               borderRadius: 3,
@@ -155,6 +157,7 @@ class Login extends Form {
                     marginTop: 10,
                     userSelect: "none",
                     color: "#1769aa",
+                    color: "#07617d",
                     display: "block",
                     marginTop: 12,
                     fontWeight: "bold",

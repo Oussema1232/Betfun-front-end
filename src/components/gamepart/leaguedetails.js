@@ -1,30 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { loadLeaguedetails } from "../../features/leaguedetails/leaguedetailSlice";
+import { savecurrentProfile } from "../../features/currentprofile/currentprofileSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowCircleUp,
   faArrowCircleDown,
   faCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  sousListBetdetailsUpdated,
-  editbetdetailsguesses,
-} from "../../features/betdetails/betdetailSlice";
+
 import InputLabel from "@material-ui/core/InputLabel";
-import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
+
 import FormControl from "@material-ui/core/FormControl";
 import Skeleton from "@material-ui/lab/Skeleton";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import CodeModal from "../../commun/codeModal";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+
 import SkullLeaguedetails from "../../commun/skulldata";
-import TabPanel from "../../commun/panelTab";
-import Usermoonavatar from "../../commun/usermoonavatar";
-import Betdetail from "../../commun/betdetail";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 export default function BetdetailsList(props) {
   //get in component did mount or useeffect the bets of a certain domain
 
-  const [month, setMonth] = React.useState("");
+  const [month, setMonth] = useState("");
 
   const handleChangeMonth = (event) => {
     setMonth(event.target.value);
@@ -63,6 +58,10 @@ export default function BetdetailsList(props) {
 
   const currentdomain = useSelector(
     (state) => state.betfundata.currentdomain.data
+  );
+  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
+  const currentprofile = useSelector(
+    (state) => state.betfundata.currentprofile.data
   );
 
   const leaguedetails = useSelector(
@@ -244,16 +243,36 @@ export default function BetdetailsList(props) {
                     <div
                       className="betstabLine"
                       style={{
-                        backgroundColor: league.userId == 6 && " #e6ab2d",
+                        backgroundColor:
+                          league.userId == currentuser.id && " #e6ab2d",
                       }}
                     >
                       <div
+                        onClick={() => {
+                          dispatch(
+                            savecurrentProfile({
+                              id: league.userId,
+                              username: league.username,
+                            })
+                          );
+                        }}
                         className="betsTabCellule"
                         style={{
                           width: "25%",
+                          textDecoration: "none",
+                          color: "#02010f",
                         }}
                       >
-                        {league.username}
+                        <Link
+                          to={`/betfun/game/bets/${currentdomain.name}/${currentdomain.id}`}
+                          style={{
+                            width: "100%",
+                            textDecoration: "none",
+                            color: "#02010f",
+                          }}
+                        >
+                          {league.username}
+                        </Link>
                       </div>
                       <div
                         className="betsTabCellule"
@@ -330,7 +349,10 @@ export default function BetdetailsList(props) {
               </div>
             </div>
           )}
-          <CodeModal leagueId={props.match.params.leagueId} />
+
+          {currentuser.id == props.location.state.creatorId && (
+            <CodeModal leagueId={props.match.params.leagueId} />
+          )}
         </>
       )}
     </div>

@@ -4,9 +4,6 @@ import KnowledgeComponent from "../components/questionsparts/knowledgecomponent"
 
 import Categoriesknowledge from "../components/questionsparts/categoriesbackdrop";
 import Playround from "../components/questionsparts/playround2";
-import useSound from "use-sound";
-import music from "../sounds/openalllearn.mp3";
-import Player from "../commun/backgroundMusic";
 
 export default function Knowledge(props) {
   const [showcursor, setShowcursor] = useState(true);
@@ -15,33 +12,34 @@ export default function Knowledge(props) {
 
   return (
     <div
-      onTouchStart={() => {
-        setShowcursor(false);
-      }}
-      onMouseLeave={() => {
-        setShowcursor(false);
-      }}
-      onMouseEnter={() => setShowcursor(true)}
-      onMouseMove={(e) => {
-        const isitplayround = props.location.pathname.slice(
-          props.location.pathname.lastIndexOf("/") + 1
-        );
+      style={{ fontFamily: "'Indie Flower', cursive" }}
+      // onTouchStart={() => {
+      //   setShowcursor(false);
+      // }}
+      // onMouseLeave={() => {
+      //   setShowcursor(false);
+      // }}
+      // onMouseEnter={() => setShowcursor(true)}
+      // onMouseMove={(e) => {
+      //   const isitplayround = props.location.pathname.slice(
+      //     props.location.pathname.lastIndexOf("/") + 1
+      //   );
 
-        if (isitplayround == "playround") {
-          setShowcursor(false);
-        } else {
-          const mouseCursor = mouseCursorRef.current;
-          mouseCursor.style.top = e.pageY + "px";
-          mouseCursor.style.left = e.pageX + "px";
-        }
-      }}
+      //   if (isitplayround == "playround") {
+      //     setShowcursor(false);
+      //   } else {
+      //     const mouseCursor = mouseCursorRef.current;
+      //     mouseCursor.style.top = e.pageY + "px";
+      //     mouseCursor.style.left = e.pageX + "px";
+      //   }
+      // }}
     >
-      {showcursor && (
+      {/* {showcursor && (
         <div className="cursor" ref={mouseCursorRef}>
           X
         </div>
-      )}
-      {/* <Player url="../sounds/openalllearn.mp3" /> */}
+      )} */}
+
       <Switch>
         <Route path="/knowledge/categories" component={Categoriesknowledge} />
         <Route path="/knowledge/learngame" component={KnowledgeComponent} />

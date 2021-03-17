@@ -9,6 +9,7 @@ export const currentDomainSlice = createSlice({
   reducers: {
     savecurrentDomain: (state, action) => {
       state.data.name = action.payload.domainname;
+      state.data.logo = action.payload.logo;
       state.data.id = action.payload.id;
     },
   },

@@ -11,8 +11,11 @@
 }
 .st1 {
   fill: #e6ab2d;
+  fill: #f9a828;
 
   stroke: #070427;
+  stroke: #2e383f;
+
   stroke-width: 10.6051;
   stroke-miterlimit: 10;
 }
@@ -25,6 +28,7 @@
 .st3 {
   fill: none;
   stroke: #070427;
+  stroke: #2e383f;
 
   stroke-width: 10.605;
   stroke-miterlimit: 10;
@@ -32,12 +36,15 @@
 .st4 {
   fill: none;
   stroke: #070427;
+  stroke: #2e383f;
+
   stroke-width: 6.3581;
   stroke-linecap: round;
   stroke-miterlimit: 10;
 }
 .st5 {
   fill: #070427;
+  fill: #2e383f;
 }
 .st6 {
   font-family: logofont;
@@ -48,20 +55,27 @@
 .st8 {
   fill: none;
   stroke: #070427;
+  stroke: #2e383f;
+
   stroke-width: 1.5;
   stroke-miterlimit: 10;
 }
 .st9 {
-  fill: #ffb952;
+  fill: #e6ab2d;
+  fill: #f9a828;
 }
 .st10 {
   fill: #4e0000;
+  fill: #070427;
+  fill: #2e383f;
 }
 .st11 {
   fill: #e6ab2d;
+  fill: #f9a828;
 }
 .st12 {
-  fill: #ffb652;
+  fill: #e6ab2d;
+  fill: #f9a828;
 }
 .st13 {
   fill: none;
@@ -71,19 +85,27 @@
 }
 .st15 {
   fill: none;
-  stroke: #ffb952;
+  stroke: #e6ab2d;
+  stroke: #f9a828;
+
   stroke-width: 0.2095;
   stroke-miterlimit: 10;
 }
 .st16 {
   fill: #e6ab2d;
   stroke: #e6ab2d;
+  fill: #f9a828;
+  stroke: #f9a828;
+
   stroke-width: 0.6629;
   stroke-miterlimit: 10;
 }
 .st17 {
-  fill: #ffb952;
+  fill: #e6ab2d;
   stroke: #e6ab2d;
+  fill: #f9a828;
+  stroke: #f9a828;
+
   stroke-width: 0.4025;
   stroke-miterlimit: 10;
 }
@@ -280,14 +302,14 @@
   stroke-miterlimit: 10;
 }
 .b1 {
-  fill: #e6ab2d;
-  stroke: #070427;
+  fill: #f9a828;
+  stroke: #2e383f;
   stroke-width: 10.605;
   stroke-miterlimit: 10;
 }
 .b2 {
-  fill: #e6ab2d;
-  stroke: #070427;
+  fill: #f9a828;
+  stroke: #2e383f;
   stroke-width: 10.6051;
   stroke-miterlimit: 10;
 }
@@ -299,37 +321,37 @@
 }
 .b4 {
   fill: none;
-  stroke: #070427;
+  stroke: #2e383f;
   stroke-width: 10.605;
   stroke-miterlimit: 10;
 }
 .b5 {
   fill: none;
-  stroke: #070427;
+  stroke: #2e383f;
   stroke-width: 6.3581;
   stroke-linecap: round;
   stroke-miterlimit: 10;
 }
 .b6 {
-  fill: #070427;
+  fill: #2e383f;
 }
 .b7 {
   fill: none;
-  stroke: #070427;
+  stroke: #2e383f;
   stroke-width: 1.5;
   stroke-miterlimit: 10;
 }
 .b8 {
-  fill: #ffb952;
+  fill: #f9a828;
 }
 .b9 {
-  fill: #4e0000;
+  fill: #2e383f;
 }
 .b10 {
-  fill: #e6ab2d;
+  fill: #f9a828;
 }
 .b11 {
-  fill: #ffb652;
+  fill: #f9a828;
 }
 .b12 {
   fill: none;
@@ -339,19 +361,19 @@
 }
 .b14 {
   fill: none;
-  stroke: #ffb952;
+  stroke: #f9a828;
   stroke-width: 0.2095;
   stroke-miterlimit: 10;
 }
 .b15 {
-  fill: #e6ab2d;
-  stroke: #e6ab2d;
+  fill: #f9a828;
+  stroke: #f9a828;
   stroke-width: 0.6629;
   stroke-miterlimit: 10;
 }
 .b16 {
-  fill: #ffb952;
-  stroke: #e6ab2d;
+  fill: #f9a828;
+  stroke: #f9a828;
   stroke-width: 0.4025;
   stroke-miterlimit: 10;
 }
@@ -359,7 +381,7 @@
   fill: #4f4f4f;
 }
 .b18 {
-  fill: #00004c;
+  fill: #07617d;
 }
 .b19 {
   fill: #666693;
@@ -433,7 +455,7 @@
 }
 
 .drawerItem:hover {
-  background-color: #dddddd;
+  background-color: #ececeb;
   -webkit-user-select: none;
   -moz-user-select: none;
 }
@@ -534,18 +556,18 @@
 .betstabLine {
   display: flex;
   color: #02010f;
-  background-color: #ede5e5;
+  background-color: #ececeb;
   justify-content: space-around;
   align-items: center;
-  border-top: 1px solid white;
+  border-top: 1px solid #fbfbfb;
   min-height: 40px;
   margin: 0px;
   padding: 5px;
   box-sizing: border-box;
 }
 .betstabLine:hover {
-  background-color: #fbf9f9;
-  border-top: 1px solid #d5cece;
+  background-color: #fbfbfb;
+  border-top: 1px solid #d4d4d3;
 }
 
 .betsTableAndSelectContainer {
@@ -562,16 +584,16 @@
 }
 
 .headerBets {
-  border-top: 1px solid #b4b3be;
+  border-top: 1px solid #d4d4d3;
 
-  background-color: #e6e5e9;
+  background-color: #d4d4d3;
   cursor: auto;
   color: #02010f;
 }
 .headerBets:hover {
-  border-top: 1px solid #b4b3be;
+  border-top: 1px solid #d4d4d3;
 
-  background-color: #e6e5e9;
+  background-color: #d4d4d3;
 
   color: #02010f;
 }
@@ -639,13 +661,13 @@
 
 .sultanContainer {
   display: flex;
-  background-color: #040217;
+  background-color: #07617d;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid #e6ab2d;
+  border-bottom: 2px solid #f9a828;
 
-  color: #eeeeee;
+  color: #fbfbfb;
   padding-bottom: 10px;
 
   width: 100%;
@@ -682,12 +704,12 @@
 
 .kingsBar {
   display: flex;
-  background-color: #2e0000;
+  background-color: #ececeb;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid #e6ab2d;
+  border-bottom: 2px solid #f9a828;
   font-weight: bold;
-  color: #eeeeee;
+  color: #000;
   padding-bottom: 5;
   padding-top: 5;
   width: 100%;
@@ -705,10 +727,6 @@
   box-sizing: border-box;
 }
 
-.kingphotocontainer {
-  display: block;
-}
-
 .kinuserphotocontainer {
   width: 40%;
 
@@ -719,6 +737,9 @@
   padding-left: 28px;
   min-height: 40px;
   box-sizing: border-box;
+}
+.kinuserphotocontainer:hover {
+  text-decoration: underline;
 }
 
 .countryLogoContainer {
@@ -739,10 +760,10 @@
   align-items: center;
   font-size: 17px;
   text-decoration: none;
-  border: 5px solid#4e0000;
+  border: 5px solid#07617d;
   border-radius: 3px;
-  background-color: #4e0000;
-  color: #eeeeee;
+  background-color: #07617d;
+  color: #fbfbfb;
   cursor: pointer;
   user-select: none;
 }
@@ -842,10 +863,7 @@
   .kingsqueentitle {
     font-size: 15px;
   }
-  .kingphotocontainer {
-    display: none;
-  }
-  .kinuserphotocontainer {
+   .kinuserphotocontainer {
     padding-left: 6px;
   }
   .playedatBetDate {
@@ -857,19 +875,19 @@
 }
 
 .crown0 {
-  fill: #ffb952;
+  fill: #f9a828;
 }
 .crown1 {
-  fill: #4e0000;
+  fill: #2e383f;
 }
 .crown2 {
   fill: #070427;
 }
 .crown3 {
-  fill: #e6ab2d;
+  fill: #f9a828;
 }
 .crown4 {
-  fill: #ffb652;
+  fill: #f9a828;
 }
 .crown5 {
   fill: none;
@@ -879,19 +897,19 @@
 }
 .crown7 {
   fill: none;
-  stroke: #ffb952;
+  stroke: #f9a828;
   stroke-miterlimit: 10;
 }
 /*crown 8 star */
 .crown8 {
-  fill: #e6ab2d;
-  stroke: #e6ab2d;
+  fill: #f9a828;
+  stroke: #f9a828;
   stroke-width: 3.1639;
   stroke-miterlimit: 10;
 }
 .crown9 {
-  fill: #ffb952;
-  stroke: #e6ab2d;
+  fill: #f9a828;
+  stroke: #f9a828;
   stroke-width: 1.9212;
   stroke-miterlimit: 10;
   stroke-width: 3.1639;
@@ -971,10 +989,10 @@
 }
 
 .imagesultan {
-  width: 100px;
-  height: 100px;
+  /* width: 100px;
+  height: 100px; */
   border-radius: 50%;
-  border: 3px solid #e6ab2d;
+  border: 3px solid #f9a828;
   animation-name: sultan;
   animation-duration: 3s;
   animation-iteration-count: infinite;

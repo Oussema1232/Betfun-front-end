@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Domainpersonaldata from "../components/betfunwelcome/domainpersonaldata.js";
 import Knowledgedata from "../components/betfunwelcome/knowledgedata.js";
 import Quote from "../components/betfunwelcome/quote.js";
@@ -7,8 +8,7 @@ import knowledgeback from "../img/knowledgeback2.jpg";
 
 import "./style.css";
 
-export default function WelcomeScreen() {
-  const [showbubble, setShowbubble] = useState(false);
+export default function WelcomeScreen(props) {
   return (
     <div
       className="betsScreenContainer"
@@ -19,24 +19,19 @@ export default function WelcomeScreen() {
         flexDirection: "column",
 
         alignItems: "center",
-        // border: "1px solid blue",
       }}
-      // onMouseLeave={() => {
-      //   setShowbubble(true);
-      // }}
-      // onMouseEnter={() => {
-      //   setShowbubble(false);
-      // }}
     >
       <div className="welcomecontainer">
-        <Quote showbubble={showbubble} />
+        <Quote />
         <div
           style={{
-            // backgroundImage: `url(${backwall})`,
-            // background: `url(${backwall}) left top repeat, url(${knowledgeback}) right top repeat`,
-            // backgroundSize: "60%, 40%, 100%",
-            backgroundImage: `url(${knowledgeback})`,
+            // backgroundImage: `url(${knowledgeback})`,
+            backgroundColor: "#fbfbfb",
             backgroundRepeat: "repeat",
+            border: "1px dotted #07617d",
+            borderRadius: 10,
+            overflow: "hidden",
+
             width: "100%",
             marginTop: 30,
           }}
@@ -47,6 +42,12 @@ export default function WelcomeScreen() {
             <Knowledgedata />
           </div>
         </div>
+        <Link
+          to="/betfun/admin"
+          style={{ alignSelf: "flex-start", fontSize: 10 }}
+        >
+          go to admin
+        </Link>
       </div>
     </div>
   );

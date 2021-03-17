@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   tab: {
-    borderRight: `1px solid #e6ab2d`,
+    borderRight: `1px solid #f9a828`,
     [theme.breakpoints.down("sm")]: {
       fontSize: 10,
       paddingLeft: 1,
@@ -90,10 +90,15 @@ export default function VerticalTabs(props) {
   const currentdomain = useSelector(
     (state) => state.betfundata.currentdomain.data
   );
+  const currentprofile = useSelector(
+    (state) => state.betfundata.currentprofile.data
+  );
+  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
+
   useEffect(() => {
     dispatch(loadSeasons(`/${currentdomain.id}`));
-    dispatch(loadBets(`/all/seasons/${6}/${currentdomain.id}`));
-  }, [props.match.params.id]);
+    dispatch(loadBets(`/all/seasons/${currentprofile.id}/${currentdomain.id}`));
+  }, [props.match.params.id, currentprofile.id]);
   //get in component did mount or useeffect the bets of a certain domain
 
   const classes = useStyles();
@@ -111,7 +116,7 @@ export default function VerticalTabs(props) {
   };
 
   return (
-    <div style={{ marginTop: 100, backgroundColor: "#ede5e5" }}>
+    <div style={{ marginTop: 100, backgroundColor: "#ececeb" }}>
       {loadingSeasons || loadingBets ? (
         <SkullBets flexDirection="row" justifyContent="space-between">
           <div className="betusermoonnameContainer">
@@ -145,7 +150,7 @@ export default function VerticalTabs(props) {
                 className="betstabLine headerBets"
                 style={{
                   fontSize: 20,
-                  backgroundColor: "#ede5e5",
+                  backgroundColor: "#ececeb",
                   border: "none",
                   fontWeight: "bold",
                 }}
@@ -156,7 +161,7 @@ export default function VerticalTabs(props) {
                 className="betstabLine headerBets"
                 style={{
                   fontSize: 20,
-                  backgroundColor: "#ede5e5",
+                  backgroundColor: "#ececeb",
                   border: "none",
                   fontWeight: "bold",
                 }}
@@ -188,13 +193,14 @@ export default function VerticalTabs(props) {
                   <div className="betusermoonnameContainer">
                     <Usermoonavatar
                       src="../../../cr7profile.jpg"
-                      alt="cr7"
+                      alt={currentprofile.username}
                       dimentionmoon={65}
                       dimentionimage={55}
-                      boxshadowcolor="#070427"
+                      boxshadowcolor="#07617d"
+                      username={currentprofile.username}
                     />
 
-                    <div className="username">Cristiano Ronaldo</div>
+                    <div className="username">{currentprofile.username}</div>
                   </div>
                   <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="sort-by" style={{ fontSize: 13 }}>
@@ -216,113 +222,142 @@ export default function VerticalTabs(props) {
                 </div>
 
                 <div className="betsTableContainer" style={{ fontSize: 13 }}>
-                  <div className="betstabLine headerBets">
-                    <div
-                      className="betsTabCellule"
-                      style={{
-                        width: "50%",
-                        fontWeight: "normal",
-                        wordBreak: "normal",
-                      }}
-                    >
-                      GW
-                    </div>
-                    <div
-                      className="betsTabCellule"
-                      style={{
-                        width: "30%",
-                        fontWeight: "normal",
-                        wordBreak: "normal",
-                      }}
-                    >
-                      Played at
-                    </div>
-                    <div
-                      className="betsTabCellule"
-                      style={{
-                        width: "20%",
-                        minWidth: 45,
-                        fontWeight: "normal",
-                        wordBreak: "normal",
-                      }}
-                    >
-                      Pts
-                    </div>
-                  </div>
-                  {state.Sorted_By != ""
-                    ? _.orderBy(bets, "points", state.Sorted_By).map((bet) => (
-                        <Link
-                          to={`/betfun/game/betguess/${currentdomain.name}/${bet.id}`}
-                          style={{ textDecoration: "none" }}
-                        >
-                          <TabPanel
-                            value={seasons[0] && !value ? seasons[0].id : value}
-                            index={bet.seasonId}
-                          >
-                            <div
-                              className="betsTabCellule"
-                              style={{ width: "50%" }}
-                            >
-                              {bet.gameweekname}
-                            </div>
-                            <div
-                              className="betsTabCellule"
-                              style={{
-                                width: "30%",
-                                display: "flex",
-                                flexDirection: "column",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              <div className="playedatBetDate">{bet.date}</div>
-                              <div className="playedatBetTime">{bet.time}</div>
-                            </div>
-                            <div
-                              className="betsTabCellule"
-                              style={{ width: "20%", minWidth: 45 }}
-                            >
-                              {bet.points ? bet.points : "TBD"}
-                            </div>
-                          </TabPanel>
-                        </Link>
-                      ))
-                    : bets.map((bet) => (
-                        <Link
-                          to={`/game/betguess/${currentdomain.name}/${bet.id}`}
+                  {bets[0] ? (
+                    <>
+                      <div className="betstabLine headerBets">
+                        <div
+                          className="betsTabCellule"
                           style={{
-                            textDecoration: "none",
+                            width: "50%",
+                            fontWeight: "normal",
+                            wordBreak: "normal",
                           }}
                         >
-                          <TabPanel
-                            value={seasons[0] && !value ? seasons[0].id : value}
-                            index={bet.seasonId}
-                          >
-                            <div
-                              className="betsTabCellule"
-                              style={{ width: "50%" }}
-                            >
-                              {bet.gameweekname}
-                            </div>
-                            <div
-                              className="betsTabCellule"
+                          GW
+                        </div>
+                        <div
+                          className="betsTabCellule"
+                          style={{
+                            width: "30%",
+                            fontWeight: "normal",
+                            wordBreak: "normal",
+                          }}
+                        >
+                          Played at
+                        </div>
+                        <div
+                          className="betsTabCellule"
+                          style={{
+                            width: "20%",
+                            minWidth: 45,
+                            fontWeight: "normal",
+                            wordBreak: "normal",
+                          }}
+                        >
+                          Pts
+                        </div>
+                      </div>
+                      {state.Sorted_By != ""
+                        ? _.orderBy(bets, "points", state.Sorted_By).map(
+                            (bet) => (
+                              <Link
+                                to={`/betfun/game/betguess/${currentdomain.name}/${bet.id}`}
+                                style={{ textDecoration: "none" }}
+                              >
+                                <TabPanel
+                                  value={
+                                    seasons[0] && !value ? seasons[0].id : value
+                                  }
+                                  index={bet.seasonId}
+                                >
+                                  <div
+                                    className="betsTabCellule"
+                                    style={{ width: "50%" }}
+                                  >
+                                    {bet.gameweekname}
+                                  </div>
+                                  <div
+                                    className="betsTabCellule"
+                                    style={{
+                                      width: "30%",
+                                      display: "flex",
+                                      flexDirection: "column",
+                                    }}
+                                  >
+                                    <div className="playedatBetDate">
+                                      {bet.date}
+                                    </div>
+                                    <div className="playedatBetTime">
+                                      {bet.time}
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="betsTabCellule"
+                                    style={{ width: "20%", minWidth: 45 }}
+                                  >
+                                    {bet.points >= 0 ? bet.points : "TBD"}
+                                  </div>
+                                </TabPanel>
+                              </Link>
+                            )
+                          )
+                        : bets.map((bet) => (
+                            <Link
+                              to={`/betfun/game/betguess/${currentdomain.name}/${bet.id}`}
                               style={{
-                                width: "30%",
-                                display: "flex",
-                                flexDirection: "column",
+                                textDecoration: "none",
                               }}
                             >
-                              <div className="playedatBetDate">{bet.date}</div>
-                              <div className="playedatBetTime">{bet.time}</div>
-                            </div>
-                            <div
-                              className="betsTabCellule"
-                              style={{ width: "20%", minWidth: 45 }}
-                            >
-                              {bet.points ? bet.points : "TBD"}
-                            </div>
-                          </TabPanel>
-                        </Link>
-                      ))}
+                              <TabPanel
+                                value={
+                                  seasons[0] && !value ? seasons[0].id : value
+                                }
+                                index={bet.seasonId}
+                              >
+                                <div
+                                  className="betsTabCellule"
+                                  style={{ width: "50%" }}
+                                >
+                                  {bet.gameweekname}
+                                </div>
+                                <div
+                                  className="betsTabCellule"
+                                  style={{
+                                    width: "30%",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                  }}
+                                >
+                                  <div className="playedatBetDate">
+                                    {bet.date}
+                                  </div>
+                                  <div className="playedatBetTime">
+                                    {bet.time}
+                                  </div>
+                                </div>
+                                <div
+                                  className="betsTabCellule"
+                                  style={{ width: "20%", minWidth: 45 }}
+                                >
+                                  {bet.points >= 0 ? bet.points : "TBD"}
+                                </div>
+                              </TabPanel>
+                            </Link>
+                          ))}
+                    </>
+                  ) : (
+                    <div
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        fontSize: 20,
+                      }}
+                    >
+                      No bets yet
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

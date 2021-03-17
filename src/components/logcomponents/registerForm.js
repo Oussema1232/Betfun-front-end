@@ -55,6 +55,7 @@ class Register extends Form {
       <div
         style={{
           backgroundColor: "#e9eac9",
+          backgroundColor: "#ececeb",
 
           width: "100%",
 
@@ -75,6 +76,7 @@ class Register extends Form {
             width: "27.3%",
             minWidth: 250,
             backgroundColor: "#f5f5e5",
+            backgroundColor: "#ffffff",
             marginTop: 20,
             padding: 10,
             borderRadius: 3,

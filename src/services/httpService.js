@@ -9,7 +9,7 @@ axios.interceptors.response.use(null, (error) => {
     error.response.status >= 400 &&
     error.response.status < 500;
   if (!expectedError) {
-    toast.dark("an unexpected error accured", {
+    toast("an unexpected error accured", {
       position: "top-right",
       autoClose: 7000,
       hideProgressBar: false,

@@ -6,7 +6,9 @@ import _ from "lodash";
 import { makeStyles } from "@material-ui/core/styles";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { loadMatches } from "../../features/matches/matcheSlice";
+import { postBingos } from "../../features/matches/matcheSlice";
 import { loadGameweeks } from "../../features/gameweeks/gameweekSlice.js";
+import { loadTeams } from "../../features/teams/teamSlice.js";
 import Snackbar from "@material-ui/core/Snackbar";
 import { AlertTitle } from "@material-ui/lab";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -14,14 +16,15 @@ import { savecurrentDomain } from "../../features/currentdomain/currentdomainSli
 import InputLabel from "@material-ui/core/InputLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
+
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
 import TabPanel from "../../commun/panelTab";
-
+import NativeSelect from "@material-ui/core/NativeSelect";
 import SkullCalendar from "../../commun/skulldata";
+import Updatematch from "../../commun/admin/updatematch";
+import Bingopost from "../../commun/admin/bingopost";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,6 +75,10 @@ export default function Calendar(props) {
   );
 
   const matches = useSelector((state) => state.betfundata.matches.list);
+  const allmatches = useSelector(
+    (state) => state.betfundata.matches.allmatches
+  );
+  const teams = useSelector((state) => state.betfundata.teams.list);
   const loadmatches = useSelector((state) => state.betfundata.matches.loading);
   const matchesError = useSelector(
     (state) => state.betfundata.matches.errors.message
@@ -80,6 +87,11 @@ export default function Calendar(props) {
   const currentdomain = useSelector(
     (state) => state.betfundata.currentdomain.data
   );
+  const currentprofile = useSelector(
+    (state) => state.betfundata.currentprofile.data
+  );
+  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
+
   useEffect(() => {
     dispatch(
       loadGameweeks(`/${props.match.params.seasonId}/${currentdomain.id}`)
@@ -87,6 +99,7 @@ export default function Calendar(props) {
     dispatch(
       loadMatches(`/matches/${props.match.params.seasonId}/${currentdomain.id}`)
     );
+    dispatch(loadTeams(`/${currentdomain.id}`));
   }, [props.match.params.seasonId, props.match.params.domainId]);
 
   const handleClose = () => {
@@ -98,13 +111,13 @@ export default function Calendar(props) {
 
     if (moment(matchtime).diff(moment(), "minutes") < 60) {
       props.history.push(
-        `/betfun/game/bets/createbet/${"cristiano.ronaldo"}/${
+        `/betfun/game/bets/createbet/${currentuser.username}/${
           currentdomain.name
         }/${props.match.params.seasonname}/${
           gameweeks[0] && !gameweekvalue.name
             ? gameweeks[0].name
             : gameweekvalue.name
-        }/${10}/${
+        }/${currentuser.id}/${
           gameweeks[0] && !gameweekvalue.id ? gameweeks[0].id : gameweekvalue.id
         }`
       );
@@ -118,7 +131,7 @@ export default function Calendar(props) {
   };
 
   return (
-    <div style={{ marginTop: 100, backgroundColor: "#ede5e5" }}>
+    <div style={{ marginTop: 100, backgroundColor: "#ececeb" }}>
       {loadgameweeks || loadmatches ? (
         <SkullCalendar flexDirection="column">
           <Skeleton animation="pulse" variant="text" height={24} width={60} />
@@ -132,7 +145,7 @@ export default function Calendar(props) {
                 className="betstabLine headerBets"
                 style={{
                   fontSize: 20,
-                  backgroundColor: "#ede5e5",
+                  backgroundColor: "#ececeb",
                   border: "none",
                   fontWeight: "bold",
                 }}
@@ -143,7 +156,7 @@ export default function Calendar(props) {
                 className="betstabLine headerBets"
                 style={{
                   fontSize: 20,
-                  backgroundColor: "#ede5e5",
+                  backgroundColor: "#ececeb",
                   border: "none",
                   fontWeight: "bold",
                 }}
@@ -179,14 +192,31 @@ export default function Calendar(props) {
                   {props.match.params.seasonname}
                 </div>
 
-                <div
-                  className="createbetorleagueButton"
-                  onClick={() =>
-                    goTocreateBet(matches[0].days[0].matches[0].played_on)
+                {currentuser.id == currentprofile.id && (
+                  <div
+                    className="createbetorleagueButton"
+                    onClick={() =>
+                      goTocreateBet(matches[0].days[0].matches[0].played_on)
+                    }
+                  >
+                    Create Bet
+                  </div>
+                )}
+                <Updatematch
+                  initialMatch={{
+                    team1Id: "",
+                    team2Id: "",
+                    played_on: "2020-09-26 17:05:00",
+                    cote_1: "",
+                    cote_x: "",
+                    cote_2: "",
+                  }}
+                  gameweekId={
+                    gameweeks[0] && !gameweekvalue.id
+                      ? gameweeks[0].id
+                      : gameweekvalue.id
                   }
-                >
-                  Create Bet
-                </div>
+                />
 
                 <div className="betsTableContainer">
                   {matches.map((m) => (
@@ -219,55 +249,78 @@ export default function Calendar(props) {
                             </div>
 
                             {matche.matches.map((mtch) => (
-                              <div className="betstabLine">
-                                <div
-                                  className="betsTabCellule"
-                                  style={{
-                                    width: "45%",
-                                    justifyContent: "flex-end",
-                                  }}
-                                >
-                                  <div>{mtch.team1}</div>
-
-                                  <img
-                                    src="../../../../../csslogo.png"
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <div className="betstabLine">
+                                  <div
+                                    className="betsTabCellule"
                                     style={{
-                                      width: 25,
-                                      marginLeft: 5,
-                                      marginRight: 5,
+                                      width: "45%",
+                                      justifyContent: "flex-end",
                                     }}
-                                  />
-                                </div>
+                                  >
+                                    <div>{mtch.team1}</div>
 
-                                <div
-                                  className="betsTabCellule playedatBetTime"
-                                  style={{
-                                    width: "10%",
-                                    fontWeight: "normal",
-                                    wordBreak: "normal",
-                                  }}
-                                >
-                                  {mtch.time}
-                                </div>
+                                    <img
+                                      src={mtch.team1logo}
+                                      style={{
+                                        width: 30,
+                                        marginLeft: 5,
+                                        marginRight: 5,
+                                      }}
+                                    />
+                                  </div>
 
-                                <div
-                                  className="betsTabCellule"
-                                  style={{
-                                    width: "45%",
-                                    justifyContent: "flex-start",
-                                    flexGrow: 1,
-                                  }}
-                                >
-                                  <img
-                                    src="../../../../../csslogo.png"
+                                  <div
+                                    className="betsTabCellule playedatBetTime"
                                     style={{
-                                      width: 25,
-                                      marginRight: 5,
-                                      marginLeft: 5,
+                                      width: "10%",
+                                      fontWeight: "normal",
+                                      wordBreak: "normal",
                                     }}
-                                  />
-                                  <div>{mtch.team2}</div>
+                                  >
+                                    {mtch.time}
+                                  </div>
+
+                                  <div
+                                    className="betsTabCellule"
+                                    style={{
+                                      width: "45%",
+                                      justifyContent: "flex-start",
+                                      flexGrow: 1,
+                                    }}
+                                  >
+                                    <img
+                                      src={mtch.team2logo}
+                                      style={{
+                                        width: 30,
+                                        marginRight: 5,
+                                        marginLeft: 5,
+                                      }}
+                                    />
+                                    <div>{mtch.team2}</div>
+                                  </div>
                                 </div>
+                                {currentuser.isAdmin && (
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                      borderBottom: "2px solid black",
+                                    }}
+                                  >
+                                    <Updatematch
+                                      update={true}
+                                      initialMatch={mtch}
+                                    />
+
+                                    <Bingopost initialMatch={mtch} />
+                                  </div>
+                                )}
                               </div>
                             ))}
                           </div>
@@ -278,6 +331,23 @@ export default function Calendar(props) {
                 </div>
               </div>
             </div>
+          )}
+          {currentuser.isAdmin && (
+            <button
+              onClick={() =>
+                dispatch(
+                  postBingos({
+                    bingos: allmatches,
+                    gameweekId:
+                      gameweeks[0] && !gameweekvalue.id
+                        ? gameweeks[0].id
+                        : gameweekvalue.id,
+                  })
+                )
+              }
+            >
+              post bingos
+            </button>
           )}
         </>
       )}

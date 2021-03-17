@@ -20,7 +20,7 @@ function CircularProgressWithLabel(props) {
       >
         <div
           style={{
-            color: "#eeeeee",
+            color: "#171717",
             fontSize: 10,
             fontWeight: "normal",
             display: "flex",

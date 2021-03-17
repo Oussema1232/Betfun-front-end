@@ -6,6 +6,7 @@ import { savecurrentDomain } from "../../features/currentdomain/currentdomainSli
 
 import SearchIcon from "@material-ui/icons/Search";
 import Blogo from "../../commun/logos/blogo";
+import Tagline from "../../commun/logos/tagline";
 import SearchInput from "../../commun/searchinput";
 import SimpleBadge from "../../commun/badge";
 
@@ -70,12 +71,14 @@ class Navbar extends Component {
         <div className="navbarbetfun">
           <div className="logosearchContainer">
             <div className="blogosearchContainer">
-              <Link to="/betfun">
+              <Link to="/betfun/welcome">
                 <div className="blogo">
                   <Blogo />
                 </div>
               </Link>
-              <SearchInput />
+              {/* <Tagline
+                style={{ fontSize: 20, alignSelf: "flex-end", marginBottom: 3 }}
+              /> */}
             </div>
           </div>
           <div style={{ flexGrow: 1 }}></div>
@@ -94,6 +97,7 @@ class Navbar extends Component {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
+
                   marginRight: 30,
                 }}
                 className="iconContainer"
@@ -101,9 +105,10 @@ class Navbar extends Component {
                 <FontAwesomeIcon
                   icon={faThList}
                   size="1x"
-                  color="#e6ab2d"
-                  style={{ cursor: "pointer", fontSize: 25, marginBottom: 3 }}
+                  color="#f9a828"
+                  style={{ cursor: "pointer", fontSize: 23 }}
                 />
+
                 <div>Domains</div>
               </div>
             </div>

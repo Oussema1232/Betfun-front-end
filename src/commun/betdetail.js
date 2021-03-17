@@ -101,7 +101,7 @@ export default function Betdetail(props) {
             flexDirection: "column",
           }}
         >
-          <div>{props.betdetail.cote_1}.52</div>
+          <div>{props.betdetail.cote_1}</div>
           <div
             style={{ borderTop: "1px solid blue", marginTop: 3, paddingTop: 3 }}
           >
@@ -118,7 +118,7 @@ export default function Betdetail(props) {
             flexDirection: "column",
           }}
         >
-          <div>{props.betdetail.cote_x}.23</div>
+          <div>{props.betdetail.cote_x}</div>
           <div
             style={{ borderTop: "1px solid blue", marginTop: 3, paddingTop: 3 }}
           >
@@ -136,7 +136,7 @@ export default function Betdetail(props) {
             flexDirection: "column",
           }}
         >
-          <div>{props.betdetail.cote_2}.45</div>
+          <div>{props.betdetail.cote_2}</div>
           <div
             style={{ borderTop: "1px solid blue", marginTop: 3, paddingTop: 3 }}
           >

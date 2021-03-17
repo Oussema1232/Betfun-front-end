@@ -7,34 +7,31 @@ import { faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
 import backquest from "../../img/backquest.jpg";
 import borderimage from "../../img/frondmat.jpg";
 import * as knowledgedata from "./questionsservice";
+import Wronganswers from "./wronganswers";
+import Welldone from "./welldone";
 
 import "./style.css";
 
 export default class Playround extends Component {
-  constructor() {
-    super();
-    this.state = {
-      answerColor: "rgba(68,119,178,0.5)",
-      clickable: true,
-      updatestate: true,
-      show: { one: true, two: true, three: true, four: true },
-      complete: false,
-      numbcorrectanswers: 0,
-      progressinitialvalue: 0,
-      progress: 0,
-      n: 0,
-      score: 0,
-    };
+  state = {
+    answerColor: "rgba(68,119,178,0.5)",
+    clickable: true,
+    updatestate: true,
+    show: { one: true, two: true, three: true, four: true },
+    complete: false,
+    numbcorrectanswers: 0,
+    progressinitialvalue: 0,
+    progress: 0,
+    n: 0,
+    score: 0,
+  };
 
-    this.timer = 0;
-
-    this.difficilty = {
-      id: 1,
-      name: "Medium",
-      coef: 0.6,
-      numbmincorrectanswers: 6,
-    };
-  }
+  difficilty = {
+    id: 1,
+    name: "Medium",
+    coef: 0.6,
+    numbmincorrectanswers: 6,
+  };
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.updatestate) {
@@ -48,7 +45,6 @@ export default class Playround extends Component {
             complete: true,
             updatestate: false,
           });
-          clearInterval(this.timer);
         } else {
           this.setState({
             progress: 0,
@@ -115,7 +111,7 @@ export default class Playround extends Component {
           newn == knowledgedata.questions.length - 1
         ) {
           this.setState({ complete: true, updatestate: false });
-          clearInterval(this.timer);
+          // clearInterval(this.timer);
         } else {
           this.setState({
             answerColor: "rgba(68,119,178,0.5)",
@@ -411,7 +407,14 @@ export default class Playround extends Component {
             </div>
           </>
         ) : (
-          <div>This round is completed</div>
+          <>
+            {10 - (this.state.n + 1) + this.state.numbcorrectanswers <
+            this.difficilty.numbmincorrectanswers ? (
+              <Wronganswers />
+            ) : (
+              <Welldone score={this.state.score} />
+            )}
+          </>
         )}
       </div>
     );

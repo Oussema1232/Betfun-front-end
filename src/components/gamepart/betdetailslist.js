@@ -58,6 +58,11 @@ export default function BetdetailsList(props) {
   const currentdomain = useSelector(
     (state) => state.betfundata.currentdomain.data
   );
+  const currentprofile = useSelector(
+    (state) => state.betfundata.currentprofile.data
+  );
+  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
+
   const newguesseslist = useSelector(
     (state) => state.betfundata.betdetails.souslist
   );
@@ -109,7 +114,7 @@ export default function BetdetailsList(props) {
   const classes = useStyles();
 
   return (
-    <div style={{ marginTop: 100, backgroundColor: "#ede5e5" }}>
+    <div style={{ marginTop: 100, backgroundColor: "#ececeb" }}>
       {loadingBetdetails ? (
         <SkullBetdetails
           flexDirection="row"
@@ -152,7 +157,7 @@ export default function BetdetailsList(props) {
                 style={{
                   minHeight: 100,
                   fontSize: 20,
-                  backgroundColor: "#ede5e5",
+                  backgroundColor: "#ececeb",
                   border: "none",
                   fontWeight: "bold",
                 }}
@@ -167,12 +172,13 @@ export default function BetdetailsList(props) {
                   <div className="betusermoonnameContainer">
                     <Usermoonavatar
                       src="../../../cr7profile.jpg"
-                      alt="cr7"
+                      alt={currentprofile.username}
                       dimentionmoon={65}
                       dimentionimage={55}
                       boxshadowcolor="#070427"
+                      username={currentprofile.username}
                     />
-                    <div className="username">Cristiano Ronaldo</div>
+                    <div className="username">{currentprofile.username}</div>
                   </div>
 
                   {betdetails[0] && (
@@ -192,16 +198,18 @@ export default function BetdetailsList(props) {
                       initialValue={`'${betdetail.guess}'`}
                       updateguess={sousListBetdetailsUpdated}
                       disabled={
-                        betdetails[0] &&
-                        moment(betdetails[0].played_on).diff(
-                          moment(),
-                          "minutes"
-                        ) > 60
+                        currentuser.id !== currentprofile.id ||
+                        (betdetails[0] &&
+                          moment(betdetails[0].played_on).diff(
+                            moment(),
+                            "minutes"
+                          ) > 60)
                       }
                     />
                   ))}
                 </div>
-                {betdetails[0] &&
+                {currentuser.id == currentprofile.id &&
+                  betdetails[0] &&
                   !(
                     moment(betdetails[0].played_on).diff(moment(), "minutes") >
                     60

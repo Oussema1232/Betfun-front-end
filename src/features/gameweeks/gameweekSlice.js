@@ -19,10 +19,14 @@ export const gameweekSlice = createSlice({
     },
     gameweeksRequestFail: (state, action) => {
       state.loading = false;
-      state.errors.message = "Couldn't load gameweeks";
+      state.errors.message = action.payload.message;
     },
     gameweeksReceived: (state, action) => {
       state.list = action.payload.data;
+      state.loading = false;
+      state.onsuccess.message = action.payload.message;
+    },
+    gameweekUpdated: (state, action) => {
       state.loading = false;
       state.onsuccess.message = action.payload.message;
     },
@@ -35,6 +39,7 @@ export const gameweekSlice = createSlice({
 const {
   gameweeksReceived,
   gameweeksRequested,
+  gameweekUpdated,
   gameweeksRequestFail,
   gameweekServerFail,
 } = gameweekSlice.actions;
@@ -52,10 +57,44 @@ export const loadGameweeks = (params) => (dispatch, getState) => {
   );
 };
 
-export const selectCountryById = (userId) =>
-  createSelector(
-    (state) => state.betfundata.gameweeks.list,
-    (users) => users.filter((user) => user.id === userId)
+export const updateGameweek = (parametres, gameweek) => (dispatch, getState) => {
+  return dispatch(
+    actions.apiCallBegan({
+      onStart: gameweeksRequested.type,
+      onError: gameweeksRequestFail.type,
+      onSuccess: gameweekUpdated.type,
+      onServerFail: gameweekServerFail.type,
+      url: url + parametres,
+      method: "put",
+      data: gameweek,
+    })
   );
+};
+export const postGameweek = (gameweek) => (dispatch, getState) => {
+  return dispatch(
+    actions.apiCallBegan({
+      onStart: gameweeksRequested.type,
+      onError: gameweeksRequestFail.type,
+      onSuccess: gameweekUpdated.type,
+      onServerFail: gameweekServerFail.type,
+      url: url,
+      method: "post",
+      data: gameweek,
+    })
+  );
+};
+
+export const deleteGameweek = (params) => (dispatch, getState) => {
+  return dispatch(
+    actions.apiCallBegan({
+      onStart: gameweeksRequested.type,
+      onError: gameweeksRequestFail.type,
+      onSuccess: gameweekUpdated.type,
+      onServerFail: gameweekServerFail.type,
+      url: url + params,
+      method: "delete",
+    })
+  );
+};
 
 export default gameweekSlice.reducer;

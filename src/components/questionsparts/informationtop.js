@@ -11,8 +11,6 @@ export default function InformationTop() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-
-      
       }}
     >
       <div
@@ -21,6 +19,7 @@ export default function InformationTop() {
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
+          
         }}
       >
         <div style={{ alignSelf: "flex-start" }}>Did you know</div>

@@ -5,25 +5,25 @@ export default function LevelandLimits(props) {
   return (
     <motion.div
       whileHover={{
-        backgroundColor: "#e6ab2d",
+        backgroundColor: "#f9a828",
 
-        color: "#070427",
+        color: "#2e383f",
       }}
       whileTap={{
-        backgroundColor: "#e6ab2d",
+        backgroundColor: "#f9a828",
 
-        color: "#070427",
+        color: "#2e383f",
       }}
       style={{
         width: "20%",
         minWidth: 220,
 
-        backgroundColor: "#070427",
+        backgroundColor: "#2e383f",
         boxSizing: "border-box",
 
         display: "flex",
         flexDirection: "column",
-      }}    
+      }}
     >
       <motion.img
         initial={{ scale: 0.99 }}

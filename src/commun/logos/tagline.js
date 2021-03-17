@@ -1,19 +1,14 @@
 import React from "react";
 
-export default function Tagline() {
+export default function Tagline(props) {
   return (
     <div
       style={{
+        ...props.style,
         fontFamily: "'Lobster Two', cursive",
-        color: "black",
-        fontSize: "1.8vw",
-        marginLeft: "40%",
-        marginTop: -10,
-
-        // border: "2px solid red",
       }}
     >
-      Trust your guts..bet on them
+      Bet..Learn..Have fun
     </div>
   );
 }

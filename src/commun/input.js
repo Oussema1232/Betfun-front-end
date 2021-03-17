@@ -20,11 +20,11 @@ const Input = ({
       <div
         style={{
           display: "flex",
-          border: "1px solid yellow",
+
           marginTop: 10,
           width: "96%",
           backgroundColor: "rgba(0, 0, 0, 1)",
-          border: "1px solid rgb(20, 19, 19)",
+
           borderRadius: 3,
           borderBottomRightRadius: 1,
           borderBottomLeftRadius: 1,

@@ -53,7 +53,7 @@ export default function Knowledgedata() {
               }}
             >
               <FontAwesomeIcon
-                color="white"
+                color="#fbfbfb"
                 icon={faStarAndCrescent}
                 size="xs"
               />

@@ -11,20 +11,20 @@ export default function Betleveldomainpersondata(props) {
         flexDirection: "column",
 
         width: "40%",
-        borderRight: "1px solid #eeeeee",
+        borderRight: "1px solid #000",
         marginRight: 2,
       }}
     >
       <motion.div
         whileHover={{
-          backgroundColor: "#ede5e5",
+          backgroundColor: "#ececeb",
 
-          color: "#070427",
+          color: "#171717",
         }}
         whileTap={{
-          backgroundColor: "#ede5e5",
+          backgroundColor: "#ececeb",
 
-          color: "#070427",
+          color: "#171717",
         }}
         style={{
           display: "flex",
@@ -34,8 +34,8 @@ export default function Betleveldomainpersondata(props) {
           minHeight: 50,
 
           fontWeight: "bold",
-          backgroundColor: "#1f0000",
-          color: "#eeeeee",
+          backgroundColor: "#2e383f",
+          color: "#fbfbfb",
         }}
       >
         <div
@@ -48,7 +48,7 @@ export default function Betleveldomainpersondata(props) {
         >
           {props.stillleft && (
             <FontAwesomeIcon
-              color="#1769aa"
+              color="#07617d"
               icon={faCaretLeft}
               size="2x"
               onClick={props.goLeft}
@@ -76,7 +76,7 @@ export default function Betleveldomainpersondata(props) {
         >
           {props.stillright && (
             <FontAwesomeIcon
-              color="#1769aa"
+              color="#07617d"
               icon={faCaretRight}
               size="2x"
               onClick={props.goRight}

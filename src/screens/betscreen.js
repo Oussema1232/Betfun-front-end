@@ -9,8 +9,11 @@ import Leaguedetails from "../components/gamepart/leaguedetails";
 import Calendar from "../components/gamepart/calendar2";
 import Fixture from "../components/gamepart/fixtures";
 import Levels from "../components/gamepart/levels";
+import Teams from "../components/gamepart/teams";
 import Titles from "../components/gamepart/titles";
+import Stats from "../components/gamepart/stats";
 import Createbet from "../components/gamepart/createbet";
+
 import Navbar from "../components/navbar/navbar";
 
 class Betscreen extends Component {
@@ -46,6 +49,11 @@ class Betscreen extends Component {
           />
           <Route
             exact
+            path="/betfun/game/teams/:domainname/:id"
+            component={Teams}
+          />
+          <Route
+            exact
             path="/betfun/game/betguess/:domainname/:betId"
             component={Betdetails}
           />
@@ -64,6 +72,12 @@ class Betscreen extends Component {
             path="/betfun/game/titles/:domainname/:seasonname/:domainId/:seasonId"
             component={Titles}
           />
+          <Route
+            exact
+            path="/betfun/game/stats/:domainname/:domainId/:username/:userId"
+            component={Stats}
+          />
+          
         </Switch>
       </div>
     );
@@ -72,7 +86,7 @@ class Betscreen extends Component {
 
 const mapStateToProps = (state) => ({
   // currentuser: state.betfundata.currentuser.data,
-  countries: state.betfundata.countries.list,
+  // countries: state.betfundata.countries.list,
   users: state.betfundata.users.list,
 });
 

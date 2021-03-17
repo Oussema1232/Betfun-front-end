@@ -8,12 +8,12 @@ import ProgressBarWithLabel from "./progressBarwithlabel";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    color: "#eeeeee",
+    color: "#171717",
     width: "100%",
   },
 
   selectcontainer: {
-    color: "#eeeeee",
+    color: "#171717",
     fontSize: 9,
     width: "100%",
     [theme.breakpoints.up("sm")]: {
@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
     },
 
     "&:before": {
-      borderColor: "#eeeeee",
+      borderColor: "#171717",
     },
     "&:after": {
-      borderColor: "#eeeeee",
+      borderColor: "#171717",
     },
   },
   icon: {
@@ -59,7 +59,7 @@ export default function AccuracyEffec({
           <FormControl className={classes.formControl}>
             <InputLabel
               htmlFor="selectedvalue"
-              style={{ fontSize: 13, color: "#eeeeee" }}
+              style={{ fontSize: 13, color: "#171717" }}
             >
               {name}
             </InputLabel>
@@ -76,7 +76,7 @@ export default function AccuracyEffec({
               }}
             >
               {list.map((l) => (
-                <option style={{ color: "black" }} value={l.id}>
+                <option style={{ color: "#171717" }} value={l.id}>
                   {l.name}
                 </option>
               ))}
@@ -87,7 +87,7 @@ export default function AccuracyEffec({
         <div
           style={{
             width: "33%",
-            color: "#eeeeee",
+            color: "#171717",
             display: "flex",
             fontWeight: "normal",
             alignItems: "center",
@@ -100,7 +100,7 @@ export default function AccuracyEffec({
       <div
         style={{
           width: "33%",
-          color: "#eeeeee",
+          color: "#171717",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -111,7 +111,7 @@ export default function AccuracyEffec({
       <div
         style={{
           width: "33%",
-          color: "#eeeeee",
+          color: "#171717",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

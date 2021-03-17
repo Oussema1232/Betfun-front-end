@@ -7,8 +7,8 @@ import Usermoonavatar from "./usermoonavatar";
 export default function SultanComponent({
   sex,
   countrylogo,
-  username,
-  profilepicture,
+  sultanusername,
+
   points,
   NTSultan,
   season,
@@ -22,7 +22,7 @@ export default function SultanComponent({
           display: "flex",
           alignItems: "center",
           justifyContent: "space-around",
-          borderBottom: "2px solid #e6ab2d",
+          borderBottom: "2px solid #f9a828",
           maxHeight: 100,
           marginBottom: 10,
           paddingTop: 5,
@@ -34,8 +34,8 @@ export default function SultanComponent({
         <div className="sultanpointsContainer">{`${points} pts | ${NTSultan} Time(s) sultan`}</div>
         <div className="sultanBarTitle">
           <div className="sultanBarglibeseasonicon">
-            <FontAwesomeIcon icon={faGlobe} size="lg" color="#e6ab2d" />
-            <div style={{ fontSize: 9, color: "#e6ab2d" }}>{season}</div>
+            <FontAwesomeIcon icon={faGlobe} size="lg" color="#f9a828" />
+            <div style={{ fontSize: 9, color: "#f9a828" }}>{season}</div>
           </div>
           <div
             style={{
@@ -52,8 +52,23 @@ export default function SultanComponent({
         </div>
       </div>
       <Crown />
-      <img src={profilepicture} className="imagesultan" />
 
+      <div
+        className="imagesultan"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Usermoonavatar
+          alt={sultanusername}
+          dimentionmoon={75}
+          dimentionimage={65}
+          boxshadowcolor="#F4F1C9"
+          username={sultanusername}
+        />
+      </div>
       <div
         style={{
           fontSize: 30,
@@ -64,12 +79,12 @@ export default function SultanComponent({
           paddingRight: 5,
           paddingBottom: 5,
           display: "flex",
-          //   flexDirection: "column",
+
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <div>{username}</div>
+        <div>{sultanusername}</div>
       </div>
     </div>
   );

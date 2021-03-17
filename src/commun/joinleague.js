@@ -38,7 +38,7 @@ export default class JoinLeague extends Form {
       loading: true,
     });
 
-    try {   
+    try {
       const response = await http.post(
         `http://localhost:3001/api/leagues/join`,
         {
@@ -68,12 +68,11 @@ export default class JoinLeague extends Form {
   };
 
   render() {
-    
     return (
       <LeagueModal buttonname="Join" onclosemodal={this.onclosemodal}>
         <div
           style={{
-            backgroundColor: "#e9eac9",
+            backgroundColor: "#fbfbfb",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -84,7 +83,7 @@ export default class JoinLeague extends Form {
               style={{
                 width: "96%",
                 fontSize: 13,
-                color: "rgb(177, 39, 39)",
+                color: "#171717",
                 marginTop: 0,
 
                 padding: 5,
@@ -101,8 +100,6 @@ export default class JoinLeague extends Form {
           <div
             style={{
               padding: 10,
-              borderRadius: 3,
-              boxShadow: "0px 0px 3px 4px #dddfad",
             }}
           >
             {!this.state.showsuccess ? (

@@ -21,6 +21,10 @@ export default function MyDrawer(props) {
   const currentdomain = useSelector(
     (state) => state.betfundata.currentdomain.data
   );
+  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
+  const currentprofile = useSelector(
+    (state) => state.betfundata.currentprofile.data
+  );
 
   const more = [
     {
@@ -73,8 +77,9 @@ export default function MyDrawer(props) {
     drawerPaper: {
       width: drawerWidth,
 
-      // backgroundColor: "#F2F3F5",
+      
       backgroundColor: "#070427",
+      backgroundColor: "#2e383f",
       borderLeft: "2px solid #ffff00",
       boxSizing: "border-box",
     },
@@ -200,7 +205,7 @@ export default function MyDrawer(props) {
                       <Link
                         key={s.id}
                         style={{ textDecoration: "none" }}
-                        to={`/game/calendar/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
+                        to={`/betfun/game/calendar/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
                       >
                         <div className="drawerseason">{s.name}</div>
                       </Link>
@@ -223,7 +228,7 @@ export default function MyDrawer(props) {
                               <Link
                                 key={s.id}
                                 style={{ textDecoration: "none" }}
-                                to={`/game/titles/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
+                                to={`/betfun/game/titles/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
                               >
                                 <div className="drawerseason">{s.name}</div>
                               </Link>
@@ -245,6 +250,28 @@ export default function MyDrawer(props) {
             )}
           </>
         ))}
+        {currentuser.id !== currentprofile.id && (
+          <Link
+            key={6}
+            to={`/betfun/game/stats/${currentdomain.name}/${currentdomain.id}/${currentprofile.username}/${currentprofile.id}`}
+            style={{ textDecoration: "none", color: "#d5cece" }}
+          >
+            <div key={6} className="drawerdomainItem">
+              <div>Stats</div>
+            </div>
+          </Link>
+        )}
+        {currentuser.isAdmin && (
+          <Link
+            key={7}
+            to={`/betfun/game/teams/${currentdomain.name}/${currentdomain.id}`}
+            style={{ textDecoration: "none", color: "#d5cece" }}
+          >
+            <div key={7} className="drawerdomainItem">
+              <div>Teams</div>
+            </div>
+          </Link>
+        )}
       </Drawer>
     </div>
   );

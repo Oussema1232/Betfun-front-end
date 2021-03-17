@@ -73,9 +73,13 @@ export default function LeaguesList(props) {
   const currentdomain = useSelector(
     (state) => state.betfundata.currentdomain.data
   );
+  const currentprofile = useSelector(
+    (state) => state.betfundata.currentprofile.data
+  );
+  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
   useEffect(() => {
     dispatch(loadLeaguesgenres());
-    dispatch(loadLeagues(`/${6}/${currentdomain.id}`));
+    dispatch(loadLeagues(`/${currentprofile.id}/${currentdomain.id}`));
   }, [props.match.params.id]);
 
   const classes = useStyles();
@@ -174,21 +178,25 @@ export default function LeaguesList(props) {
                   <div className="betusermoonnameContainer">
                     <Usermoonavatar
                       src="../../../cr7profile.jpg"
-                      alt="cr7"
+                      alt={currentprofile.username}
                       dimentionmoon={65}
                       dimentionimage={55}
                       boxshadowcolor="#070427"
-                    />
-                    <div className="username">Cristiano Ronaldo</div>
-                  </div>
-                  <div style={{ display: "flex", alignItems: "flex-end" }}>
-                    <CreateLeagueModal
-                      userId={6}
-                      seasonId={leagues[0] && leagues[0].seasonId}
+                      username={currentprofile.username}
                     />
 
-                    <JoinLeagueModal userId={6} />
+                    <div className="username">{currentprofile.username}</div>
                   </div>
+                  {currentuser.id == currentprofile.id && (
+                    <div style={{ display: "flex", alignItems: "flex-end" }}>
+                      <CreateLeagueModal
+                        userId={6}
+                        seasonId={leagues[0] && leagues[0].seasonId}
+                      />
+
+                      <JoinLeagueModal userId={currentuser.id} />
+                    </div>
+                  )}
                 </div>
 
                 <div className="betsTableContainer" style={{ fontSize: 13 }}>
@@ -236,7 +244,10 @@ export default function LeaguesList(props) {
                   </div>
                   {leagues.map((league) => (
                     <Link
-                      to={`/game/leaguedetail/${league.name}/${currentdomain.name}/${league.leagueId}/${league.seasonId}`}
+                      to={{
+                        pathname: `/betfun/game/leaguedetail/${league.name}/${currentdomain.name}/${league.leagueId}/${league.seasonId}`,
+                        state: { creatorId: league.creatorId },
+                      }}
                       style={{ textDecoration: "none" }}
                     >
                       <TabPanel

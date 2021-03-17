@@ -1,7 +1,6 @@
 import React from "react";
 import Tagline from "./tagline";
 
-
 export default function Betfunalllogo() {
   return (
     <div
@@ -747,7 +746,7 @@ export default function Betfunalllogo() {
 			c0.09-5.84,3.88-10.5,8.53-10.61c-3.36,0.13-6.09,3.52-6.15,7.75c-0.07,4.37,2.73,7.97,6.24,8.06s6.41-3.39,6.48-7.76
 			c0.06-4.23-2.55-7.75-5.91-8.04C59.67,12.54,63.31,17.38,63.22,23.22z"
             />
-            <g>
+            {/* <g>
               <ellipse
                 transform="matrix(0.1217 -0.9926 0.9926 0.1217 -4.4892 130.901)"
                 className="st18"
@@ -880,8 +879,8 @@ export default function Betfunalllogo() {
                 rx="0.63"
                 ry="0.79"
               />
-            </g>
-            <g>
+            </g> */}
+            {/* <g>
               <ellipse
                 transform="matrix(0.9993 -0.0387 0.0387 0.9993 -2.585 1.3606)"
                 className="st18"
@@ -1014,8 +1013,8 @@ export default function Betfunalllogo() {
                 rx="0.64"
                 ry="0.79"
               />
-            </g>
-            <g>
+            </g> */}
+            {/* <g>
               <ellipse
                 transform="matrix(0.0412 -0.9992 0.9992 0.0412 -15.7106 117.4892)"
                 className="st18"
@@ -1149,8 +1148,8 @@ export default function Betfunalllogo() {
                 rx="0.63"
                 ry="0.79"
               />
-            </g>
-            <g>
+            </g> */}
+            {/* <g>
               <ellipse
                 transform="matrix(0.2206 -0.9754 0.9754 0.2206 -16.5313 113.4693)"
                 className="st30"
@@ -1212,8 +1211,8 @@ export default function Betfunalllogo() {
                 rx="0.63"
                 ry="0.79"
               />
-            </g>
-            <g>
+            </g> */}
+            {/* <g>
               <ellipse
                 transform="matrix(0.1078 -0.9942 0.9942 0.1078 -27.1707 103.3713)"
                 className="st33"
@@ -1285,11 +1284,18 @@ export default function Betfunalllogo() {
                 rx="0.66"
                 ry="0.79"
               />
-            </g>
+            </g> */}
           </g>
         </g>
       </svg>
-      {/* <Tagline /> */}
+      <Tagline
+        style={{
+          color: "#2e383f",
+          fontSize: "1.8vw",
+          marginLeft: "40%",
+          marginTop: -10,
+        }}
+      />
     </div>
   );
 }

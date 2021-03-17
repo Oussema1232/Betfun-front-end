@@ -1,22 +1,23 @@
 .navbarbetfun {
   flex-grow: 1;
-  background-color: #ede5e5;
-  border-bottom: 2px solid #d5cece;
+  background-color: #fbfbfb;
+  border-bottom: 2px solid #d4d4d3;
   width: 100%;
   padding-right: 15px;
   padding-left: 10px;
   box-sizing: border-box;
   position: fixed;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   z-index: 999;
 }
 .betdomainNavbar {
   flex-grow: 1;
-  background-color: #070427;
 
-  border-bottom: 2px solid #e6ab2d;
-  border-top: 2px solid #e6ab2d;
+  background-color: #07617d;
+
+  border-bottom: 2px solid #f9a828;
+  border-top: 2px solid #f9a828;
   max-height: 100px;
   width: 100%;
   padding-right: 30px;
@@ -25,7 +26,7 @@
   padding-top: 5px;
   padding-bottom: 5px;
   z-index: 999;
-  color: #d5cece;
+  color: #fbfbfb;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
@@ -36,7 +37,7 @@
   padding-right: 3px;
   font-weight: bold;
   padding-left: 3px;
-  color: #d5cece;
+  color: #fbfbfb;
   text-decoration: none;
   cursor: pointer;
 }
@@ -61,18 +62,23 @@
 
 .desktopscreenbetpub {
   display: flex;
-  align-items: center;
-  color: #02010f;
+  /* align-items: center; */
+  color: #171717;
 
-  font-size: 15px;
+  font-size: 13px;
   font-weight: bold;
 }
 
 .iconContainer:hover {
-  border-bottom: 2px solid #e6ab2d;
+  border-bottom: 2px solid #f9a828;
 }
 .iconContainer {
-  border-bottom: 2px solid #ede5e5;
+  border-bottom: 2px solid #d4d4d3;
+  box-sizing: border-box;
+  height: 55px;
+  width: 55px;
+  margin-bottom: 4px;
+  justify-content: center;
 }
 
 .desktopDomainLogoNameContainer {
@@ -144,13 +150,13 @@
 }
 
 .user {
-  max-width: 27px;
-  max-height: 27px;
+  max-width: 21px;
+  max-height: 21px;
 
   border-radius: 50%;
   padding: 1px;
-  border: 1px solid#070427;
-  background-color: #e6ab2d;
+  border: 1px solid#2e383f;
+  background-color: #f9a828;
   -moz-user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
@@ -173,7 +179,7 @@
 }
 
 .drawerdomainItem:hover {
-  background-color: #1f1d3c;
+  background-color: #424b52;
   -webkit-user-select: none;
   -moz-user-select: none;
 }

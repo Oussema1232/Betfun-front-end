@@ -26,6 +26,10 @@ export const countrySlice = createSlice({
       state.loading = false;
       state.onsuccess.message = action.payload.message;
     },
+    countryUpdated: (state, action) => {
+      state.loading = false;
+      state.onsuccess.message = action.payload.message;
+    },
     countryServerFail: (state, action) => {
       state.loading = false;
     },
@@ -35,6 +39,7 @@ export const countrySlice = createSlice({
 const {
   countriesReceived,
   countriesRequested,
+  countryUpdated,
   countriesRequestFail,
   countryServerFail,
 } = countrySlice.actions;
@@ -48,6 +53,33 @@ export const loadCountries = () => (dispatch, getState) => {
       onError: countriesRequestFail.type,
       onSuccess: countriesReceived.type,
       onServerFail: countryServerFail.type,
+    })
+  );
+};
+
+export const updateCountry = (parametres, country) => (dispatch, getState) => {
+  return dispatch(
+    actions.apiCallBegan({
+      onStart: countriesRequested.type,
+      onError: countriesRequestFail.type,
+      onSuccess: countryUpdated.type,
+      onServerFail: countryServerFail.type,
+      url: url + parametres,
+      method: "put",
+      data: country,
+    })
+  );
+};
+export const postCountry = (country) => (dispatch, getState) => {
+  return dispatch(
+    actions.apiCallBegan({
+      onStart: countriesRequested.type,
+      onError: countriesRequestFail.type,
+      onSuccess: countryUpdated.type,
+      onServerFail: countryServerFail.type,
+      url: url,
+      method: "post",
+      data: country,
     })
   );
 };

@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import userReducer from "../users/userSlice";
 import currentuserReducer from "../currentuser/currentuserSlice";
+import currentprofileReducer from "../currentprofile/currentprofileSlice";
 import currentdomainReducer from "../currentdomain/currentdomainSlice";
 import currentcommunityReducer from "../currentcommunity/currentcommunitySlice";
 import countryReducer from "../countries/countrySlice";
@@ -13,6 +14,7 @@ import betReducer from "../bets/betSlice.js";
 import betdetailReducer from "../betdetails/betdetailSlice.js";
 import leaguedetailReducer from "../leaguedetails/leaguedetailSlice.js";
 import seasonReducer from "../seasons/seasonSlice.js";
+import teamReducer from "../teams/teamSlice.js";
 import matcheReducer from "../matches/matcheSlice.js";
 import gameweekReducer from "../gameweeks/gameweekSlice.js";
 import titleReducer from "../titles/titleSlice.js";
@@ -20,6 +22,7 @@ import titleReducer from "../titles/titleSlice.js";
 export default combineReducers({
   users: userReducer,
   currentuser: currentuserReducer,
+  currentprofile: currentprofileReducer,
   currentdomain: currentdomainReducer,
   currentcommunity: currentcommunityReducer,
   countries: countryReducer,
@@ -32,6 +35,7 @@ export default combineReducers({
   bets: betReducer,
   betdetails: betdetailReducer,
   seasons: seasonReducer,
+  teams: teamReducer,
   matches: matcheReducer,
   gameweeks: gameweekReducer,
   titles: titleReducer,

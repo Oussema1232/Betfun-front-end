@@ -58,7 +58,7 @@ export default function CreateBet(props) {
   const [timeIsUp, setTimeIsUp] = React.useState({ isUp: false, message: "" });
 
   const dispatch = useDispatch();
-
+  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
   const matches = useSelector((state) => state.betfundata.matches.list);
   const matchesError = useSelector(
     (state) => state.betfundata.matches.errors.message
@@ -68,7 +68,9 @@ export default function CreateBet(props) {
   );
 
   const betdetails = useSelector((state) => state.betfundata.matches.souslist);
-
+  const currentprofile = useSelector(
+    (state) => state.betfundata.currentprofile.data
+  );
   const loadingCreateBet = useSelector(
     (state) => state.betfundata.bets.loadingCreate
   );
@@ -95,7 +97,7 @@ export default function CreateBet(props) {
     if (moment(firstMatchTime).diff(moment(), "minutes") < 60) {
       dispatch(
         createBet({
-          userId: 6,
+          userId: currentuser.id,
           gameweekId: props.match.params.gameweekId,
           betdetails: betdetails,
         })
@@ -180,13 +182,16 @@ export default function CreateBet(props) {
                       <div className="betusermoonnameContainer">
                         <Usermoonavatar
                           src="../../../cr7profile.jpg"
-                          alt="cr7"
+                          alt={currentprofile.username}
                           dimentionmoon={65}
                           dimentionimage={55}
                           boxshadowcolor="#070427"
+                          username={currentprofile.username}
                         />
 
-                        <div className="username">Cristiano Ronaldo</div>
+                        <div className="username">
+                          {currentprofile.username}
+                        </div>
                       </div>
                       <div style={{ fontWeight: "bold", marginRight: 30 }}>
                         {props.match.params.seasonname}

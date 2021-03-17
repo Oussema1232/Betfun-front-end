@@ -30,8 +30,8 @@ export default function MyDrawer(props) {
 
     drawerPaper: {
       width: drawerWidth,
-      backgroundColor: "#F2F3F5",
-      borderRight: "2px solid #CCC",
+      backgroundColor: "#fbfbfb",
+      borderRight: "2px solid #d4d4d3",
     },
     drawer: {
       width: drawerWidth,
@@ -59,7 +59,7 @@ export default function MyDrawer(props) {
         variant="persistent"
         anchor="right"
         open={props.open}
-        style={{ backgroundColor: "#971243" }}
+        style={{ backgroundColor: "#f5f5f5" }}
         classes={{
           paper: classes.drawerPaper,
         }}

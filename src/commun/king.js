@@ -1,8 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { savecurrentProfile } from "../features/currentprofile/currentprofileSlice";
 import { motion, AnimatePresence } from "framer-motion";
 import Usermoonavatar from "./usermoonavatar";
 
 export default function KingComponent({ kings, countryId }) {
+  const dispatch = useDispatch();
+  const currentdomain = useSelector(
+    (state) => state.betfundata.currentdomain.data
+  );
+
   return (
     <div className="kingItemsContainer">
       {kings.map((k) => (
@@ -52,22 +60,31 @@ export default function KingComponent({ kings, countryId }) {
                 </div>
                 <div>{k.countryname}</div>
               </div>
-              <div className="kinuserphotocontainer">
-                <div className="kingphotocontainer">
-                  <Usermoonavatar
-                    src="../../../../../cr7profile.jpg"
-                    alt="cr7"
-                    dimentionimage={40}
-                    dimentionmoon={50}
-                    boxshadowcolor="#3abe61"
-                  />
-                </div>
-                <div>
+              <div
+                className="kinuserphotocontainer"
+                onClick={() => {
+                  dispatch(
+                    savecurrentProfile({
+                      id: k.id,
+                      username: k.username,
+                    })
+                  );
+                }}
+              >
+                <Link
+                  to={`/betfun/game/bets/${currentdomain.name}/${currentdomain.id}`}
+                  style={{
+                    width: "100%",
+                    textDecoration: "none",
+                    color: "#eeeeee",
+                  }}
+                >
                   {k.sex == "Female"
                     ? `Queen ${k.username}`
                     : `King ${k.username} mala bibi jika mala kaka`}
-                </div>
+                </Link>
               </div>
+
               <div
                 style={{
                   width: "15%",

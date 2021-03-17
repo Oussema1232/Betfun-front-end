@@ -19,6 +19,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiceD6, faQuran } from "@fortawesome/free-solid-svg-icons";
 import { savecurrentDomain } from "../../features/currentdomain/currentdomainSlice";
+import { savecurrentProfile } from "../../features/currentprofile/currentprofileSlice";
 import { loadUserdomains } from "../../features/userdomains/userdomainSlice";
 import Knowledge from "../questionsparts/categoriesbackdrop";
 
@@ -50,9 +51,8 @@ export default function MyDrawerDomains(props) {
     drawerPaper: {
       width: drawerWidth,
 
-      // backgroundColor: "#F2F3F5",
-      backgroundColor: "#070427",
-      borderLeft: "2px solid #ffff00",
+      backgroundColor: "#2e383f",
+      borderLeft: "2px solid #f9a828",
       boxSizing: "border-box",
     },
     drawer: {
@@ -79,16 +79,14 @@ export default function MyDrawerDomains(props) {
       fontWeight: theme.typography.fontWeightRegular,
     },
     accordion: {
-      // backgroundColor: "#F2F3F5",
-      backgroundColor: " #070427",
+      backgroundColor: " #2e383f",
       width: "100%",
 
       boxShadow: "none",
       padding: 0,
     },
     accordionsummary: {
-      // backgroundColor: "#F2F3F5",
-      backgroundColor: " #070427",
+      backgroundColor: " #2e383f",
       display: "flex",
       justifyContent: "space-between",
 
@@ -99,7 +97,7 @@ export default function MyDrawerDomains(props) {
 
       color: "#d5cece",
       "&:hover": {
-        backgroundColor: "#1f1d3c",
+        backgroundColor: "#424b52",
         cursor: "pointer",
       },
     },
@@ -107,7 +105,7 @@ export default function MyDrawerDomains(props) {
       display: "flex",
 
       flexDirection: "column",
-      backgroundColor: "#Fefefe",
+      backgroundColor: "#f9a828",
       padding: 0,
     },
   }));
@@ -116,6 +114,8 @@ export default function MyDrawerDomains(props) {
   const theme = useTheme();
 
   const userdomains = useSelector((state) => state.betfundata.userdomains.list);
+
+  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
   const currentpathname = useSelector(
     (state) => state.router.location.pathname
   );
@@ -134,7 +134,7 @@ export default function MyDrawerDomains(props) {
   ];
 
   useEffect(() => {
-    dispatch(loadUserdomains(`/${6}`));
+    dispatch(loadUserdomains(`/${currentuser.id}`));
   }, []);
 
   return (
@@ -194,13 +194,10 @@ export default function MyDrawerDomains(props) {
                   <FontAwesomeIcon
                     icon={faQuran}
                     size="lg"
-                    color="#e6ab2d"
+                    color="#f9a828"
                     style={{ cursor: "pointer", marginRight: 10 }}
                   />
                   <div>{c.domainnavbaritem}</div>
-                  {/* <Backdrop className={classes.backdrop}>
-                    <Knowledge />
-                  </Backdrop> */}
                 </div>
               </Link>
             ) : (
@@ -214,7 +211,7 @@ export default function MyDrawerDomains(props) {
                   <FontAwesomeIcon
                     icon={faDiceD6}
                     size="lg"
-                    color="#e6ab2d"
+                    color="#f9a828"
                     style={{ cursor: "pointer", marginRight: 10 }}
                   />
                   <div>{c.domainnavbaritem}</div>
@@ -228,14 +225,22 @@ export default function MyDrawerDomains(props) {
                     >
                       <div
                         className="drawerseason"
-                        onClick={() => dispatch(savecurrentDomain(d))}
+                        onClick={() => {
+                          dispatch(savecurrentDomain(d));
+                          dispatch(
+                            savecurrentProfile({
+                              id: currentuser.id,
+                              username: currentuser.username,
+                            })
+                          );
+                        }}
                       >
                         {d.domainname}
                       </div>
                     </Link>
                   ))}
                 </AccordionDetails>
-                )
+                
               </Accordion>
             )}
           </>

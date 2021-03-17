@@ -12,9 +12,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   paper: {
-    backgroundColor: "#ede5e5",
+    backgroundColor: "#fbfbfb",
 
-    border: "2px solid #070427",
+    border: "2px solid #07617d",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -32,7 +32,7 @@ export default function LeagueModal(props) {
 
   const handleClose = () => {
     setOpen(false);
-    props.onclosemodal();
+    props.onclosemodal && props.onclosemodal();
   };
 
   return (

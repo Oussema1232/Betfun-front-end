@@ -72,12 +72,11 @@ class CreateLeague extends Form {
   };
 
   render() {
-   
     return (
       <LeagueModal buttonname="Create" onclosemodal={this.onclosemodal}>
         <div
           style={{
-            backgroundColor: "#e9eac9",
+            backgroundColor: "#fbfbfb",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -88,7 +87,7 @@ class CreateLeague extends Form {
               style={{
                 width: "96%",
                 fontSize: 13,
-                color: "rgb(177, 39, 39)",
+                color: "#171717",
                 marginTop: 0,
 
                 padding: 5,
@@ -105,8 +104,6 @@ class CreateLeague extends Form {
           <div
             style={{
               padding: 10,
-              borderRadius: 3,
-              boxShadow: "0px 0px 3px 4px #dddfad",
             }}
           >
             {!this.state.showsuccess ? (

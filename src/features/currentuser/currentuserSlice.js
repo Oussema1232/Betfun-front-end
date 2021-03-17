@@ -3,9 +3,9 @@ import jwtDecode from "jwt-decode";
 import { myToken } from "../../services/authService";
 
 export const currentUserSlice = createSlice({
-  name: "currentUser",
+  name: "currentuser",
   initialState: {
-    data: {},
+    data: { id: 6, username: "Oussema", isAdmin: true },
   },
 
   reducers: {

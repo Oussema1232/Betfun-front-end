@@ -4,12 +4,13 @@ import { motion } from "framer-motion";
 export default function Usermoonavatar({
   dimentionmoon,
   dimentionimage,
-  src,
-  alt,
+  username,
+
   boxshadowcolor,
 
   style,
 }) {
+  const letter = username && username.slice(0, 1).toUpperCase();
   return (
     <div
       style={{
@@ -23,19 +24,9 @@ export default function Usermoonavatar({
         boxShadow: `-22px 0px 0 0 ${boxshadowcolor}`,
       }}
     >
-      {/* <img
-        src={src}
-        alt={alt}
-        style={{
-          width: dimentionimage,
-          height: dimentionimage,
-          borderRadius: "50%",
-          userSelect: "none",
-        }}
-      /> */}
       <div
         style={{
-          backgroundColor: "#4c364d",
+          backgroundColor: "#2e383f",
           width: dimentionimage,
           height: dimentionimage,
           borderRadius: "50%",
@@ -50,7 +41,7 @@ export default function Usermoonavatar({
           ...style,
         }}
       >
-        H
+        {letter}
       </div>
     </div>
   );

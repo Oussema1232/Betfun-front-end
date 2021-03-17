@@ -3,6 +3,10 @@
   src: url("../../RomanAntique.ttf");
 }
 
+.choosediffContainer {
+  width: 400px;
+}
+
 .questionsContainer {
   margin-top: 84px;
   display: flex;
@@ -31,12 +35,13 @@
   width: 90%;
   min-width: 200px;
   max-width: 700px;
+
   min-height: 250px;
   max-height: 300px;
   margin-top: 20px;
   padding: 10px;
-  /* border: 3px solid #ddd; */
-  overflow: auto;
+
+  overflow-y: auto;
   background-size: cover;
   background-clip: content-box;
   background-color: #f8f5de;
@@ -78,11 +83,12 @@
 
 .addquestionContainer {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex-direction: column;
   padding: 15px;
-  max-width: 400px;
+  max-width: 500px;
+  min-height: 400px;
   max-height: 550px;
   overflow: hidden;
   border-radius: 3;
@@ -90,6 +96,8 @@
 
 .choosediffaddquestContainer {
   width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
@@ -142,6 +150,10 @@
 
 @media only screen and (max-width: 400px) {
   .addquestionContainer {
+    width: 100%;
+  }
+
+  .choosediffContainer {
     width: 100%;
   }
 }
