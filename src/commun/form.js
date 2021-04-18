@@ -103,7 +103,8 @@ class Form extends Component {
     label,
     classSelectContainer,
     classSelect,
-    classError
+    classError,
+    firstvalue
   ) => {
     const { errors, data } = this.state;
     return (
@@ -114,6 +115,7 @@ class Form extends Component {
         options={options}
         name={name}
         label={label}
+        firstvalue={firstvalue}
         errors={errors[name]}
         value={data[name]}
         onChange={this.onchange}

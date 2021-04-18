@@ -1,57 +1,87 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import LevelandLimits from "../../commun/logos/levelandLimits";
+import { loadLevelbydomainadmin } from "../../features/levels/levelSlice";
+import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
+
 
 export default function Levels() {
-  const levels = [
-    { logo: "../../../../NaturalBettor.jpg" },
-    { logo: "../../../../BeastBettor.jpg" },
-    { logo: "../../../../DragonBettor.jpg" },
-    { logo: "../../../../ShowtimeBettor.jpg" },
-    { logo: "../../../../NaturalBettor.jpg" },
-    { logo: "../../../../BeastBettor.jpg" },
-    { logo: "../../../../DragonBettor.jpg" },
-    { logo: "../../../../ShowtimeBettor.jpg" },
-    { logo: "../../../../NaturalBettor.jpg" },
-    { logo: "../../../../BeastBettor.jpg" },
-    { logo: "../../../../DragonBettor.jpg" },
-    { logo: "../../../../ShowtimeBettor.jpg" },
-    { logo: "../../../../NaturalBettor.jpg" },
-    { logo: "../../../../BeastBettor.jpg" },
-    { logo: "../../../../DragonBettor.jpg" },
-    { logo: "../../../../ShowtimeBettor.jpg" },
-    { logo: "../../../../NaturalBettor.jpg" },
-    { logo: "../../../../BeastBettor.jpg" },
-    { logo: "../../../../DragonBettor.jpg" },
-    { logo: "../../../../ShowtimeBettor.jpg" },
-    { logo: "../../../../NaturalBettor.jpg" },
-    { logo: "../../../../BeastBettor.jpg" },
-    { logo: "../../../../DragonBettor.jpg" },
-    { logo: "../../../../ShowtimeBettor.jpg" },
-    { logo: "../../../../NaturalBettor.jpg" },
-    { logo: "../../../../BeastBettor.jpg" },
-    { logo: "../../../../DragonBettor.jpg" },
-    { logo: "../../../../ShowtimeBettor.jpg" },
-  ];
+  const dispatch = useDispatch();
+  const currentdomain = useSelector(
+    (state) => state.betfundata.currentdomain.data
+  );
+  const domainlevels = useSelector(
+    (state) => state.betfundata.levels.listbydomainadmin
+  );
+
+  const loading = useSelector((state) => state.betfundata.levels.loading);
+  const errormessage = useSelector(
+    (state) => state.betfundata.levels.errors.message
+  );
+
+  useEffect(() => {
+    if (currentdomain) dispatch(loadLevelbydomainadmin(`/${currentdomain.id}`));
+  }, [currentdomain]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        flexWrap: "wrap",
-        padding: 10,
-        marginTop: 100,
-        color: "#eeeeee",
-        boxSizing: "border-box",
-      }}
-    >
-      {levels.map((lev) => (
-        <LevelandLimits
-          src={lev.logo}
-          startingpoints={1500}
-          endingpoints={2600}
-        />
-      ))}
-    </div>
+    <>
+      {loading ? (
+        <div style={{ paddingLeft: "50%", paddingTop: "20%" }}>
+          <Spincrescentcomponenet size="2x" color="#2e383f" />
+        </div>
+      ) : (
+        <>
+          {errormessage ? (
+            <div className="loadingerrorMessage">
+              <div
+                className="betstabLine headerBets"
+                style={{
+                  fontSize: 20,
+                  backgroundColor: "#ececeb",
+                  border: "none",
+                  fontWeight: "bold",
+                }}
+              >
+                {errormessage}
+              </div>
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                flexWrap: "wrap",
+                padding: 10,
+                marginTop: 100,
+                color: "#fbfbfb",
+                boxSizing: "border-box",
+              }}
+            >
+              {domainlevels.map((lev) => (
+                <LevelandLimits
+                  src={lev.logo}
+                  startingpoints={
+                    currentdomain.name &&
+                    lev[`${currentdomain.name.split(" ").join("")}startpoints`]
+                      ? lev[
+                          `${currentdomain.name.split(" ").join("")}startpoints`
+                        ]
+                      : "X"
+                  }
+                  endingpoints={
+                    currentdomain.name &&
+                    lev[`${currentdomain.name.split(" ").join("")}endpoints`]
+                      ? lev[
+                          `${currentdomain.name.split(" ").join("")}endpoints`
+                        ]
+                      : "X"
+                  }
+                />
+              ))}
+            </div>
+          )}
+        </>
+      )}
+    </>
   );
 }

@@ -3,17 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
+
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+
 import NativeSelect from "@material-ui/core/NativeSelect";
 import { loadTitles } from "../../features/titles/titleSlice.js";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 
-import TabPanel from "../../commun/panelTab";
-import Usermoonavatar from "../../commun/usermoonavatar";
-import Crown from "../../commun/logos/crown.js";
 import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
 import SultanComponent from "../../commun/sultan.js";
 import KingsComponent from "../../commun/king.js";
@@ -21,21 +16,21 @@ import KingsComponent from "../../commun/king.js";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    color: "#eeeeee",
+    color: "#171717",
     minWidth: 120,
     maxWidth: 200,
   },
   select: {
-    color: "#eeeeee",
+    color: "#171717",
     "&:before": {
-      borderColor: "#eeeeee",
+      borderColor: "#171717",
     },
     "&:after": {
-      borderColor: "#eeeeee",
+      borderColor: "#171717",
     },
   },
   icon: {
-    fill: "#2e0000",
+    fill: "#ececeb",
   },
 }));
 
@@ -69,40 +64,38 @@ export default function Titles(props) {
     <>
       {loadingTitles ? (
         <div style={{ paddingLeft: "50%", paddingTop: "20%" }}>
-          <Spincrescentcomponenet size="2x" color="#070427" />
+          <Spincrescentcomponenet size="2x" color="#2e383f" />
         </div>
       ) : (
         <>
           {titlesErrors ? (
             <div className="loadingerrorMessage">
-              {titlesErrors && (
-                <div
-                  className="betstabLine headerBets"
-                  style={{
-                    fontSize: 20,
-                    backgroundColor: "#ececeb",
-                    border: "none",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {titlesErrors}...
-                </div>
-              )}
+              <div
+                className="betstabLine headerBets"
+                style={{
+                  fontSize: 20,
+                  backgroundColor: "#ececeb",
+                  border: "none",
+                  fontWeight: "bold",
+                }}
+              >
+                {titlesErrors}
+              </div>
             </div>
           ) : (
             <div
               style={{
                 marginTop: 100,
-                color: "#eeeeee",
+                color: "#fbfbfb",
                 backgroundColor: "#ececeb",
                 minHeight: "100vh",
               }}
             >
               <SultanComponent
-                sex="Male"
-                countrylogo="../../../../../tunisianflag.png"
+                gender={sultan.gender}
+                countrylogo={sultan.countrylogo}
                 sultanusername={sultan.username}
-                points={sultan.points}
+                points={sultan.total_points}
                 NTSultan={sultan.NTSultan}
                 season={props.match.params.seasonname}
               />
@@ -111,7 +104,7 @@ export default function Titles(props) {
                   <FormControl className={classes.formControl}>
                     <InputLabel
                       htmlFor="choosecountry"
-                      style={{ color: "#000" }}
+                      style={{ color: "#171717" }}
                     >
                       Country
                     </InputLabel>
@@ -129,7 +122,7 @@ export default function Titles(props) {
                     >
                       <option
                         value="All"
-                        style={{ backgroundColor: "#e6ab2d", color: "#eeeeee" }}
+                        style={{ backgroundColor: "#e6ab2d", color: "#fbfbfb" }}
                       >
                         All
                       </option>
@@ -146,17 +139,21 @@ export default function Titles(props) {
                 </div>
                 <div className="kingsqueentitle">Kings / Queens</div>
               </div>
-              {kings[0] ? (
-                <KingsComponent kings={kings} countryId={choosecountry} />
+              {kings[0] || true ? (
+                <KingsComponent
+                  kings={[sultan, sultan]}
+                  countryId={choosecountry}
+                />
               ) : (
                 <div
                   style={{
                     fontSize: 30,
                     marginTop: 20,
-                    width: "90%",
+                    width: "100%",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    color: "#171717",
                   }}
                 >
                   There is no kings

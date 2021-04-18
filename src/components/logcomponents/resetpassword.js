@@ -65,7 +65,7 @@ class Resetpassword extends Component {
     _.forEach(data, function (value, key) {
       dataaftertrim[key] = value.trim();
     });
-    
+
     const { error } = Joi.validate(dataaftertrim, this.schema, options);
     if (!error) return null;
     const errors = {};
@@ -156,7 +156,7 @@ class Resetpassword extends Component {
         <LoadingComponent show={this.state.loading} />
         <div
           style={{
-            backgroundColor: "#e9eac9",
+            backgroundColor: "#ececeb",
             width: "100%",
 
             minHeight: "100vh",
@@ -172,11 +172,11 @@ class Resetpassword extends Component {
               width: !this.state.showmessage ? "27.3%" : "70%",
               minWidth: !this.state.showmessage ? 250 : 300,
 
-              backgroundColor: "#f5f5e5",
+              backgroundColor: "#fbfbfb",
               marginTop: !this.state.showmessage ? 20 : 70,
               padding: 10,
               borderRadius: 3,
-              boxShadow: "0px 0px 3px 4px #dddfad",
+              boxShadow: "0px 0px 3px 4px #d4d4d3",
             }}
           >
             {this.state.reseteroor && <h3>{this.state.reseterror}</h3>}
@@ -187,7 +187,7 @@ class Resetpassword extends Component {
                   <form
                     style={{
                       width: "100%",
-                      // border: "1px solid red",
+                      
                       paddingTop: 6,
                       paddingBottom: 6,
                     }}
@@ -239,18 +239,18 @@ class Resetpassword extends Component {
                       }
                     />
 
-                    <button
+                    <div
                       type="submit"
                       className="resendlink"
                       onClick={this.onSubmit}
-                      // disabled={this.validation()}
+                      
                     >
                       {!this.state.loading ? (
                         "Reset"
                       ) : (
-                        <Spincrescentcomponenet color="#e9eac9" size="1x" />
+                        <Spincrescentcomponenet color="#fbfbfb" size="1x" />
                       )}
-                    </button>
+                    </div>
                     {this.state.reseterror && <h5>{this.state.reseterror}</h5>}
                   </form>
                 </>

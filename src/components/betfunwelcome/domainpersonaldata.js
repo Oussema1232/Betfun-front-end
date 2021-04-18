@@ -1,76 +1,73 @@
 import React, { useEffect, useState } from "react";
 import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
-import { loadUserdomains } from "../../features/userdomains/userdomainSlice";
-
+import { loadDomainstats } from "../../features/domainstats/domainstatsSlice";
+import { loadProfiledomains } from "../../features/profiledomains/profiledomainSlice";
+import { loadLevels } from "../../features/levels/levelSlice";
 import AccuracyEfficiency from "../../commun/accuracyeffec";
 import Betleveldomainpersondata from "../../commun/betleveldomainpersondata";
 
 export default function Domainpersonaldata() {
-  const data = {
-    totalAcc: 70,
-    totalEff: 50,
-
-    seasons: [
-      {
-        id: 1,
-        name: "2018-2019",
-        acc: 20,
-        eff: 30,
-        points: 250,
-        gameweeks: [
-          { id: 1, name: "one", acc: 20, eff: 35 },
-          { id: 2, name: "two", acc: 20, eff: 36 },
-          { id: 3, name: "three", acc: 20, eff: 45 },
-          { id: 4, name: "four", acc: 20, eff: 75 },
-        ],
-      },
-      {
-        id: 2,
-        name: "2019-2020",
-        acc: 40,
-        eff: 50,
-        points: 360,
-        gameweeks: [
-          { id: 8, name: "229", acc: 40, eff: 35 },
-          { id: 9, name: "223", acc: 10, eff: 36 },
-          { id: 10, name: "230", acc: 26, eff: 25 },
-          { id: 11, name: "201", acc: 35, eff: 55 },
-        ],
-      },
-      {
-        id: 3,
-        name: "2020-2021",
-        acc: 0,
-        eff: 0,
-        points: 2600,
-        gameweeks: [
-          { id: 15, name: "mine", acc: 40, eff: 35 },
-          { id: 16, name: "yours", acc: 10, eff: 24 },
-          { id: 19, name: "ours", acc: 32, eff: 25 },
-          { id: 20, name: "none", acc: 45, eff: 15 },
-        ],
-      },
-    ],
-  };
-
-  const [season, setSeason] = React.useState(data.seasons[0].id);
-  const [selectedseasonvalue, Setselectedseasonvalue] = React.useState(
-    data.seasons[0]
+  const dispatch = useDispatch();
+  
+  const profiledomains = useSelector(
+    (state) => state.betfundata.profiledomains.list
   );
-  const [gameweeks, setGameweeks] = React.useState(data.seasons[0].gameweeks);
+  
+  const currentprofile = useSelector(
+    (state) => state.betfundata.currentprofile.data
+  );
+  const domainstats = useSelector((state) => state.betfundata.domainstats.list);
+
+  const loadingstats = useSelector(
+    (state) => state.betfundata.domainstats.loading
+  );
+ 
+  const loadingprofiledomains = useSelector(
+    (state) => state.betfundata.profiledomains.loading
+  );
+
+  const errormessagestats = useSelector(
+    (state) => state.betfundata.domainstats.errors.message
+  );
+  
+  const errormessageprofiledomains = useSelector(
+    (state) => state.betfundata.profiledomains.errors.message
+  );
+
+  const [currentdomainId, setCurrentdomainId] = useState(0);
+
+  const [season, setSeason] = React.useState(
+    domainstats.seasons &&
+      domainstats.seasons.length !== 0 &&
+      domainstats.seasons[0].id
+  );
+  const [selectedseasonvalue, Setselectedseasonvalue] = React.useState(
+    domainstats.seasons &&
+      domainstats.seasons.length !== 0 &&
+      domainstats.seasons[0]
+  );
+  const [gameweeks, setGameweeks] = React.useState(
+    domainstats.seasons && domainstats.seasons.length !== 0
+      ? domainstats.seasons[0].gameweeks
+      : []
+  );
   const [gameweek, setGameweek] = React.useState(
-    data.seasons[0].gameweeks[0].id
+    domainstats.seasons &&
+      domainstats.seasons.length !== 0 &&
+      domainstats.seasons[0].gameweeks[0].id
   );
   const [selectedGameweekvalue, setSelectedGameweekvalue] = React.useState(
-    data.seasons[0].gameweeks[0]
+    domainstats.seasons &&
+      domainstats.seasons.length !== 0 &&
+      domainstats.seasons[0].gameweeks[0]
   );
 
   const seasonChange = (event) => {
     const value = event.target.value;
     setSeason(value);
 
-    const selectedSeason = _.find(data.seasons, function (s) {
+    const selectedSeason = _.find(domainstats.seasons, function (s) {
       return s.id == value;
     });
     Setselectedseasonvalue(selectedSeason);
@@ -90,114 +87,250 @@ export default function Domainpersonaldata() {
   };
 
   useEffect(() => {
-    dispatch(loadUserdomains(`/${6}`));
-  }, []);
+    if (currentprofile.id) {
+      dispatch(loadProfiledomains(`/${currentprofile.id}`));
+    }
+  }, [currentprofile]);
 
-  const dispatch = useDispatch();
-  const userdomains = useSelector((state) => state.betfundata.userdomains.list);
+  useEffect(() => {
+    if (profiledomains[0]) {
+      dispatch(
+        loadDomainstats(
+          `/${currentprofile.id}/${profiledomains[currentdomainId].id}`
+        )
+      );
+      dispatch(loadLevels(`/${profiledomains[currentdomainId].id}`));
+    }
+  }, [currentdomainId, profiledomains, currentprofile]);
 
-  const [currentdomain, setCurrectdomain] = useState(0);
+  useEffect(() => {
+    setSeason(
+      domainstats.seasons &&
+        domainstats.seasons.length !== 0 &&
+        domainstats.seasons[0].id
+    );
+
+    Setselectedseasonvalue(
+      domainstats.seasons &&
+        domainstats.seasons.length !== 0 &&
+        domainstats.seasons[0]
+    );
+    setGameweeks(
+      domainstats.seasons && domainstats.seasons.length !== 0
+        ? domainstats.seasons[0].gameweeks
+        : []
+    );
+    setGameweek(
+      domainstats.seasons &&
+        domainstats.seasons.length !== 0 &&
+        domainstats.seasons[0].gameweeks[0].id
+    );
+
+    setSelectedGameweekvalue(
+      domainstats.seasons &&
+        domainstats.seasons.length !== 0 &&
+        domainstats.seasons[0].gameweeks[0]
+    );
+  }, [domainstats]);
 
   const goleft = () => {
-    if (currentdomain != 0) {
-      setCurrectdomain((c) => c - 1);
+    if (currentdomainId != 0) {
+      setCurrentdomainId((c) => c - 1);
     }
   };
 
   const goright = () => {
-    if (currentdomain != userdomains.length - 1) {
-      setCurrectdomain((c) => c + 1);
+    if (currentdomainId != profiledomains.length - 1) {
+      setCurrentdomainId((c) => c + 1);
     }
   };
 
-  return (
-    <div className="domainpersondatacontainer">
-      <Betleveldomainpersondata
-        domainname={
-          userdomains[0] ? userdomains[currentdomain].domainname : "loading..."
-        }
-        points={selectedseasonvalue.points}
-        imageSrc="../../../noobBettor.jpg"
-        stillright={currentdomain != userdomains.length - 1}
-        stillleft={currentdomain != 0}
-        goLeft={() => goleft()}
-        goRight={() => goright()}
-      />
-      <div
-        style={{
-          flexGrow: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
+  const isthereseasons = (seasons) => {
+    return !seasons || (seasons && seasons.length == 0);
+  };
 
-          boxSizing: "border-box",
-        }}
-      >
+  return (
+    <>
+      {loadingstats || loadingprofiledomains ? (
         <div
           style={{
+            width: "40%",
             display: "flex",
-            minHeight: 50,
-            width: "100%",
-            fontSize: 13,
-            fontWeight: "bold",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <div style={{ width: "33%" }}></div>
-          <div
-            style={{
-              width: "33%",
-              color: "black",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            Accuracy
-          </div>
-          <div
-            style={{
-              width: "33%",
-              color: "black",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            Effiency
-          </div>
+          ...loading
         </div>
+      ) : errormessageprofiledomains ? (
         <div
           style={{
-            width: "100%",
-            flexGrow: 1,
+            width: "40%",
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-around",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <AccuracyEfficiency
-            accuracy={data.totalAcc}
-            efficiency={data.totalEff}
-            canselect={false}
-          />
-          <AccuracyEfficiency
-            name="seasons"
-            value={season}
-            accuracy={selectedseasonvalue.acc}
-            efficiency={selectedseasonvalue.eff}
-            changeselect={seasonChange}
-            list={data.seasons}
-          />
-          <AccuracyEfficiency
-            name="GW"
-            value={gameweek}
-            accuracy={selectedGameweekvalue.acc}
-            efficiency={selectedGameweekvalue.eff}
-            changeselect={gameweekChange}
-            list={gameweeks}
-          />
+          {errormessageprofiledomains}
         </div>
-      </div>
-    </div>
+      ) : (
+        <div
+          className="domainpersondatacontainer"
+          style={{
+            display: loadingstats || loadingprofiledomains ? "none" : "flex",
+          }}
+        >
+          <Betleveldomainpersondata
+            domainname={
+              profiledomains[0]
+                ? profiledomains[currentdomainId].domainname
+                : "loading..."
+            }
+            points={selectedseasonvalue ? selectedseasonvalue.points : 0}
+            stillright={profiledomains[0] && (currentdomainId != profiledomains.length - 1)}
+            stillleft={currentdomainId != 0}
+            goLeft={() => goleft()}
+            goRight={() => goright()}
+          />
+
+          {errormessagestats ? (
+            <div
+              style={{
+                flexGrow: 1,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {errormessagestats}
+            </div>
+          ) : (
+            <div
+              style={{
+                flexGrow: 1,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+
+                boxSizing: "border-box",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  minHeight: 50,
+                  marginTop:10,
+                  width: "100%",
+                  fontSize: 13,
+                  fontWeight: "bold",
+                }}
+              >
+                <div style={{ width: "33%" }}></div>
+                <div
+                  style={{
+                    width: "33%",
+                    color: "black",
+                    flexDirection: "column",
+                    display: "flex",
+                    
+                    alignItems: "center",
+                  }}
+                >
+                  <div>Accuracy</div>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      fontWeight: "normal",
+                      textAlign: "center",
+                    }}
+                  >
+                    correct matches /total matches
+                  </div>
+                </div>
+                <div
+                  style={{
+                    width: "33%",
+                    color: "black",
+                    flexDirection: "column",
+                    display: "flex",
+                    
+                    alignItems: "center",
+                  }}
+                >
+                  <div>Efficiency</div>
+                  <div style={{ fontSize: 11, fontWeight: "normal",textAlign: "center", }}>
+                    score / best score
+                  </div>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  flexGrow: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-around",
+                }}
+              >
+                <AccuracyEfficiency
+                  accuracy={
+                    domainstats.totalAcc == null ? 0 : domainstats.totalAcc
+                  }
+                  efficiency={
+                    domainstats.totalEff == null ? 0 : domainstats.totalEff
+                  }
+                  allseasons={"All seasons"}
+                  canselect={false}
+                />
+                <AccuracyEfficiency
+                  canselect={isthereseasons(domainstats.seasons) ? false : true}
+                  allseasons="No seasons played"
+                  name="seasons"
+                  value={season}
+                  accuracy={
+                    isthereseasons(domainstats.seasons)
+                      ? 0
+                      : selectedseasonvalue
+                      ? selectedseasonvalue.acc
+                      : 0
+                  }
+                  efficiency={
+                    isthereseasons(domainstats.seasons)
+                      ? 0
+                      : selectedseasonvalue
+                      ? selectedseasonvalue.eff
+                      : 0
+                  }
+                  changeselect={seasonChange}
+                  list={domainstats.seasons}
+                />
+                <AccuracyEfficiency
+                  allseasons="No gamweweeks played"
+                  name="Gamweweeks"
+                  canselect={isthereseasons(domainstats.seasons) ? false : true}
+                  value={gameweek}
+                  accuracy={
+                    isthereseasons(domainstats.seasons)
+                      ? 0
+                      : selectedGameweekvalue
+                      ? selectedGameweekvalue.acc
+                      : 0
+                  }
+                  efficiency={
+                    isthereseasons(domainstats.seasons)
+                      ? 0
+                      : selectedGameweekvalue
+                      ? selectedGameweekvalue.eff
+                      : 0
+                  }
+                  changeselect={gameweekChange}
+                  list={gameweeks}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </>
   );
 }

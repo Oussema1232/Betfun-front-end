@@ -1,128 +1,83 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import CategoryIcon from "../../commun/logos/categoryIcon";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import { makeStyles } from "@material-ui/core/styles";
+import Backdrop from "@material-ui/core/Backdrop";
 import useSound from "use-sound";
 import popup from "../../sounds/popup.mp3";
 import back from "../../img/vintageback.jpg";
-
-import {
-  faDiceD6,
-  faHistory,
-  faMapMarkedAlt,
-  faAtom,
-  faBookReader,
-  faUserAstronaut,
-  faRunning,
-  faHandshake,
-  faMusic,
-  faCoins,
-  faGlobe,
-  faAlignJustify,
-  faTimesCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
-import Backdrop from "@material-ui/core/Backdrop";
+import { loadCategories } from "../../features/categories/categorySlice";
+import { savecurrentCategory } from "../../features/currentcategory/currentcategorySlice";
+import http from "../../services/httpService";
+import { changeLanguage } from "../../features/currentuser/currentuserSlice";
+import CategoryIcon from "../../commun/logos/categoryIcon";
+import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
 
 export default function Categories(props) {
-  const icons = [
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.betfundata.categories.list);
+  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
+
+  useEffect(() => {
+    dispatch(loadCategories(`/${currentuser.language}`));
+  }, []);
+
+  const all = [
     {
-      id: 1,
-      name: faAlignJustify,
-      title: "All",
+      id: "All",
+      Arabname: "جميع الفئات",
+      Engname: "All",
       color: "#f01b2d",
       delay: 0.1,
-      y: [-2, 2],
-    },
-    {
-      id: 2,
-      name: faGlobe,
-      title: "Culture",
-      color: "blue",
-      delay: 0.15,
-      y: [2, -2],
-    },
-    {
-      id: 3,
-      name: faHistory,
-      title: "History",
-      color: "#008161",
-      delay: 0.2,
-      y: [-2, 2],
-    },
-    {
-      id: 4,
-      name: faMapMarkedAlt,
-      title: "Giography",
-      color: "#f4821f",
-      delay: 0.25,
-      y: [2, -2],
-    },
-    {
-      id: 5,
-      name: faAtom,
-      title: "Science",
-      color: "#0a4244",
-      delay: 0.3,
-      y: [-2, 2],
-    },
-    {
-      id: 6,
-      name: faBookReader,
-      title: "Literature",
-      color: "#d55538",
-      delay: 0.35,
-      y: [2, -2],
-    },
-    {
-      id: 7,
-      name: faUserAstronaut,
-      title: "Astronomy",
-      color: "#cfad0e",
-      delay: 0.4,
-      y: [-2, 2],
-    },
-    {
-      id: 8,
-      name: faRunning,
-      title: "Sports",
-      color: "#1181fc",
-      delay: 0.45,
-      y: [-2, 2],
-    },
-    {
-      id: 9,
-      name: faHandshake,
-      title: "Politics",
-      color: "#921127",
-      delay: 0.5,
-      y: [-2, 2],
-    },
-    {
-      id: 10,
-      name: faMusic,
-      title: "Music",
-      color: "#97084e",
-      delay: 0.55,
-      y: [-2, 2],
-    },
-    {
-      id: 11,
-      name: faCoins,
-      title: "Economy",
-      color: "#ea2d5e",
-      delay: 0.6,
-      y: [-2, 2],
     },
   ];
 
   const [open, setOpen] = React.useState(true);
+  const [loading, setLoading] = useState(false);
+  const [errormessage, setErrormessage] = useState("");
   const [play] = useSound(popup, { volume: 0.3 });
 
   const handleClose = () => {
     setOpen(false);
-    props.history.push(props.location.state.fromwhere);
+    props.history.push(
+      props.location.state ? props.location.state.fromwhere : "/game/welcome"
+    );
+  };
+  const [language, setLanguage] = useState(currentuser.language);
+
+  const handleChange = async (event) => {
+    const language = event.target.value;
+    setErrormessage("");
+    setLanguage(language);
+    try {
+      setLoading(true);
+
+      const response = await http.put(
+        `http://localhost:3001/api/params/language/${currentuser.id}`,
+        {
+          language,
+        }
+      );
+
+      dispatch(
+        changeLanguage({
+          language,
+        })
+      );
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      if (err.response) {
+        setErrormessage(err.response.data.message);
+      }
+      setLanguage(currentuser.language);
+    }
   };
 
   const useStyles = makeStyles((theme) => ({
@@ -133,9 +88,17 @@ export default function Categories(props) {
       backgroundColor: "#070427",
       backgroundImage: `url(${back})`,
       backgroundRepeat: "repeat",
-      // backgroundSize: "contain",
+      overflow: "auto",
+
       color: "#eeeeee",
     },
+    formControl: { width: 65, marginBottom: 4 },
+    select: {
+      color: "#eeeeee",
+      fontWeight: "bold",
+      borderBottom: "2px solid #eee",
+    },
+    icon: { color: "#eeeeee" },
   }));
 
   const classes = useStyles();
@@ -143,14 +106,59 @@ export default function Categories(props) {
   return (
     <Backdrop className={classes.backdrop} open={open}>
       <div
+        className="categoriescontainer"
         style={{
           minHeight: "80%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          // border: "1px solid yellow",
+          fontFamily:
+            currentuser.language == "Eng"
+              ? "'Patrick Hand SC', cursive"
+              : "'Katibeh', cursive",
         }}
       >
+        <div
+          style={{
+            position: "absolute",
+            right: 10,
+            top: 4,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <FormControl className={classes.formControl}>
+            <Select
+              labelId="language"
+              id="languageselect"
+              value={language}
+              onChange={handleChange}
+              className={classes.select}
+              classes={{ icon: classes.icon }}
+            >
+              <MenuItem value={"Eng"}>Eng</MenuItem>
+              <MenuItem value={"Arab"}>العربية</MenuItem>
+            </Select>
+          </FormControl>
+          {loading && <Spincrescentcomponenet color="#eeeeee" size="1x" />}
+          {errormessage && (
+            <div
+              style={{
+                color: "#eeeeee",
+                fontSize: 15,
+                marginTop: 4,
+                fontFamily:
+                  currentuser.language == "Eng"
+                    ? "'Patrick Hand SC', cursive"
+                    : "'Katibeh', cursive",
+              }}
+            >
+              {currentuser.language == "Eng" ? "Failed" : "حدث خطأ"}
+            </div>
+          )}
+        </div>
         <motion.div
           style={{
             flexGrow: 1,
@@ -159,7 +167,6 @@ export default function Categories(props) {
             alignItems: "flex-start",
             width: "100%",
             cursor: "pointer",
-            // border: "1px solid blue",
           }}
           onClick={handleClose}
           initial={{ scale: 0.7 }}
@@ -174,12 +181,11 @@ export default function Categories(props) {
             justifyContent: "center",
             alignItems: "center",
             flexWrap: "wrap",
-            maxWidth: 410,
-            // border: "1px solid white",
+            maxWidth: 420,
             marginBottom: 25,
           }}
         >
-          {icons.map((icon) => (
+          {[...all, ...categories].map((icon) => (
             <motion.div
               initial={{ y: -1000 }}
               animate={{
@@ -194,18 +200,32 @@ export default function Categories(props) {
               onMouseEnter={() => play()}
             >
               <Link
+                onClick={() =>
+                  dispatch(
+                    savecurrentCategory({
+                      Arabname: icon.Arabname,
+                      Engname: icon.Engname,
+                      id: icon.id,
+                    })
+                  )
+                }
                 key={0}
-                to={`/knowledge/learngame/${icon.title}/${icon.id}`}
+                to={`/knowledge/learngame/${
+                  currentuser.language == "Eng" ? icon.Engname : icon.Arabname
+                }/${icon.id}`}
                 style={{
                   textDecoration: "none",
                   color: "#02010f",
+                  fontSize: 20,
                 }}
               >
                 <CategoryIcon
-                  iconTitle={icon.title}
-                  iconName={icon.name}
+                  iconTitle={
+                    currentuser.language == "Eng" ? icon.Engname : icon.Arabname
+                  }
+                  iconName={icon.Engname}
                   backgroundcolor={icon.color}
-                  y={icon.y}
+                  y={icon.id % 2 == 0 ? [2, -2] : [-2, 2]}
                 />
               </Link>
             </motion.div>

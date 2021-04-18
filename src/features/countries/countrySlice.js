@@ -84,6 +84,19 @@ export const postCountry = (country) => (dispatch, getState) => {
   );
 };
 
+export const deleteCountry = (params) => (dispatch, getState) => {
+  return dispatch(
+    actions.apiCallBegan({
+      onStart: countriesRequested.type,
+      onError: countriesRequestFail.type,
+      onSuccess: countryUpdated.type,
+      onServerFail: countryServerFail.type,
+      url: url + params,
+      method: "delete",
+    })
+  );
+};
+
 export const selectCountryById = (userId) =>
   createSelector(
     (state) => state.betfundata.countries.list,

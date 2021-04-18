@@ -6,10 +6,9 @@
   width: 96%;
   padding: 5px;
   min-height: 35px;
-
+  color: #171717;
   background-color: #f9a828;
   font-weight: bold;
-  color: #070427;
 }
 .drawerseason:hover {
   background-color: #f9b03d;

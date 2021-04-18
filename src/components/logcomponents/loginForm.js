@@ -2,14 +2,13 @@ import React from "react";
 import Joi from "joi-browser";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { savecurrentUser } from "../../features/currentuser/currentuserSlice";
 import http from "../../services/httpService";
 import auth from "../../services/authService";
-import { savecurrentUser } from "../../features/currentuser/currentuserSlice";
 import Form from "../../commun/form";
 import Betfunlogo from "../../commun/logos/betfunalllogo";
 import LoadingComponent from "../../commun/logos/loadingcomponent";
 import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
-import Input from "../../commun/input";
 
 import "./style.css";
 
@@ -72,7 +71,7 @@ class Login extends Form {
     try {
       this.setState({ loadinglogin: true });
       const { email, userpassword } = this.state.data;
-      await auth.login(email, userpassword);
+       await auth.login(email, userpassword);
       this.props.savecurrentUser();
       this.props.history.replace("/");
     } catch (err) {
@@ -91,39 +90,18 @@ class Login extends Form {
     return (
       <>
         <LoadingComponent show={this.state.loadinglogin} />
-        <div
-          style={{
-            backgroundColor: "#ede5e5",
-            backgroundColor: "#dee1ec",
-            backgroundColor: "#ececeb",
-            width: "100%",
-
-            // minHeight: "100vh",
-            height: "100%",
-            paddingBottom: 10,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          {!this.state.forbidden && <Betfunlogo />}
-          <div
-            style={{
-              width: !this.state.showmessage ? "27.3%" : "70%",
-              minWidth: !this.state.showmessage ? 250 : 300,
-
-              backgroundColor: "#ffffff",
-              marginTop: !this.state.showmessage ? 20 : 70,
-              padding: 10,
-              borderRadius: 3,
-              boxShadow: "0px 0px 3px 4px #dddfad",
-            }}
-          >
+        <div className="logscreencontainer">
+          {!this.state.forbidden && (
+            <div className="betfunalllogocontainer">
+              <Betfunlogo />
+            </div>
+          )}
+          <div className="formmessagecontainer">
             {!this.state.forbidden ? (
               <form
                 style={{
                   width: "100%",
-                  // border: "1px solid red",
+
                   paddingTop: 6,
                   paddingBottom: 6,
                 }}
@@ -152,11 +130,11 @@ class Login extends Form {
                 <Link
                   style={{
                     fontSize: 13,
-                    color: "blue",
+
                     textDecoration: "none",
                     marginTop: 10,
                     userSelect: "none",
-                    color: "#1769aa",
+
                     color: "#07617d",
                     display: "block",
                     marginTop: 12,
@@ -181,7 +159,7 @@ class Login extends Form {
                       {!this.state.loadingresend ? (
                         "Resend"
                       ) : (
-                        <Spincrescentcomponenet color="#e9eac9" size="1x" />
+                        <Spincrescentcomponenet color="#fbfbfb" size="1x" />
                       )}
                     </button>
                   </div>

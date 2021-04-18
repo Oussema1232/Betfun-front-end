@@ -1,4 +1,5 @@
 import React from "react";
+import NativeSelect from "@material-ui/core/NativeSelect";
 
 const Select = ({
   classSelectContainer,
@@ -10,28 +11,29 @@ const Select = ({
   errors,
   value,
   onChange,
+  firstvalue,
 }) => {
   return (
     <>
       <div className={classSelectContainer}>
         {label && <label forhtml={name}>{label}</label>}
-        <select
+        <NativeSelect
           className={classSelect}
-          id={name}
-          onChange={onChange}
           value={value}
-          name={name}
+          onChange={onChange}
+          inputProps={{
+            name: name,
+            id: name,
+          }}
         >
-          <option value="" >
-            Country
-          </option>
+          <option value="">{firstvalue}</option>
 
           {options.map((option) => (
             <option key={option.id} value={option.id}>
               {option.name}
             </option>
           ))}
-        </select>
+        </NativeSelect>
       </div>
       {errors && <div className={classError}>{errors}</div>}
     </>

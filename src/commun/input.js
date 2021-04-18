@@ -1,4 +1,5 @@
 import React from "react";
+import TextField from "@material-ui/core/TextField";
 import Eyecomponenet from "./logos/eyecomponent";
 
 const Input = ({
@@ -23,14 +24,10 @@ const Input = ({
 
           marginTop: 10,
           width: "96%",
-          backgroundColor: "rgba(0, 0, 0, 1)",
-
-          borderRadius: 3,
-          borderBottomRightRadius: 1,
-          borderBottomLeftRadius: 1,
         }}
       >
-        <input name={name} className={classInput} id={name} {...rest} />
+        {/* <input name={name} className={classInput} id={name} {...rest} /> */}
+        <TextField name={name} className={classInput} id={name} {...rest} />
         {eyeicon && (
           <div
             style={{

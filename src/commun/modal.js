@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -14,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: "#fbfbfb",
 
-    border: "2px solid #07617d",
+    border: "2px solid #2e383f",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },

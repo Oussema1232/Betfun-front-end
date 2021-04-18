@@ -190,8 +190,6 @@ export default function Islamiccolumn(props) {
                 }}
                 style={{
                   width: 16,
-                  //   height: 25,
-
                   boxSizing: "border-box",
                   borderBottomLeftRadius: 7,
                   borderBottomRightRadius: 7,
@@ -206,7 +204,6 @@ export default function Islamiccolumn(props) {
                 }}
                 style={{
                   width: 16,
-                  //   height: 25,
                   boxSizing: "border-box",
                   borderBottomLeftRadius: 7,
                   borderBottomRightRadius: 7,

@@ -1,13 +1,10 @@
 import React from "react";
-import { motion } from "framer-motion";
 
 export default function Usermoonavatar({
   dimentionmoon,
   dimentionimage,
   username,
-
-  boxshadowcolor,
-
+  boxshadowcolor = "#07617d",
   style,
 }) {
   const letter = username && username.slice(0, 1).toUpperCase();
@@ -16,7 +13,6 @@ export default function Usermoonavatar({
       style={{
         width: dimentionmoon,
         height: dimentionmoon,
-        // border: "1px solid blue",
         borderRadius: "50%",
         display: "flex",
         justifyContent: "center",
@@ -34,7 +30,8 @@ export default function Usermoonavatar({
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          color: "#eceff1",
+          textAlign: "center",
+          color: "#fbfbfb",
           fontSize: 25,
           border: "1px solid #263238",
           fontWeight: "bold",

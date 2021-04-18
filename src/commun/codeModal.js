@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import Joi from "joi-browser";
 import http from "../services/httpService";
 import _ from "lodash";
 import Spincrescentcomponenet from "./logos/spincrescentcomponent";
@@ -66,15 +65,15 @@ class CreateLeague extends React.Component {
       >
         <div
           style={{
-            backgroundColor: "#e9eac9",
+            backgroundColor: "#fbfbfb",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            color: "#02010f",
+            color: "#171717",
           }}
         >
-          {this.state.loading   ? (
-            <Spincrescentcomponenet size="3x" color="#070427" />
+          {this.state.loading ? (
+            <Spincrescentcomponenet size="2x" color="#07617d" />
           ) : (
             <div
               style={{
@@ -93,21 +92,13 @@ class CreateLeague extends React.Component {
               {this.state.message ? (
                 <h4>{this.state.message}</h4>
               ) : (
-                <div
+                <h3
                   style={{
-                    padding: 10,
-                    borderRadius: 3,
-                    boxShadow: "0px 0px 3px 4px #dddfad",
+                    color: "green",
                   }}
                 >
-                  <h3
-                    style={{
-                      color: "green",
-                    }}
-                  >
-                    {this.state.code}
-                  </h3>
-                </div>
+                  {this.state.code}
+                </h3>
               )}
             </div>
           )}

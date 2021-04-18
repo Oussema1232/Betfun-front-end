@@ -7,6 +7,10 @@
   width: 400px;
 }
 
+.categoriescontainer {
+  margin-top: 2px;
+}
+
 .questionsContainer {
   margin-top: 84px;
   display: flex;
@@ -155,5 +159,17 @@
 
   .choosediffContainer {
     width: 100%;
+  }
+  .categoriescontainer {
+    width: 100%;
+    margin-top: 190px;
+  }
+}
+
+@media only screen and (max-height: 300px) {
+  .categoriescontainer {
+    width: 100%;
+    align-items: center;
+    margin-top: 250px;
   }
 }

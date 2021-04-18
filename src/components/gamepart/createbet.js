@@ -1,30 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import moment from "moment";
-import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { makeStyles } from "@material-ui/core/styles";
-import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
-import { loadMatches } from "../../features/matches/matcheSlice";
-import { sousListMatchguessescreated } from "../../features/matches/matcheSlice";
-import { createBet } from "../../features/bets/betSlice.js";
-
-import { savecurrentDomain } from "../../features/currentdomain/currentdomainSlice";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Select from "@material-ui/core/Select";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import FormControl from "@material-ui/core/FormControl";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import SkullCreateBet from "../../commun/skulldata";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Snackbar from "@material-ui/core/Snackbar";
 import { AlertTitle } from "@material-ui/lab";
 import MuiAlert from "@material-ui/lab/Alert";
-import Slide from "@material-ui/core/Slide";
-import TabPanel from "../../commun/panelTab";
+import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
+import {
+  loadMatches,
+  sousListMatchguessescreated,
+} from "../../features/matches/matcheSlice";
+import { createBet } from "../../features/bets/betSlice.js";
+import Islamiccolumn from "../../commun/logos/islamiccolumn2";
 import Betdetail from "../../commun/betdetail";
 import Usermoonavatar from "../../commun/usermoonavatar";
 
@@ -94,7 +84,7 @@ export default function CreateBet(props) {
   const submitBet = () => {
     let firstMatchTime = matches[0].days[0].matches[0].played_on;
     setTimeIsUp({ isUp: false, message: "" });
-    if (moment(firstMatchTime).diff(moment(), "minutes") < 60) {
+    if (moment(firstMatchTime).diff(moment(), "minutes") > 60) {
       dispatch(
         createBet({
           userId: currentuser.id,
@@ -119,7 +109,7 @@ export default function CreateBet(props) {
   const classes = useStyles();
 
   return (
-    <div style={{ marginTop: 100, backgroundColor: "#ede5e5" }}>
+    <div style={{ marginTop: 100, backgroundColor: "#ececeb" }}>
       {loadingmatches ? (
         <SkullCreateBet
           flexDirection="row"
@@ -185,7 +175,6 @@ export default function CreateBet(props) {
                           alt={currentprofile.username}
                           dimentionmoon={65}
                           dimentionimage={55}
-                          boxshadowcolor="#070427"
                           username={currentprofile.username}
                         />
 
@@ -231,15 +220,13 @@ export default function CreateBet(props) {
                                     updateguess={sousListMatchguessescreated}
                                     disabled={
                                       matches[0].days[0].matches[0] &&
-                                      !(
-                                        moment().diff(
-                                          moment(
-                                            matches[0].days[0].matches[0]
-                                              .played_on
-                                          ),
-                                          "minutes"
-                                        ) > 60
-                                      )
+                                      moment().diff(
+                                        moment(
+                                          matches[0].days[0].matches[0]
+                                            .played_on
+                                        ),
+                                        "minutes"
+                                      ) < 60
                                     }
                                   />
                                 ))}
@@ -253,7 +240,7 @@ export default function CreateBet(props) {
                       moment(matches[0].days[0].matches[0].played_on).diff(
                         moment(),
                         "minutes"
-                      ) < 60 && (
+                      ) > 60 && (
                         <div
                           className="createbetorleagueButton buttonsubmit"
                           style={{
@@ -302,11 +289,16 @@ export default function CreateBet(props) {
         >
           <Alert severity={CreateBetSuccess ? "success" : "error"}>
             <AlertTitle>{CreateBetSuccess ? "Success" : "Error"}</AlertTitle>
-            {CreateBetSuccess
-              ? CreateBetSuccess
-              : CreateBetError
-              ? CreateBetError
-              : timeIsUp.message}
+            {CreateBetSuccess ? (
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Islamiccolumn showmouth={true} dance={false} />
+                <div style={{ marginLeft: 6 }}>{CreateBetSuccess}</div>
+              </div>
+            ) : CreateBetError ? (
+              CreateBetError
+            ) : (
+              timeIsUp.message
+            )}
           </Alert>
         </Snackbar>
       )}

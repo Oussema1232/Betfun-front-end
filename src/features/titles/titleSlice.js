@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import _ from "lodash";
-import { createSelector } from "reselect";
 import * as actions from "../actions/api";
 import config from "../../config.json";
 

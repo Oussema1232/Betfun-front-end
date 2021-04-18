@@ -1,38 +1,66 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ProgressBarWithLabel from "../../commun/progressBarwithlabel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStarAndCrescent } from "@fortawesome/free-solid-svg-icons";
-import backwall from "../../img/knowledgeback.jpg";
+import { loadKnowledgestats } from "../../features/knowledgestats/knowledgestatsSlice";
 
 export default function Knowledgedata() {
+  const dispatch = useDispatch();
+
+  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
+  const currentprofile = useSelector(
+    (state) => state.betfundata.currentprofile.data
+  );
+  const knowledgestats = useSelector(
+    (state) => state.betfundata.knowledgestats.list
+  );
+  const loadingknowledgestats = useSelector(
+    (state) => state.betfundata.knowledgestats.loading
+  );
+  const errormessage = useSelector(
+    (state) => state.betfundata.knowledgestats.errors.message
+  );
+
+  useEffect(() => {
+    dispatch(
+      loadKnowledgestats(
+        `/${currentprofile.id ? currentprofile.id : currentuser.id}`
+      )
+    );
+  }, [currentprofile]);
+
   return (
     <div className="knowledgepersondatacontainer">
       <div
         style={{
           height: 50,
+          marginTop: 10,
           fontWeight: "bold",
           fontSize: 13,
           width: "99%",
           display: "flex",
-          alignItems: "center",
           justifyContent: "space-between",
+          
         }}
       >
         <div>Knowledge</div>
-        <div>12360 pts</div>
+        <div>
+          {loadingknowledgestats ? "..." : knowledgestats.totalpoints} pts
+        </div>
         <div
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
+            
           }}
         >
-          <div>123</div>
+          <div>{Math.trunc(knowledgestats.totalpoints / 100)}</div>
           <div
             style={{
               display: "flex",
               flexDirection: "column",
-              justifyContent: "center",
+              
               alignItems: "center",
               marginLeft: 5,
             }}
@@ -96,35 +124,76 @@ export default function Knowledgedata() {
           </div>
         </div>
       </div>
-      <div
-        style={{
-          width: "100%",
-          flexGrow: 1,
-          maxWidth: 300,
-          display: "flex",
+      {loadingknowledgestats ? (
+        <div
+          style={{
+            width: "100%",
+            flexGrow: 1,
+            width: 300,
+            display: "flex",
+            fontWeight: "bold",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          loading ...
+        </div>
+      ) : (
+        <>
+          {errormessage ? (
+            <div
+              style={{
+                width: "100%",
+                flexGrow: 1,
+                width: 300,
+                display: "flex",
+                fontWeight: "bold",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {errormessage}
+            </div>
+          ) : (
+            <div
+              style={{
+                width: "100%",
+                flexGrow: 1,
 
-          justifyContent: "center",
-          alignItems: "space-between",
-          flexWrap: "wrap",
-        }}
-      >
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((c) => (
-          <div
-            key={c}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              margin: 6,
-              marginBottom: 10,
-            }}
-          >
-            <div style={{ marginBottom: 5, fontSize: 13 }}>Category</div>
-            <ProgressBarWithLabel progress={0} />
-          </div>
-        ))}
-      </div>
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "space-between",
+                flexWrap: "wrap",
+              }}
+            >
+              {knowledgestats.categories.map((c) => (
+                <div
+                  key={c.category}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    width: 70,
+                    marginRight: 10,
+                    marginBottom: 10,
+                  }}
+                >
+                  <div
+                    style={{
+                      marginBottom: 8,
+                      fontSize: 13,
+                    }}
+                  >
+                    {c.category}
+                  </div>
+                  <ProgressBarWithLabel progress={Number(c.percentage)} />
+                </div>
+              ))}
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }

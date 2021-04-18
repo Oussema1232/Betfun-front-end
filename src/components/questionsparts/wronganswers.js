@@ -1,9 +1,15 @@
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 import Islamiccolumn from "../../commun/logos/islamiccolumn2";
+import { Link } from "react-router-dom";
 import blackpaper from "../../img/backquest.jpg";
 
-export default function Wronganswers() {
+export default function Wronganswers(props) {
+  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
+  const currentcategory = useSelector(
+    (state) => state.betfundata.currentcategory.data
+  );
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -14,7 +20,7 @@ export default function Wronganswers() {
           alignItems: "center",
           fontSize: 22,
           marginTop: 20,
-
+          textAlign: currentuser.language == "Arab" ? "end" : "start",
           flexDirection: "column",
         }}
       >
@@ -29,8 +35,7 @@ export default function Wronganswers() {
             justifyContent: "center",
           }}
         >
-          You have exceeded the maximum number of wrong answers. Sorry Bettor,
-          better luck next Time
+          {currentuser.language == "Arab" ? props.Araberror : props.Engerror}
         </div>
       </div>
 
@@ -77,9 +82,19 @@ export default function Wronganswers() {
             backgroundImage: `url(${blackpaper})`,
           }}
         >
-          Go Back
+          <Link
+            to={`/knowledge/learngame/${
+              currentuser.language == "Eng"
+                ? currentcategory.Engname
+                : currentcategory.Arabname
+            }/${currentcategory.id}`}
+            style={{ color: "#02010f", textDecoration: "none" }}
+          >
+            {currentuser.language == "Arab" ? "العودة" : "Go Back"}
+          </Link>
         </motion.div>
         <motion.div
+          onClick={() => props.onRetry()}
           initial={{
             border: "1px dashed black",
           }}
@@ -106,7 +121,7 @@ export default function Wronganswers() {
             backgroundImage: `url(${blackpaper})`,
           }}
         >
-          Retry
+          {currentuser.language == "Arab" ? "أعد المحاولة" : "Retry"}
         </motion.div>
       </div>
     </div>

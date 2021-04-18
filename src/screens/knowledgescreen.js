@@ -1,49 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
+import React from "react";
+import { useSelector } from "react-redux";
+import {  Switch } from "react-router-dom";
 import KnowledgeComponent from "../components/questionsparts/knowledgecomponent";
-
+import ProtectedRoute from "../commun/protectedRoute";
 import Categoriesknowledge from "../components/questionsparts/categoriesbackdrop";
 import Playround from "../components/questionsparts/playround2";
 
 export default function Knowledge(props) {
-  const [showcursor, setShowcursor] = useState(true);
-
-  const mouseCursorRef = React.createRef();
-
+  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
   return (
     <div
-      style={{ fontFamily: "'Indie Flower', cursive" }}
-      // onTouchStart={() => {
-      //   setShowcursor(false);
-      // }}
-      // onMouseLeave={() => {
-      //   setShowcursor(false);
-      // }}
-      // onMouseEnter={() => setShowcursor(true)}
-      // onMouseMove={(e) => {
-      //   const isitplayround = props.location.pathname.slice(
-      //     props.location.pathname.lastIndexOf("/") + 1
-      //   );
-
-      //   if (isitplayround == "playround") {
-      //     setShowcursor(false);
-      //   } else {
-      //     const mouseCursor = mouseCursorRef.current;
-      //     mouseCursor.style.top = e.pageY + "px";
-      //     mouseCursor.style.left = e.pageX + "px";
-      //   }
-      // }}
+      style={{
+        fontFamily:
+          currentuser.language == "Eng"
+            ? "'Indie Flower', cursive"
+            : "'Katibeh', cursive",
+        overflow: "auto",
+      }}
     >
-      {/* {showcursor && (
-        <div className="cursor" ref={mouseCursorRef}>
-          X
-        </div>
-      )} */}
-
       <Switch>
-        <Route path="/knowledge/categories" component={Categoriesknowledge} />
-        <Route path="/knowledge/learngame" component={KnowledgeComponent} />
-        <Route path="/knowledge/playround" component={Playround} />
+        <ProtectedRoute
+          path="/knowledge/categories"
+          component={Categoriesknowledge}
+        />
+        <ProtectedRoute
+          path="/knowledge/learngame/:categoryname/:categoryId"
+          component={KnowledgeComponent}
+        />
+        <ProtectedRoute
+          path="/knowledge/playround/:categoryname/:difficulty"
+          component={Playround}
+        />
       </Switch>
     </div>
   );

@@ -1,24 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import {  useSelector } from "react-redux";
 import Domainpersonaldata from "../betfunwelcome/domainpersonaldata.js";
 import Knowledgedata from "../betfunwelcome/knowledgedata.js";
-
-import backwall from "../../img/backwall.jpg";
-
-import knowledgeback from "../../img/knowledgeback2.jpg";
+import Usermoonavatar from "../../commun/usermoonavatar";
 
 export default function Stats(props) {
+  const currentprofile = useSelector(
+    (state) => state.betfundata.currentprofile.data
+  );
   return (
     <div
       style={{
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
-        flexWrap: "wrap",
         padding: 10,
         marginTop: 100,
-
         boxSizing: "border-box",
       }}
     >
+      <div
+        className="betusermoonnameContainer"
+        style={{ alignSelf: "flex-start", marginLeft: 20, marginTop: 30 }}
+      >
+        <Usermoonavatar
+          alt={currentprofile.username}
+          dimentionmoon={65}
+          dimentionimage={55}
+          username={currentprofile.username}
+        />
+        <div className="username">{currentprofile.username}</div>
+      </div>
       <div
         style={{
           borderRadius: 10,
@@ -26,7 +38,7 @@ export default function Stats(props) {
           border: "1px solid #d4d4d3",
           backgroundColor: "#fbfbfb",
           width: "100%",
-          marginTop: 30,
+          marginTop: 10,
         }}
       >
         <div className="domainknwoledgedatacontainer">

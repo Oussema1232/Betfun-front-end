@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import _ from "lodash";
 import { makeStyles } from "@material-ui/core/styles";
-import { loadLeaguesgenres } from "../../features/leaguesgenres/leaguegenreSlice";
-import { loadLeagues } from "../../features/leagues/leagueSlice.js";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -14,6 +12,8 @@ import {
   faArrowCircleDown,
   faCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import { loadLeaguesgenres } from "../../features/leaguesgenres/leaguegenreSlice";
+import { loadLeagues } from "../../features/leagues/leagueSlice.js";
 
 import TabPanel from "../../commun/panelTab";
 import Usermoonavatar from "../../commun/usermoonavatar";
@@ -86,7 +86,7 @@ export default function LeaguesList(props) {
   const [value, setValue] = React.useState();
 
   return (
-    <div style={{ marginTop: 100, backgroundColor: "#ede5e5" }}>
+    <div style={{ marginTop: 100, backgroundColor: "#ececeb" }}>
       {loadingLeaguesGenres || loadingLeagues ? (
         <SkullLeagues flexDirection="row" justifyContent="space-betweeen">
           <div className="betusermoonnameContainer">
@@ -131,7 +131,7 @@ export default function LeaguesList(props) {
                   className="betstabLine headerBets"
                   style={{
                     fontSize: 20,
-                    backgroundColor: "#ede5e5",
+                    backgroundColor: "#ececeb",
                     border: "none",
                     fontWeight: "bold",
                   }}
@@ -144,7 +144,7 @@ export default function LeaguesList(props) {
                   className="betstabLine headerBets"
                   style={{
                     fontSize: 20,
-                    backgroundColor: "#ede5e5",
+                    backgroundColor: "#ececeb",
                     border: "none",
                     fontWeight: "bold",
                   }}
@@ -181,7 +181,6 @@ export default function LeaguesList(props) {
                       alt={currentprofile.username}
                       dimentionmoon={65}
                       dimentionimage={55}
-                      boxshadowcolor="#070427"
                       username={currentprofile.username}
                     />
 
@@ -245,7 +244,7 @@ export default function LeaguesList(props) {
                   {leagues.map((league) => (
                     <Link
                       to={{
-                        pathname: `/betfun/game/leaguedetail/${league.name}/${currentdomain.name}/${league.leagueId}/${league.seasonId}`,
+                        pathname: `/game/bet/leaguedetail/${league.name}/${currentdomain.name}/${league.leagueId}/${league.seasonId}`,
                         state: { creatorId: league.creatorId },
                       }}
                       style={{ textDecoration: "none" }}

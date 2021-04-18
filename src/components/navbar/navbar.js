@@ -1,55 +1,31 @@
 import React, { Component } from "react";
-import Toolbar from "@material-ui/core/Toolbar";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { savecurrentDomain } from "../../features/currentdomain/currentdomainSlice";
-
-import SearchIcon from "@material-ui/icons/Search";
 import Blogo from "../../commun/logos/blogo";
-import Tagline from "../../commun/logos/tagline";
-import SearchInput from "../../commun/searchinput";
-import SimpleBadge from "../../commun/badge";
-
-import Badge from "@material-ui/core/Badge";
-import ViewListIcon from "@material-ui/icons/ViewList";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import MoreIcon from "@material-ui/icons/MoreVert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThList } from "@fortawesome/free-solid-svg-icons";
 import MyDrawerNotification from "../popupsdrawers/drawerNotifications";
-import MyDrawerCommunities from "../popupsdrawers/drawerCommunities";
-// import MyDrawerDomains from "../popupsdrawers/drawerBetfunDomains";
+
 import MyDrawerDomains from "../popupsdrawers/drawerBetfunGames";
 import "./style.css";
 
 class Navbar extends Component {
   state = {
     opendrawernotifications: false,
-    opendrawercommunities: false,
+
     opendrawerDomains: false,
   };
 
   openDrawerNotifications = () => {
     this.setState({
-      opendrawercommunities: false,
       opendrawernotifications: true,
-      opendrawerDomains: false,
-    });
-  };
-
-  openDrawerCommunities = () => {
-    this.setState({
-      opendrawercommunities: true,
-      opendrawernotifications: false,
       opendrawerDomains: false,
     });
   };
 
   openDrawerDomains = () => {
     this.setState({
-      opendrawercommunities: false,
       opendrawernotifications: false,
       opendrawerDomains: true,
     });
@@ -58,9 +34,7 @@ class Navbar extends Component {
   closeDrawerNotifications = () => {
     this.setState({ opendrawernotifications: false });
   };
-  closeDrawerCommunities = () => {
-    this.setState({ opendrawercommunities: false });
-  };
+
   closeDrawerDomains = () => {
     this.setState({ opendrawerDomains: false });
   };
@@ -69,18 +43,12 @@ class Navbar extends Component {
     return (
       <>
         <div className="navbarbetfun">
-          <div className="logosearchContainer">
-            <div className="blogosearchContainer">
-              <Link to="/betfun/welcome">
-                <div className="blogo">
-                  <Blogo />
-                </div>
-              </Link>
-              {/* <Tagline
-                style={{ fontSize: 20, alignSelf: "flex-end", marginBottom: 3 }}
-              /> */}
+          <Link to="/game/welcome">
+            <div className="blogo">
+              <Blogo />
             </div>
-          </div>
+          </Link>
+
           <div style={{ flexGrow: 1 }}></div>
 
           <div className="desktopscreenbetpub">
@@ -133,7 +101,6 @@ class Navbar extends Component {
           </div>
         </div>
         <MyDrawerNotification
-          // onclickItem={this.props.savecurrentDomain}
           open={this.state.opendrawernotifications}
           handleDrawerClose={this.closeDrawerNotifications}
         />

@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-import { motion } from "framer-motion";
-import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
-import Backdrop from "@material-ui/core/Backdrop";
-
+import { Link} from "react-router-dom";
+import {  makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -21,7 +16,7 @@ import { faDiceD6, faQuran } from "@fortawesome/free-solid-svg-icons";
 import { savecurrentDomain } from "../../features/currentdomain/currentdomainSlice";
 import { savecurrentProfile } from "../../features/currentprofile/currentprofileSlice";
 import { loadUserdomains } from "../../features/userdomains/userdomainSlice";
-import Knowledge from "../questionsparts/categoriesbackdrop";
+
 
 import "./style.css";
 
@@ -36,8 +31,8 @@ export default function MyDrawerDomains(props) {
       fontWeight: "bold",
       fontFamily: "'Indie Flower', cursive",
       cursor: "default",
-      // color: "#000",
-      color: "#d5cece",
+
+      color: "#fbfbfb",
       display: "none",
       [theme.breakpoints.up("sm")]: {
         display: "block",
@@ -45,7 +40,7 @@ export default function MyDrawerDomains(props) {
     },
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
-      color: "#eeeeee",
+      color: "#fbfbfb",
     },
 
     drawerPaper: {
@@ -69,7 +64,7 @@ export default function MyDrawerDomains(props) {
     },
     iconbutton: {
       width: 60,
-      color: "#d5cece",
+      color: "#fbfbfb",
     },
     root: {
       width: "100%",
@@ -95,7 +90,7 @@ export default function MyDrawerDomains(props) {
 
       minHeight: 50,
 
-      color: "#d5cece",
+      color: "#fbfbfb",
       "&:hover": {
         backgroundColor: "#424b52",
         cursor: "pointer",
@@ -164,7 +159,7 @@ export default function MyDrawerDomains(props) {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              color: "#d5cece",
+              color: "#fbfbfb",
             }}
           >
             <div>Betfun Domains</div>
@@ -180,7 +175,7 @@ export default function MyDrawerDomains(props) {
                   pathname: c.pathname && c.pathname,
                   state: { fromwhere: currentpathname },
                 }}
-                style={{ textDecoration: "none", color: "#d5cece" }}
+                style={{ textDecoration: "none", color: "#fbfbfb" }}
               >
                 <div
                   key={index}
@@ -188,7 +183,7 @@ export default function MyDrawerDomains(props) {
                   style={{
                     cursor: "pointer",
 
-                    color: "#d5cece",
+                    color: "#fbfbfb",
                   }}
                 >
                   <FontAwesomeIcon
@@ -204,7 +199,7 @@ export default function MyDrawerDomains(props) {
               <Accordion className={classes.accordion}>
                 <AccordionSummary
                   className={classes.accordionsummary}
-                  expandIcon={<ExpandMoreIcon style={{ color: "#eeeeee" }} />}
+                  expandIcon={<ExpandMoreIcon style={{ color: "#fbfbfb" }} />}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
@@ -221,7 +216,7 @@ export default function MyDrawerDomains(props) {
                     <Link
                       key={d.id}
                       style={{ textDecoration: "none" }}
-                      to={`/betfun/game/bets/${d.domainname}/${d.id}`}
+                      to={`/game/bet/bets/${d.domainname}/${d.id}`}
                     >
                       <div
                         className="drawerseason"
@@ -240,7 +235,6 @@ export default function MyDrawerDomains(props) {
                     </Link>
                   ))}
                 </AccordionDetails>
-                
               </Accordion>
             )}
           </>

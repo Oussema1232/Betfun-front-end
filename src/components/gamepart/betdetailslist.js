@@ -1,29 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
-import { toast } from "react-toastify";
 import { makeStyles } from "@material-ui/core/styles";
+import Snackbar from "@material-ui/core/Snackbar";
+import { AlertTitle } from "@material-ui/lab";
+import MuiAlert from "@material-ui/lab/Alert";
+import Skeleton from "@material-ui/lab/Skeleton";
 import { loadBetdetails } from "../../features/betdetails/betdetailSlice";
 import {
   sousListBetdetailsUpdated,
   editbetdetailsguesses,
 } from "../../features/betdetails/betdetailSlice";
 import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
-import InputLabel from "@material-ui/core/InputLabel";
 import SkullBetdetails from "../../commun/skulldata";
-import FormControl from "@material-ui/core/FormControl";
-import Snackbar from "@material-ui/core/Snackbar";
-import { AlertTitle } from "@material-ui/lab";
-import MuiAlert from "@material-ui/lab/Alert";
-import NativeSelect from "@material-ui/core/NativeSelect";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Skeleton from "@material-ui/lab/Skeleton";
-import TabPanel from "../../commun/panelTab";
 import Usermoonavatar from "../../commun/usermoonavatar";
 import Betdetail from "../../commun/betdetail";
-import { Divider } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,9 +47,6 @@ export default function BetdetailsList(props) {
   const [open, setOpen] = React.useState(false);
   const [timeIsUp, setTimeIsUp] = React.useState({ isUp: false, message: "" });
 
-  const currentdomain = useSelector(
-    (state) => state.betfundata.currentdomain.data
-  );
   const currentprofile = useSelector(
     (state) => state.betfundata.currentprofile.data
   );
@@ -171,11 +160,9 @@ export default function BetdetailsList(props) {
                 <div className="betusermoonsortContainer">
                   <div className="betusermoonnameContainer">
                     <Usermoonavatar
-                      src="../../../cr7profile.jpg"
                       alt={currentprofile.username}
                       dimentionmoon={65}
                       dimentionimage={55}
-                      boxshadowcolor="#070427"
                       username={currentprofile.username}
                     />
                     <div className="username">{currentprofile.username}</div>
@@ -191,6 +178,7 @@ export default function BetdetailsList(props) {
                 <div className="betsTableContainer">
                   {betdetails.map((betdetail) => (
                     <Betdetail
+                      key={betdetail.idBet}
                       guesseslist={guesseslist}
                       betdetail={betdetail}
                       showsmalldate={true}
@@ -203,14 +191,14 @@ export default function BetdetailsList(props) {
                           moment(betdetails[0].played_on).diff(
                             moment(),
                             "minutes"
-                          ) > 60)
+                          ) < 60)
                       }
                     />
                   ))}
                 </div>
                 {currentuser.id == currentprofile.id &&
                   betdetails[0] &&
-                  !(
+                  (
                     moment(betdetails[0].played_on).diff(moment(), "minutes") >
                     60
                   ) && (

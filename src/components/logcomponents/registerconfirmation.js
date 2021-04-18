@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { savecurrentUser } from "../../features/currentuser/currentuserSlice";
-import auth from "../../services/authService";
 import http from "../../services/httpService";
 import { connect } from "react-redux";
-import { faClosedCaptioning } from "@fortawesome/free-solid-svg-icons";
+
 
 class Confirmation extends Component {
   state = { message: "", showmessage: false, showerror: false };
@@ -47,7 +46,7 @@ class Confirmation extends Component {
     return (
       <div
         style={{
-          backgroundColor: "#e9eac9",
+          backgroundColor: "#ececeb",
           width: "100%",
 
           minHeight: "100vh",
@@ -63,11 +62,11 @@ class Confirmation extends Component {
             width: "70%",
             minWidth: 300,
 
-            backgroundColor: "#f5f5e5",
+            backgroundColor: "#fbfbfb",
             marginTop: 70,
             padding: 10,
             borderRadius: 3,
-            boxShadow: "0px 0px 3px 4px #dddfad",
+            boxShadow: "0px 0px 3px 4px #d4d4d3",
           }}
         >
           {(this.state.showmessage || this.state.showerror) && (
@@ -89,7 +88,6 @@ const mapStateToProps = (state) => ({
   currentuser: state.betfundata.currentuser.data,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Confirmation);
-
 
 //when this component is called it sends a request to api/confirmation/token with token is the email token in the link that was sent to the user
 //and the path

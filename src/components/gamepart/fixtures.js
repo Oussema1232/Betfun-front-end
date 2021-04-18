@@ -1,19 +1,14 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { makeStyles } from "@material-ui/core/styles";
-import { loadMatches } from "../../features/matches/matcheSlice";
-import { loadGameweeks } from "../../features/gameweeks/gameweekSlice.js";
-import { savecurrentDomain } from "../../features/currentdomain/currentdomainSlice";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
+
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import { loadMatches } from "../../features/matches/matcheSlice";
+import { loadGameweeks } from "../../features/gameweeks/gameweekSlice.js";
 
 import TabPanel from "../../commun/panelTab";
 import SkullFixture from "../../commun/skulldata";
@@ -93,7 +88,7 @@ export default function Fixtures(props) {
   const [gameweekvalue, setGameweekvalue] = React.useState({ nothing: "" });
 
   return (
-    <div style={{ marginTop: 100, backgroundColor: "#ede5e5" }}>
+    <div style={{ marginTop: 100, backgroundColor: "#ececeb" }}>
       {loadgameweeks || loadmatches ? (
         <SkullFixture flexDirection="column">
           <Skeleton animation="pulse" variant="text" height={24} width={60} />
@@ -106,23 +101,23 @@ export default function Fixtures(props) {
                 className="betstabLine headerBets"
                 style={{
                   fontSize: 20,
-                  backgroundColor: "#ede5e5",
+                  backgroundColor: "#ececeb",
                   border: "none",
                   fontWeight: "bold",
                 }}
               >
-                {gameweeksError} ...
+                {gameweeksError}
               </div>
               <div
                 className="betstabLine headerBets"
                 style={{
                   fontSize: 20,
-                  backgroundColor: "#ede5e5",
+                  backgroundColor: "#ececeb",
                   border: "none",
                   fontWeight: "bold",
                 }}
               >
-                {matchesError} ...
+                {matchesError}
               </div>
             </div>
           ) : (

@@ -100,6 +100,7 @@
 .quotesoldiercontainer {
   display: flex;
   width: 100%;
+
   justify-content: space-around;
   border-left: 5px solid #2e383f;
   border-right: 5px solid #2e383f;
@@ -147,5 +148,32 @@
 
   .domainpersondatapoints {
     font-size: 9px;
+  }
+}
+
+.quoteoftheday {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  animation-name: quoteofthedayanimation;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes quoteofthedayanimation {
+  0% {
+    color: #f9a828;
+  }
+  25% {
+    color: #2e383f;
+  }
+  50% {
+    color: #07617d;
+  }
+  75% {
+    color: #2e383f;
+  }
+  100% {
+    color: #07617d;
   }
 }

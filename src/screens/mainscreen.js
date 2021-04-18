@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { Route, Redirect, Switch } from "react-router-dom";
-import background from "../../src/sky.jpg";
-import Betfunalllogo from "../commun/logos/betfunalllogo";
+import React from "react";
 
-import "./style.css";
+import {  Redirect, Switch } from "react-router-dom";
+
+import ProtectedRoute from "../commun/protectedRoute";
 import Navbar from "../components/navbar/navbar";
 import Admin from "../components/gamepart/admin/admin";
-import BetdomainNavbar from "../components/navbar/betdomainNavbar";
-import Knowledge from "./knowledgescreen";
+import Params from "../components/gamepart/params";
+
+
 import BetsScreen from "./betscreen";
 import WelcomeScreen from "./welcomeScreen";
 
-import Categoriesknowledge from "../components/questionsparts/categoriesbackdrop";
+
+
+import "./style.css";
 
 const Mainscreen = () => {
-  const [showbubble, setShowbubble] = useState();
   return (
     <>
       <div
@@ -36,13 +36,15 @@ const Mainscreen = () => {
           }}
         >
           <Switch>
-            <Route
-              path="/betfun/welcome"
+            <ProtectedRoute
+              path="/game/welcome"
               render={(props) => <WelcomeScreen {...props} />}
             />
-            <Route exact path="/betfun/admin" component={Admin} />
-            <Route path="/betfun/game" component={BetsScreen} />
-            <Redirect from="/betfun" to="/betfun/welcome" />
+            <ProtectedRoute path="/game/bet" component={BetsScreen} />
+            <ProtectedRoute path="/game/params" component={Params} />
+            
+            <ProtectedRoute exact path="/game/admin" component={Admin} />
+            <Redirect from="/" to="/game/welcome" />
           </Switch>
         </div>
       </div>
@@ -52,10 +54,4 @@ const Mainscreen = () => {
 
 export default Mainscreen;
 
-// const mapStateToProps = (state) => ({
-//   currentuser: state.betfundata.currentuser.data,
-//   countries: state.betfundata.countries.list,
-//   users: state.betfundata.users.list,
-// });
 
-// export default connect(mapStateToProps, null)(Mainscreen);

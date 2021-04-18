@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+
+import { loadDifficulties } from "../../features/difficulties/difficultySlice";
+import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
+import DifficultyItem from "../../commun/difficultyItem";
 
 export default function Choosedifficulty() {
+  const dispatch = useDispatch();
+  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
+  const difficultiesloading = useSelector(
+    (state) => state.betfundata.difficulties.loading
+  );
+  const errormessage = useSelector(
+    (state) => state.betfundata.difficulties.errors.message
+  );
+
+  useEffect(() => {
+    dispatch(loadDifficulties(`/${currentuser.language}`));
+  }, []);
+
+  const difficulties = useSelector(
+    (state) => state.betfundata.difficulties.list
+  );
   return (
     <motion.div
       initial={{
@@ -24,7 +44,7 @@ export default function Choosedifficulty() {
 
         padding: 15,
         fontSize: 25,
-        fontWeight: "bold",
+        fontWeight: currentuser.language == "Arab" ? "normal" : "bold",
 
         display: "flex",
         boxSizing: "border-box",
@@ -37,271 +57,36 @@ export default function Choosedifficulty() {
           fontSize: 35,
         }}
       >
-        <span style={{ borderBottom: "2px solid black" }}> Start Game</span>
+        <span style={{ borderBottom: "2px solid black" }}>
+          {currentuser.language == "Arab" ? "اختر المستوى" : "Choose level"}
+        </span>
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-          flexDirection: "column",
-          width: "100%",
-          flexGrow: 1,
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 20,
-          }}
-        >
-          <motion.div
-            initial={{
-              border: "1px solid black",
-
-              backgroundColor: "rgba(169,121,71,0.5)",
-            }}
-            whileHover={{
-              borderColor: "#0055a5",
-              borderWidth: "2px",
-
-              backgroundColor: "rgba(169,121,71,0.9)",
-              cursor: "pointer",
-            }}
-            whileTap={{
-              borderColor: "#0055a5",
-              borderWidth: "2px",
-
-              backgroundColor: "rgba(169,121,71,0.9)",
-              cursor: "pointer",
-            }}
-            style={{
-              width: "90%",
-              height: 50,
-              padding: 5,
-
-              boxSizing: "border-box",
-            }}
-          >
-            <Link
-              to="/knowledge/playround"
+      {difficultiesloading ? (
+        <div style={{ marginTop: 100 }}>
+          <Spincrescentcomponenet color="#07617d" size="2x" />
+        </div>
+      ) : (
+        <>
+          {errormessage ? (
+            <div style={{ marginTop: 100 }}>{errormessage}</div>
+          ) : (
+            <div
               style={{
-                textDecoration: "none",
-                color: "#02010f",
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center",
+                flexDirection: "column",
                 width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                flexGrow: 1,
               }}
             >
-              Easy
-            </Link>
-          </motion.div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              border: "2px solid black",
-              fontSize: 20,
-              color: "#eeeeee",
-              backgroundColor: "rgba(0,0,0,0.71)",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                borderRight: "2px solid black",
-                paddingLeft: 10,
-                width: "50%",
-                boxSizing: "border-box",
-              }}
-            >
-              6 wrong answers allowed
+              {difficulties.map((d) => (
+                <DifficultyItem difficulty={d} />
+              ))}
             </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-
-                paddingLeft: 10,
-                width: "50%",
-                boxSizing: "border-box",
-              }}
-            >
-              10 points per question
-            </div>
-          </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 20,
-          }}
-        >
-          <motion.div
-            initial={{
-              border: "1px solid black",
-              backgroundColor: "rgba(169,121,71,0.5)",
-            }}
-            whileHover={{
-              borderColor: "#0055a5",
-              borderWidth: "2px",
-              backgroundColor: "rgba(169,121,71,0.9)",
-              cursor: "pointer",
-            }}
-            whileTap={{
-              borderColor: "#0055a5",
-              borderWidth: "2px",
-              backgroundColor: "rgba(169,121,71,0.9)",
-              cursor: "pointer",
-            }}
-            style={{
-              width: "90%",
-              height: 50,
-              padding: 5,
-
-              backgroundColor: "rgba(169,121,71,0.5)",
-              boxSizing: "border-box",
-              border: "1px solid black",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            Medium
-          </motion.div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              border: "2px solid black",
-              fontSize: 20,
-              color: "#eeeeee",
-              backgroundColor: "rgba(0,0,0,0.71)",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                borderRight: "2px solid black",
-                paddingLeft: 10,
-                width: "50%",
-                boxSizing: "border-box",
-              }}
-            >
-              6 wrong answers allowed
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-
-                paddingLeft: 10,
-                width: "50%",
-                boxSizing: "border-box",
-              }}
-            >
-              10 points per question
-            </div>
-          </div>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 20,
-          }}
-        >
-          <motion.div
-            initial={{
-              border: "1px solid black",
-              backgroundColor: "rgba(169,121,71,0.5)",
-            }}
-            whileHover={{
-              borderColor: "#0055a5",
-              borderWidth: "2px",
-              backgroundColor: "rgba(169,121,71,0.9)",
-              cursor: "pointer",
-            }}
-            whileTap={{
-              borderColor: "#0055a5",
-              borderWidth: "2px",
-              backgroundColor: "rgba(169,121,71,0.9)",
-              cursor: "pointer",
-            }}
-            style={{
-              width: "90%",
-              height: 50,
-              padding: 5,
-
-              backgroundColor: "rgba(169,121,71,0.5)",
-              boxSizing: "border-box",
-              border: "1px solid black",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            Hard
-          </motion.div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              border: "2px solid black",
-              fontSize: 20,
-              color: "#eeeeee",
-              backgroundColor: "rgba(0,0,0,0.71)",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                borderRight: "2px solid black",
-                paddingLeft: 10,
-                width: "50%",
-                boxSizing: "border-box",
-              }}
-            >
-              6 wrong answers allowed
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-
-                paddingLeft: 10,
-                width: "50%",
-                boxSizing: "border-box",
-              }}
-            >
-              10 points per question
-            </div>
-          </div>
-        </div>
-      </div>
+          )}
+        </>
+      )}
     </motion.div>
   );
 }

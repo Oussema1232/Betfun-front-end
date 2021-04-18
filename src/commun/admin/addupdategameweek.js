@@ -18,10 +18,6 @@ export default function Addupdategameweek(props) {
 
   const [gameweek, setGameweek] = useState({ ...props.initialGameweek });
 
-  useEffect(() => setGameweek({ ...props.initialGameweek }), [
-    props.initialGameweek,
-  ]);
-
   const months = [
     { id: 0, monthname: "January" },
     { id: 1, monthname: "February" },

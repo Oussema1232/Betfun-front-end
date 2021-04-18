@@ -1,6 +1,5 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-// import { persistStore } from "redux-persist";
-import { connectRouter, routerMiddleware } from "connected-react-router";
+import { routerMiddleware } from "connected-react-router";
 import history from "./history";
 import rootReducer from "../features/reducers/rootreducer";
 import api from "../app/middleware/api";

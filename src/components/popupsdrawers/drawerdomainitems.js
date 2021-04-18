@@ -1,15 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
+import _ from "lodash";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
+import {  makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -31,17 +29,21 @@ export default function MyDrawer(props) {
       id: 0,
 
       domainnavbaritem: "Bet",
-      pathname: `/betfun/game/bets/${currentdomain.name}/${currentdomain.id}`,
+      pathname: `/game/bet/bets/${currentdomain.name}/${currentdomain.id}`,
     },
     {
       id: 1,
       domainnavbaritem: "Leagues",
-      pathname: `/betfun/game/leagues/${currentdomain.name}/${currentdomain.id}`,
+      pathname: `/game/bet/leagues/${currentdomain.name}/${currentdomain.id}`,
     },
     {
       id: 2,
       domainnavbaritem: "Fixtures",
-      pathname: `/betfun/game/fixtures/${currentdomain.name}/${props.theLatestseason.name}/${currentdomain.id}/${props.theLatestseason.id}`,
+      pathname: `/game/bet/fixtures/${currentdomain.name}/${
+        props.theLatestseason ? props.theLatestseason.name : "noseason"
+      }/${currentdomain.id}/${
+        props.theLatestseason ? props.theLatestseason.id : "noseason"
+      }`,
     },
     {
       id: 3,
@@ -50,7 +52,7 @@ export default function MyDrawer(props) {
     {
       id: 4,
       domainnavbaritem: "Levels",
-      pathname: `/betfun/game/levels/${currentdomain.name}/${currentdomain.id}`,
+      pathname: `/game/bet/levels/${currentdomain.name}/${currentdomain.id}`,
     },
     {
       id: 5,
@@ -67,7 +69,7 @@ export default function MyDrawer(props) {
       fontFamily: "'Indie Flower', cursive",
       cursor: "default",
       // color: "#000",
-      color: "#d5cece",
+      color: "#fbfbfb",
       display: "none",
       [theme.breakpoints.up("sm")]: {
         display: "block",
@@ -77,10 +79,8 @@ export default function MyDrawer(props) {
     drawerPaper: {
       width: drawerWidth,
 
-      
-      backgroundColor: "#070427",
       backgroundColor: "#2e383f",
-      borderLeft: "2px solid #ffff00",
+      borderLeft: "2px solid #f9a828",
       boxSizing: "border-box",
     },
     drawer: {
@@ -97,7 +97,7 @@ export default function MyDrawer(props) {
     },
     iconbutton: {
       width: 60,
-      color: "#d5cece",
+      color: "#fbfbfb",
     },
     root: {
       width: "100%",
@@ -108,7 +108,7 @@ export default function MyDrawer(props) {
     },
     accordion: {
       // backgroundColor: "#F2F3F5",
-      backgroundColor: " #070427",
+      backgroundColor: " #2e383f",
       width: "100%",
 
       boxShadow: "none",
@@ -116,7 +116,7 @@ export default function MyDrawer(props) {
     },
     accordionsummary: {
       // backgroundColor: "#F2F3F5",
-      backgroundColor: " #070427",
+      backgroundColor: " #2e383f",
       display: "flex",
       justifyContent: "space-between",
 
@@ -125,9 +125,9 @@ export default function MyDrawer(props) {
 
       minHeight: 50,
 
-      color: "#d5cece",
+      color: "#fbfbfb",
       "&:hover": {
-        backgroundColor: "#1f1d3c",
+        backgroundColor: "#424b52",
         cursor: "pointer",
       },
     },
@@ -135,7 +135,7 @@ export default function MyDrawer(props) {
       display: "flex",
 
       flexDirection: "column",
-      backgroundColor: "#Fefefe",
+      backgroundColor: "#f9a828",
       padding: 0,
     },
   }));
@@ -150,7 +150,7 @@ export default function MyDrawer(props) {
         variant="persistent"
         anchor="right"
         open={props.open}
-        style={{ backgroundColor: "#971243" }}
+        style={{ backgroundColor: "#2e383f" }}
         classes={{
           paper: classes.drawerPaper,
         }}
@@ -170,7 +170,7 @@ export default function MyDrawer(props) {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              color: "#d5cece",
+              color: "#fbfbfb",
             }}
           >
             <div>Betfun</div>
@@ -183,7 +183,7 @@ export default function MyDrawer(props) {
               <Link
                 key={c.id}
                 to={c.pathname && c.pathname}
-                style={{ textDecoration: "none", color: "#d5cece" }}
+                style={{ textDecoration: "none", color: "#fbfbfb" }}
               >
                 <div key={index} className="drawerdomainItem">
                   <div>{c.domainnavbaritem}</div>
@@ -193,7 +193,7 @@ export default function MyDrawer(props) {
               <Accordion className={classes.accordion}>
                 <AccordionSummary
                   className={classes.accordionsummary}
-                  expandIcon={<ExpandMoreIcon style={{ color: "#eeeeee" }} />}
+                  expandIcon={<ExpandMoreIcon style={{ color: "#fbfbfb" }} />}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
@@ -201,22 +201,44 @@ export default function MyDrawer(props) {
                 </AccordionSummary>
                 {c.id == 3 ? (
                   <AccordionDetails className={classes.accordiondetails}>
-                    {props.seasons.map((s) => (
-                      <Link
-                        key={s.id}
-                        style={{ textDecoration: "none" }}
-                        to={`/betfun/game/calendar/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
+                    {props.theseasonsError ? (
+                      <div
+                        className="drawerseason"
+                        style={{ backgroundColor: "#f44336" }}
                       >
-                        <div className="drawerseason">{s.name}</div>
-                      </Link>
-                    ))}
+                        {props.theseasonsError}
+                      </div>
+                    ) : (
+                      <>
+                        {props.unfinishedseasons.length >= 1 ? (
+                          <>
+                            {props.unfinishedseasons.map((s) => (
+                              <Link
+                                key={s.id}
+                                style={{ textDecoration: "none" }}
+                                to={`/game/bet/calendar/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
+                              >
+                                <div className="drawerseason">{s.name}</div>
+                              </Link>
+                            ))}
+                          </>
+                        ) : (
+                          <div
+                            className="drawerseason"
+                            style={{ backgroundColor: "#fbfbfb" }}
+                          >
+                            No seasons yet
+                          </div>
+                        )}
+                      </>
+                    )}
                   </AccordionDetails>
                 ) : (
                   <AccordionDetails className={classes.accordiondetails}>
                     {props.theseasonsError ? (
                       <div
                         className="drawerseason"
-                        style={{ backgroundColor: "#fbf9f9" }}
+                        style={{ backgroundColor: "#f44336" }}
                       >
                         {props.theseasonsError}
                       </div>
@@ -228,7 +250,7 @@ export default function MyDrawer(props) {
                               <Link
                                 key={s.id}
                                 style={{ textDecoration: "none" }}
-                                to={`/betfun/game/titles/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
+                                to={`/game/bet/titles/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
                               >
                                 <div className="drawerseason">{s.name}</div>
                               </Link>
@@ -237,7 +259,7 @@ export default function MyDrawer(props) {
                         ) : (
                           <div
                             className="drawerseason"
-                            style={{ backgroundColor: "#cdccd3" }}
+                            style={{ backgroundColor: "#fbfbfb" }}
                           >
                             Ongoing seasons, no titles yet
                           </div>
@@ -253,19 +275,19 @@ export default function MyDrawer(props) {
         {currentuser.id !== currentprofile.id && (
           <Link
             key={6}
-            to={`/betfun/game/stats/${currentdomain.name}/${currentdomain.id}/${currentprofile.username}/${currentprofile.id}`}
-            style={{ textDecoration: "none", color: "#d5cece" }}
+            to={`/game/bet/stats/${currentdomain.name}/${currentdomain.id}/${currentprofile.username}/${currentprofile.id}`}
+            style={{ textDecoration: "none", color: "#fbfbfb" }}
           >
             <div key={6} className="drawerdomainItem">
               <div>Stats</div>
             </div>
           </Link>
         )}
-        {currentuser.isAdmin && (
+        {currentuser.isAdmin ==1 && (
           <Link
             key={7}
-            to={`/betfun/game/teams/${currentdomain.name}/${currentdomain.id}`}
-            style={{ textDecoration: "none", color: "#d5cece" }}
+            to={`/game/bet/teams/${currentdomain.name}/${currentdomain.id}`}
+            style={{ textDecoration: "none", color: "#fbfbfb" }}
           >
             <div key={7} className="drawerdomainItem">
               <div>Teams</div>

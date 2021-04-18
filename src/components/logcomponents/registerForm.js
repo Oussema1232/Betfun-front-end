@@ -5,6 +5,7 @@ import _ from "lodash";
 import { NavLink } from "react-router-dom";
 import { addUser } from "../../features/users/userSlice";
 import { loadCountries } from "../../features/countries/countrySlice";
+import { loadDomains } from "../../features/domains/domainSlice";
 import Form from "../../commun/form";
 import Betfunlogo from "../../commun/logos/betfunalllogo";
 import LoadingComponent from "../../commun/logos/loadingcomponent";
@@ -14,7 +15,14 @@ import "./style.css";
 
 class Register extends Form {
   state = {
-    data: { email: "", username: "", userpassword: "", countryId: "" },
+    data: {
+      email: "",
+      username: "",
+      userpassword: "",
+      countryId: "",
+      gender: "",
+      domainId: "",
+    },
     check: false,
     slasheye: true,
     errors: {},
@@ -22,6 +30,7 @@ class Register extends Form {
 
   componentDidMount() {
     this.props.loadCountries();
+    this.props.loadDomains();
   }
 
   schema = {
@@ -40,6 +49,16 @@ class Register extends Form {
         };
       })
       .label("Country"),
+    domainId: Joi.number()
+      .integer()
+      .required()
+      .error(() => {
+        return {
+          message: "You have to select a domain",
+        };
+      })
+      .label("Domain"),
+    gender: Joi.string().required().label("Gender"),
   };
 
   dosubmit = () => {
@@ -51,43 +70,21 @@ class Register extends Form {
   };
   render() {
     const countries = this.props.countries;
+    const domains = this.props.domains;
     return (
-      <div
-        style={{
-          backgroundColor: "#e9eac9",
-          backgroundColor: "#ececeb",
-
-          width: "100%",
-
-          minHeight: "100vh",
-          height: "100%",
-          // paddingBottom: 10,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <LoadingComponent show={this.props.loadingcountries} />
-
-        <Betfunlogo />
-
-        <div
-          style={{
-            width: "27.3%",
-            minWidth: 250,
-            backgroundColor: "#f5f5e5",
-            backgroundColor: "#ffffff",
-            marginTop: 20,
-            padding: 10,
-            borderRadius: 3,
-            boxShadow: "0px 0px 3px 4px #dddfad",
-          }}
-        >
+      <div className="logscreencontainer">
+        <LoadingComponent
+          show={this.props.loadingcountries || this.props.loaddomains}
+        />
+        <div className="betfunalllogocontainer">
+          <Betfunlogo />
+        </div>
+        <div className="formmessagecontainer">
           {!this.props.emailtoken ? (
             <form
               style={{
                 width: "100%",
-                // border: "1px solid red",
+
                 paddingTop: 6,
                 paddingBottom: 6,
               }}
@@ -132,11 +129,33 @@ class Register extends Form {
                 "",
                 "selectcontainerclass",
                 "selectclass",
-                "errorclass"
+                "errorclass",
+                "Country"
+              )}
+              {this.renderSelect(
+                [
+                  { id: "Male", name: "Male" },
+                  { id: "Female", name: "Female" },
+                ],
+                "gender",
+                "",
+                "selectcontainerclass",
+                "selectclass",
+                "errorclass",
+                "Gender"
+              )}
+              {this.renderSelect(
+                domains,
+                "domainId",
+                "",
+                "selectcontainerclass",
+                "selectclass",
+                "errorclass",
+                "Domain"
               )}
               {this.renderButton(
                 this.props.loadingregister ? (
-                  <Spincrescentcomponenet color="#4e0000" size="1x" />
+                  <Spincrescentcomponenet color="#fbfbfb" size="1x" />
                 ) : (
                   "Sign Up"
                 ),
@@ -145,12 +164,10 @@ class Register extends Form {
             </form>
           ) : (
             <>
-              <h3 style={{ marginLeft: 20 }}>
-                Congrats you are now a member of Betfun
-              </h3>
+              <h3 style={{ marginLeft: 20 }}>Congrats you are now a Bettor</h3>
 
               <h4>
-                Please check {this.state.data.email} for a validation link..
+                Please check {this.state.data.email} for a validation link.
               </h4>
             </>
           )}
@@ -163,12 +180,14 @@ class Register extends Form {
   }
 }
 
-const mapDispatchToProps = { addUser, loadCountries };
+const mapDispatchToProps = { addUser, loadCountries, loadDomains };
 
 const mapStateToProps = (state) => ({
   countries: state.betfundata.countries.list,
+  domains: state.betfundata.domains.list,
   users: state.betfundata.users.list,
   loadcountries: state.betfundata.countries.loading,
+  loaddomains: state.betfundata.domains.loading,
   addUserErrors: state.betfundata.users.errors,
   emailtoken: state.betfundata.users.onsuccess.message,
   loadingregister: state.betfundata.users.loading,

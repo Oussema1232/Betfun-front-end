@@ -48,8 +48,9 @@ class Seasonspopup extends Component {
                 <>
                   {this.props.link ? (
                     <Link
+                      key={s.id}
                       style={{ textDecoration: "none" }}
-                      to={`/betfun/game/${this.props.thepathname}/${this.props.currentdomain.name}/${s.name}/${this.props.currentdomain.id}/${s.id}`}
+                      to={`/game/bet/${this.props.thepathname}/${this.props.currentdomain.name}/${s.name}/${this.props.currentdomain.id}/${s.id}`}
                     >
                       <div
                         style={{
@@ -64,6 +65,7 @@ class Seasonspopup extends Component {
                     </Link>
                   ) : (
                     <div
+                    key={s.name}
                       style={{
                         fontSize: 15,
                         fontWeight: "bold",

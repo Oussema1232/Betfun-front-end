@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadTeams } from "../../features/teams/teamSlice";
 import UpdateTeam from "../../commun/admin/updateteam";
@@ -74,7 +74,7 @@ export default function Teams(props) {
           }}
         >
           <div>Post Team</div>
-          <UpdateTeam initialTeam={{ name: "" }} />
+          <UpdateTeam initialTeam={{ id: "", name: "" }} />
         </div>
         {teams.map((t) => (
           <div

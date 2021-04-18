@@ -1,10 +1,37 @@
-import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { postRoundanswers } from "../../features/round/roundSlice";
 import Islamiccolumn from "../../commun/logos/islamiccolumn2";
 import blackpaper from "../../img/backquest.jpg";
-import { Link } from "react-router-dom";
+import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
 
 export default function Welldone(props) {
+  const dispatch = useDispatch();
+
+  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
+  const currentcategory = useSelector(
+    (state) => state.betfundata.currentcategory.data
+  );
+  const errormessage = useSelector(
+    (state) => state.betfundata.round.errors.postmessage
+  );
+  const points = useSelector((state) => state.betfundata.round.points);
+  const postdetailsLoading = useSelector(
+    (state) => state.betfundata.round.postdetailsLoading
+  );
+
+  useEffect(() => {
+    dispatch(
+      postRoundanswers(`/${currentuser.language}`, {
+        roundDetails: props.allanswers,
+        difficultyId: props.difficultyId,
+        userId: currentuser.id,
+      })
+    );
+  }, []);
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -19,44 +46,82 @@ export default function Welldone(props) {
           flexDirection: "column",
         }}
       >
-        <Islamiccolumn showmouth={true} dance={true} jump={[0, 5, 0]} />
+        {!postdetailsLoading && points == props.score && (
+          <Islamiccolumn showmouth={true} dance={true} jump={[0, 5, 0]} />
+        )}
 
         <div
-          className="cool "
+          className="cool"
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            textAlign: currentuser.language == "Arab" ? "end" : "start",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              paddingLeft: 5,
-              paddingRight: 5,
-            }}
-          >
-            <h2
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginBottom: 5,
-              }}
-            >
-              {props.score} points
-            </h2>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              Well done Bettor, This dance is for you.
+          {postdetailsLoading ? (
+            <div>
+              <Spincrescentcomponenet color="#07617d" size="2x" />
             </div>
-          </div>
+          ) : (
+            <>
+              {errormessage ? (
+                <div>{errormessage}</div>
+              ) : (
+                <>
+                  {points !== props.score ? (
+                    <div>
+                      {currentuser.language == "Arab"
+                        ? "حدثت مشكلة ، حاول مرة أخرى لاحقًا"
+                        : "a problem occurred, try again later."}
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        paddingLeft: 5,
+                        paddingRight: 5,
+                      }}
+                    >
+                      <h2
+                        style={{
+                          display: "flex",
+                          flexDirection:
+                            currentuser.language == "Arab"
+                              ? "row-reverse"
+                              : "row",
+                          justifyContent: "center",
+                          marginBottom: 5,
+                          paddingLeft: currentuser.language == "Arab" ? 10 : 0,
+                          paddingRight: currentuser.language == "Arab" ? 0 : 10,
+                        }}
+                      >
+                        <div>{props.score} </div>
+                        {currentuser.language == "Arab" ? (
+                          <div style={{ marginRight: 5 }}> نقاط</div>
+                        ) : (
+                          <div style={{ marginLeft: 5 }}>points</div>
+                        )}
+                      </h2>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {currentuser.language == "Arab"
+                          ? "أحسنت، هذه الرقصة لك"
+                          : "Well done Bettor, This dance is for you."}
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </>
+          )}
         </div>
       </div>
       <div
@@ -102,13 +167,18 @@ export default function Welldone(props) {
           }}
         >
           <Link
-            to="/knowledge/learngame"
+            to={`/knowledge/learngame/${
+              currentuser.language == "Eng"
+                ? currentcategory.Engname
+                : currentcategory.Arabname
+            }/${currentcategory.id}`}
             style={{ color: "#02010f", textDecoration: "none" }}
           >
-            Go Back
+            {currentuser.language == "Arab" ? "العودة" : "Go Back"}
           </Link>
         </motion.div>
         <motion.div
+          onClick={() => props.onRetry()}
           initial={{
             border: "1px dashed black",
           }}
@@ -135,12 +205,7 @@ export default function Welldone(props) {
             backgroundImage: `url(${blackpaper})`,
           }}
         >
-          <Link
-            to="/knowledge/learngame"
-            style={{ color: "#02010f", textDecoration: "none" }}
-          >
-            Replay
-          </Link>
+          {currentuser.language == "Arab" ? "إعادة" : "Replay"}
         </motion.div>
       </div>
     </div>

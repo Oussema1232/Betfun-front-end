@@ -86,10 +86,8 @@ export default function MyDrawer(props) {
             key={c.id}
             to={
               c.domainname
-                ? `/game/bets/${c.domainname}/${c.id}`
-                : c.communityname
-                ? `/communities/${c.communityname}/${c.id}`
-                : c.pathname && c.pathname
+                ? `/game/bet/bets/${c.domainname}/${c.id}`
+                :  c.pathname && c.pathname
             }
             style={{ textDecoration: "none", color: "black" }}
           >
@@ -100,10 +98,20 @@ export default function MyDrawer(props) {
                 props.onclickItem && dispatch(props.onclickItem(c));
               }}
             >
-              {c.icon && <div style={{ marginRight: 10 }}>{c.icon}</div>}
+              {c.icon && (
+                <div
+                  style={{
+                    width: 35,
+                    display: "flex",
+                    
+                  }}
+                >
+                  {c.icon}
+                </div>
+              )}
               {c.name && <div>{c.name}</div>}
               {c.domainname && <div>{c.domainname}</div>}
-              {c.communityname && <div>{c.communityname}</div>}
+              
             </div>
           </Link>
         ))}

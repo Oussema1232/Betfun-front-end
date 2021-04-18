@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { loadLeaguedetails } from "../../features/leaguedetails/leaguedetailSlice";
-import { savecurrentProfile } from "../../features/currentprofile/currentprofileSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowCircleUp,
@@ -17,6 +15,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Skeleton from "@material-ui/lab/Skeleton";
 import NativeSelect from "@material-ui/core/NativeSelect";
+import { loadLeaguedetails } from "../../features/leaguedetails/leaguedetailSlice";
+import { savecurrentProfile } from "../../features/currentprofile/currentprofileSlice";
 import CodeModal from "../../commun/codeModal";
 
 import SkullLeaguedetails from "../../commun/skulldata";
@@ -93,7 +93,7 @@ export default function BetdetailsList(props) {
   const classes = useStyles();
 
   return (
-    <div style={{ marginTop: 100, backgroundColor: "#ede5e5" }}>
+    <div style={{ marginTop: 100, backgroundColor: "#ececeb" }}>
       {loadingLeaguedetails ? (
         <SkullLeaguedetails
           flexDirection="row"
@@ -124,7 +124,7 @@ export default function BetdetailsList(props) {
                 className="betstabLine headerBets"
                 style={{
                   fontSize: 20,
-                  backgroundColor: "#ede5e5",
+                  backgroundColor: "#ececeb",
                   border: "none",
                   fontWeight: "bold",
                 }}
@@ -253,6 +253,9 @@ export default function BetdetailsList(props) {
                             savecurrentProfile({
                               id: league.userId,
                               username: league.username,
+                              language: league.language,
+                              isAdmin: league.isAdmin,
+                              gender: league.gender,
                             })
                           );
                         }}
@@ -264,7 +267,7 @@ export default function BetdetailsList(props) {
                         }}
                       >
                         <Link
-                          to={`/betfun/game/bets/${currentdomain.name}/${currentdomain.id}`}
+                          to={`/game/bet/bets/${currentdomain.name}/${currentdomain.id}`}
                           style={{
                             width: "100%",
                             textDecoration: "none",

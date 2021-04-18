@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { savecurrentProfile } from "../features/currentprofile/currentprofileSlice";
 import { motion, AnimatePresence } from "framer-motion";
+import { savecurrentProfile } from "../features/currentprofile/currentprofileSlice";
 import Usermoonavatar from "./usermoonavatar";
 
 export default function KingComponent({ kings, countryId }) {
@@ -12,7 +12,7 @@ export default function KingComponent({ kings, countryId }) {
   );
 
   return (
-    <div className="kingItemsContainer">
+    <div className="kingItemsContainer" style={{ color: "#171717" }}>
       {kings.map((k) => (
         <AnimatePresence exitBeforeEnter>
           {((countryId != "All" && countryId == k.countryId) ||
@@ -40,25 +40,28 @@ export default function KingComponent({ kings, countryId }) {
                 minHeight: 50,
 
                 justifyContent: "space-between",
-                borderBottom: "2px solid #ede5e5",
+                borderBottom: "2px solid #f9a828",
               }}
             >
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
+                  flexDirection: "column",
                   justifyContent: "center",
                   width: "25%",
-                  borderRight: "1px solid #eeeeee",
+
                   padding: 6,
                   minHeight: 40,
                   boxSizing: "border-box",
                 }}
               >
                 <div>
-                  <img src="" style={{ width: 35, marginRight: 5 }} />
+                  <img src={k.countrylogo} style={{ width: 35 }} />
                 </div>
-                <div>{k.countryname}</div>
+                <div style={{ textAlign: "center", fontSize: 10 }}>
+                  {k.countryname}
+                </div>
               </div>
               <div
                 className="kinuserphotocontainer"
@@ -76,10 +79,11 @@ export default function KingComponent({ kings, countryId }) {
                   style={{
                     width: "100%",
                     textDecoration: "none",
-                    color: "#eeeeee",
+                    color: "#171717",
+                    textAlign: "center",
                   }}
                 >
-                  {k.sex == "Female"
+                  {k.gender == "Female"
                     ? `Queen ${k.username}`
                     : `King ${k.username} mala bibi jika mala kaka`}
                 </Link>
@@ -88,8 +92,8 @@ export default function KingComponent({ kings, countryId }) {
               <div
                 style={{
                   width: "15%",
-                  borderRight: "1px solid #eeeeee",
-                  borderLeft: "1px solid #eeeeee",
+                  borderRight: "1px solid black",
+                  borderLeft: "1px solid black",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -111,7 +115,7 @@ export default function KingComponent({ kings, countryId }) {
                   boxSizing: "border-box",
                 }}
               >
-                {`${k.NTKing} Time(s) King`}
+                {`${k.NTKing} Time(s)${k.sex == "Male" ? " King" : " Queen"}`}
               </div>
             </motion.div>
           )}

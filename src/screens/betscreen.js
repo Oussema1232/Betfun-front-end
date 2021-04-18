@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Route, Redirect, Switch, withRouter } from "react-router-dom";
+import {  Switch } from "react-router-dom";
 import BetdomainNavbar from "../components/navbar/betdomainNavbar";
 import BetsOfDomain from "../components/gamepart/betsofdomain";
 import LeaguesList from "../components/gamepart/leagueslist";
@@ -13,8 +12,9 @@ import Teams from "../components/gamepart/teams";
 import Titles from "../components/gamepart/titles";
 import Stats from "../components/gamepart/stats";
 import Createbet from "../components/gamepart/createbet";
+import ProtectedRoute from "../commun/protectedRoute";
 
-import Navbar from "../components/navbar/navbar";
+
 
 class Betscreen extends Component {
   render() {
@@ -22,72 +22,66 @@ class Betscreen extends Component {
       <div className="betsScreenContainer">
         <BetdomainNavbar />
         <Switch>
-          <Route
+          <ProtectedRoute
             exact
-            path="/betfun/game/bets/:domainname/:id"
+            path="/game/bet/bets/:domainname/:id"
             component={BetsOfDomain}
           />
-          <Route
+          <ProtectedRoute
             exact
-            path="/betfun/game/bets/createbet/:username/:domainname/:seasonname/:gameweekname/:userId/:gameweekId"
+            path="/game/bet/bets/createbet/:username/:domainname/:seasonname/:gameweekname/:userId/:gameweekId"
             component={Createbet}
           />
-          <Route
+          <ProtectedRoute
             exact
-            path="/betfun/game/fixtures/:domainname/:seasonname/:domainId/:seasonId"
+            path="/game/bet/fixtures/:domainname/:seasonname/:domainId/:seasonId"
             component={Fixture}
           />
-          <Route
+          <ProtectedRoute
             exact
-            path="/betfun/game/leagues/:domainname/:id"
+            path="/game/bet/leagues/:domainname/:id"
             component={LeaguesList}
           />
-          <Route
+          <ProtectedRoute
             exact
-            path="/betfun/game/levels/:domainname/:id"
+            path="/game/bet/levels/:domainname/:id"
             component={Levels}
           />
-          <Route
+          <ProtectedRoute
             exact
-            path="/betfun/game/teams/:domainname/:id"
+            path="/game/bet/teams/:domainname/:id"
             component={Teams}
           />
-          <Route
+          <ProtectedRoute
             exact
-            path="/betfun/game/betguess/:domainname/:betId"
+            path="/game/bet/betguess/:domainname/:betId"
             component={Betdetails}
           />
-          <Route
+          <ProtectedRoute
             exact
-            path="/betfun/game/leaguedetail/:leaguename/:domainname/:leagueId/:seasonId"
+            path="/game/bet/leaguedetail/:leaguename/:domainname/:leagueId/:seasonId"
             component={Leaguedetails}
           />
-          <Route
+          <ProtectedRoute
             exact
-            path="/betfun/game/calendar/:domainname/:seasonname/:domainId/:seasonId"
+            path="/game/bet/calendar/:domainname/:seasonname/:domainId/:seasonId"
             component={Calendar}
           />
-          <Route
+          <ProtectedRoute
             exact
-            path="/betfun/game/titles/:domainname/:seasonname/:domainId/:seasonId"
+            path="/game/bet/titles/:domainname/:seasonname/:domainId/:seasonId"
             component={Titles}
           />
-          <Route
+          <ProtectedRoute
             exact
-            path="/betfun/game/stats/:domainname/:domainId/:username/:userId"
+            path="/game/bet/stats/:domainname/:domainId/:username/:userId"
             component={Stats}
           />
-          
         </Switch>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  // currentuser: state.betfundata.currentuser.data,
-  // countries: state.betfundata.countries.list,
-  users: state.betfundata.users.list,
-});
 
-export default connect(mapStateToProps, null)(Betscreen);
+export default Betscreen;

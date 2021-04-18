@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createSelector } from "reselect";
 import * as actions from "../actions/api";
 import config from "../../config.json";
 
@@ -23,7 +22,7 @@ export const betSlice = createSlice({
     },
     betsRequestFail: (state, action) => {
       state.loading = false;
-      state.errors.message = "Couldn't load bets";
+      state.errors.message = action.payload.message;
     },
     betsReceived: (state, action) => {
       state.list = action.payload.data;

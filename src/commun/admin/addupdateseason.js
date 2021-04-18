@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import { useDispatch, useSelector } from "react-redux";
+import DeleteModal from "../modal";
 
-import { loadDomains } from "../../features/domains/domainSlice";
-import { loadSeasons } from "../../features/seasons/seasonSlice";
-import { updateSeason } from "../../features/seasons/seasonSlice";
-import { postSeason } from "../../features/seasons/seasonSlice";
+import {
+  deleteSeason,
+  updateSeason,
+  postSeason,
+} from "../../features/seasons/seasonSlice";
 
-export default function AddUpdateCountry(props) {
+export default function AddUpdateSeason(props) {
   const dispatch = useDispatch();
   const errormessage = useSelector(
     (state) => state.betfundata.seasons.errors.message
@@ -79,6 +81,32 @@ export default function AddUpdateCountry(props) {
           <div style={{ color: "red" }}>Error: {errormessage}</div>
         ) : (
           <div style={{ color: "green" }}>{successmessage}</div>
+        )}
+        {props.update && (
+          <DeleteModal buttonname="delete">
+            <h6>do you wanna delete {props.initialSeason.name} ?</h6>
+            {errormessage ? (
+              <h6 style={{ color: "red" }}>{errormessage}</h6>
+            ) : (
+              <h6 style={{ color: "green" }}>{successmessage}</h6>
+            )}
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-around",
+              }}
+            >
+              <div
+                className="createbetorleagueButton"
+                onClick={() =>
+                  dispatch(deleteSeason(`/${props.initialSeason.id}`))
+                }
+              >
+                Delete
+              </div>
+            </div>
+          </DeleteModal>
         )}
       </div>
     </div>

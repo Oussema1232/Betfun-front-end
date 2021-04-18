@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import { useDispatch, useSelector } from "react-redux";
-import { updateMatch } from "../../features/matches/matcheSlice";
-import { postMatch } from "../../features/matches/matcheSlice";
-import { deleteMatch } from "../../features/matches/matcheSlice";
+import { updateMatch ,postMatch,deleteMatch} from "../../features/matches/matcheSlice";
 import { loadTeams } from "../../features/teams/teamSlice";
 import DeleteModal from "../modal";
 
@@ -72,11 +70,11 @@ export default function Updatematch(props) {
           </NativeSelect>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <label for="team2Id">team1</label>
+          <label for={"team2Id" + props.initialMatch.idMatch}>team1</label>
           <NativeSelect
-            id="team2Id"
+            id={"team2Id" + props.initialMatch.idMatch}
             value={match.team2Id}
-            name="team2Id"
+            name={"team2Id" + props.initialMatch.idMatch}
             onChange={handleChange}
           >
             {!props.update && <option value=""></option>}
@@ -89,38 +87,40 @@ export default function Updatematch(props) {
         <input
           type="datetime"
           value={match.played_on}
-          id="played_on"
-          name="played_on"
+          id={"played_on" + props.initialMatch.idMatch}
+          name={"played_on" + props.initialMatch.idMatch}
           onChange={handleChange}
         />
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <label for="cote_1">cote_1</label>
+          <label for={"cote_1" + props.initialMatch.idMatch}>cote_1</label>
           <input
-            id="cote_1"
+            id={"cote_1" + props.initialMatch.idMatch}
             style={{ width: 35 }}
             type="text"
             value={match.cote_1}
-            name="cote_1"
+            name={"cote_1" + props.initialMatch.idMatch}
             onChange={handleChange}
           />
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <label for="cote_x">cote_x</label>
+          <label for={"cote_x" + props.initialMatch.idMatch}>cote_x</label>
           <input
             style={{ width: 35 }}
             type="text"
             value={match.cote_x}
-            name="cote_x"
+            name={"cote_x" + props.initialMatch.idMatch}
+            id={"cote_x" + props.initialMatch.idMatch}
             onChange={handleChange}
           />
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <label for="cote_2">cote_2</label>
+          <label for={"cote_2" + props.initialMatch.idMatch}>cote_2</label>
           <input
             style={{ width: 35 }}
             type="text"
             value={match.cote_2}
-            name="cote_2"
+            name={"cote_2" + props.initialMatch.idMatch}
+            id={"cote_2" + props.initialMatch.idMatch}
             onChange={handleChange}
           />
         </div>

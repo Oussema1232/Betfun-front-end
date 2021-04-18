@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import NativeSelect from "@material-ui/core/NativeSelect";
-import { useDispatch, useSelector } from "react-redux";
-
-import { loadTeams } from "../../features/teams/teamSlice";
+import { useDispatch} from "react-redux";
 import { matchBingoResultscreated } from "../../features/matches/matcheSlice";
 
 export default function Bingopost(props) {
@@ -49,23 +47,24 @@ export default function Bingopost(props) {
           ))}
         </NativeSelect>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <label for="goals1">goals1</label>
+          <label for={"goals1" + props.initialMatch.idMatch}>goals1</label>
           <input
-            id="goals1"
+            id={"goals1" + props.initialMatch.idMatch}
             style={{ width: 35 }}
             type="text"
             value={match.goals1}
-            name="goals1"
+            name={"goals1" + props.initialMatch.idMatch}
             onChange={handleChange}
           />
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <label for="goals2">goals2</label>
+          <label for={"goals2" + props.initialMatch.idMatch}>goals2</label>
           <input
             style={{ width: 35 }}
             type="text"
             value={match.goals2}
-            name="goals2"
+            name={"goals2" + props.initialMatch.idMatch}
+            id={"goals2" + props.initialMatch.idMatch}
             onChange={handleChange}
           />
         </div>

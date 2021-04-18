@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import { useDispatch, useSelector } from "react-redux";
-
-import { loadCountries } from "../../features/countries/countrySlice";
-import { updateCountry } from "../../features/countries/countrySlice";
-import { postCountry } from "../../features/countries/countrySlice";
+import DeleteModal from "../modal";
+import {
+  loadCountries,
+  updateCountry,
+  deleteCountry,
+  postCountry,
+} from "../../features/countries/countrySlice";
 
 export default function AddUpdateCountry(props) {
   const dispatch = useDispatch();
@@ -71,6 +74,32 @@ export default function AddUpdateCountry(props) {
           <div style={{ color: "red" }}>Error: {errormessage}</div>
         ) : (
           <div style={{ color: "green" }}>{successmessage}</div>
+        )}
+        {props.update && (
+          <DeleteModal buttonname="delete">
+            <h6>do you wanna delete {props.initialCountry.name} ?</h6>
+            {errormessage ? (
+              <h6 style={{ color: "red" }}>{errormessage}</h6>
+            ) : (
+              <h6 style={{ color: "green" }}>{successmessage}</h6>
+            )}
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-around",
+              }}
+            >
+              <div
+                className="createbetorleagueButton"
+                onClick={() =>
+                  dispatch(deleteCountry(`/${props.initialCountry.id}`))
+                }
+              >
+                Delete
+              </div>
+            </div>
+          </DeleteModal>
         )}
       </div>
     </div>

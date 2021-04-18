@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import { useDispatch, useSelector } from "react-redux";
-import { loadSeasonbydomainadmin } from "../../features/seasons/seasonSlice";
-import { updateSeason } from "../../features/seasons/seasonSlice";
+import {
+  loadSeasonbydomainadmin,
+  updateSeason,
+} from "../../features/seasons/seasonSlice";
 import Seasonstatus from "./seasonstatus";
 
 export default function UpdateSeasonstatus(props) {
   const dispatch = useDispatch();
 
   const betfundomains = useSelector((state) => state.betfundata.domains.list);
-  
 
   const betfundomainseasons = useSelector(
     (state) => state.betfundata.seasons.listbydomainadmin

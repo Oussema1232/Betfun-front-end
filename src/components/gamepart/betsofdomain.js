@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { makeStyles } from "@material-ui/core/styles";
-import { loadSeasons } from "../../features/seasons/seasonSlice";
-import { loadBets } from "../../features/bets/betSlice.js";
-import { savecurrentDomain } from "../../features/currentdomain/currentdomainSlice";
 import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
+
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { loadSeasons } from "../../features/seasons/seasonSlice";
+import { loadBets } from "../../features/bets/betSlice.js";
+
 import TabPanel from "../../commun/panelTab";
 import Usermoonavatar from "../../commun/usermoonavatar";
 import SkullBets from "../../commun/skulldata";
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function VerticalTabs(props) {
+export default function Betsofdomain(props) {
   //you have to make usernav as a redux state to show wich profile ou are on
 
   const dispatch = useDispatch();
@@ -93,7 +93,6 @@ export default function VerticalTabs(props) {
   const currentprofile = useSelector(
     (state) => state.betfundata.currentprofile.data
   );
-  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
 
   useEffect(() => {
     dispatch(loadSeasons(`/${currentdomain.id}`));
@@ -192,11 +191,9 @@ export default function VerticalTabs(props) {
                 <div className="betusermoonsortContainer">
                   <div className="betusermoonnameContainer">
                     <Usermoonavatar
-                      src="../../../cr7profile.jpg"
                       alt={currentprofile.username}
                       dimentionmoon={65}
                       dimentionimage={55}
-                      boxshadowcolor="#07617d"
                       username={currentprofile.username}
                     />
 
@@ -261,7 +258,8 @@ export default function VerticalTabs(props) {
                         ? _.orderBy(bets, "points", state.Sorted_By).map(
                             (bet) => (
                               <Link
-                                to={`/betfun/game/betguess/${currentdomain.name}/${bet.id}`}
+                                key={bet.id}
+                                to={`/game/bet/betguess/${currentdomain.name}/${bet.id}`}
                                 style={{ textDecoration: "none" }}
                               >
                                 <TabPanel
@@ -303,7 +301,8 @@ export default function VerticalTabs(props) {
                           )
                         : bets.map((bet) => (
                             <Link
-                              to={`/betfun/game/betguess/${currentdomain.name}/${bet.id}`}
+                              key={bet.id}
+                              to={`/game/bet/betguess/${currentdomain.name}/${bet.id}`}
                               style={{
                                 textDecoration: "none",
                               }}

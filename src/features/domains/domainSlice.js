@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createSelector } from "reselect";
 import * as actions from "../actions/api";
 import config from "../../config.json";
 
@@ -14,6 +13,7 @@ export const domainSlice = createSlice({
   reducers: {
     domainsRequested: (state, action) => {
       state.loading = true;
+      state.list = [];
       state.onsuccess = {};
       state.errors = {};
     },

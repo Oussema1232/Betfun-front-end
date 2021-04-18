@@ -1,9 +1,16 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import AdminCountry from "./admincountries";
 import AdminDomain from "./admindomains";
 import AdminSeason from "./adminseasons";
 import AdminGameweeks from "./admingameweeks";
+import AdminLevels from "./adminlevels";
+import AdminQuotes from "./adminquotes";
+import AdminCategories from "./admincategories";
+import AdminInformations from "./admininformations";
+import AdminQuestions from "./adminquestions";
+import AdminDifficulties from "./admindifficulties";
+import AdminSuggestions from "./adminsuggestions";
+import AdminGenres from "./adminleaguesgenres";
 
 export default function Admin() {
   return (
@@ -19,6 +26,14 @@ export default function Admin() {
       <AdminDomain />
       <AdminSeason />
       <AdminGameweeks />
+      <AdminLevels />
+      <AdminQuotes />
+      <AdminCategories />
+      <AdminInformations />
+      <AdminQuestions />
+      <AdminDifficulties />
+      <AdminGenres />
+      <AdminSuggestions />
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createSelector } from "reselect";
 import * as actions from "../actions/api";
 import config from "../../config.json";
 
@@ -22,7 +21,7 @@ export const leagueSlice = createSlice({
     },
     leaguesRequestFail: (state, action) => {
       state.loading = false;
-      state.errors.message = "Couldn't load leagues";
+      state.errors.message = action.payload.message;
     },
     leaguesReceived: (state, action) => {
       state.list = action.payload.data;

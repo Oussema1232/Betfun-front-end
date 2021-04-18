@@ -58,7 +58,7 @@ export default class Checkemail extends Form {
     return (
       <div
         style={{
-          backgroundColor: "#e9eac9",
+          backgroundColor: "#ececeb",
           width: "100%",
 
           minHeight: "100vh",
@@ -74,11 +74,11 @@ export default class Checkemail extends Form {
             width: !this.state.showmessage ? "27.3%" : "70%",
             minWidth: !this.state.showmessage ? 250 : 300,
 
-            backgroundColor: "#f5f5e5",
+            backgroundColor: "#fbfbfb",
             marginTop: !this.state.showmessage ? 20 : 70,
             padding: 10,
             borderRadius: 3,
-            boxShadow: "0px 0px 3px 4px #dddfad",
+            boxShadow: "0px 0px 3px 4px #d4d4d3",
           }}
         >
           {!this.state.showmessage ? (
@@ -90,7 +90,6 @@ export default class Checkemail extends Form {
               <form
                 style={{
                   width: "100%",
-                  // border: "1px solid red",
 
                   paddingBottom: 6,
                 }}
@@ -108,7 +107,7 @@ export default class Checkemail extends Form {
                   !this.state.loading ? (
                     "Send"
                   ) : (
-                    <Spincrescentcomponenet size="1x" />
+                    <Spincrescentcomponenet color="#fbfbfb" size="1x" />
                   ),
                   "resendlink"
                 )}

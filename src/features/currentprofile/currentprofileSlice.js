@@ -8,8 +8,11 @@ export const currentProfileSlice = createSlice({
 
   reducers: {
     savecurrentProfile: (state, action) => {
-        state.data.username = action.payload.username;
-        state.data.id = action.payload.id;
+      state.data.username = action.payload.username;
+      state.data.id = action.payload.id;
+      state.data.language = action.payload.language;
+      state.data.gender = action.payload.gender;
+      state.data.isAdmin = action.payload.isAdmin;
     },
   },
 });

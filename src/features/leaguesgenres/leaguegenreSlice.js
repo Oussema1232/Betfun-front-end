@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createSelector } from "reselect";
 import * as actions from "../actions/api";
 import config from "../../config.json";
 
@@ -19,7 +18,11 @@ export const leaguegenreSlice = createSlice({
     },
     leaguesgenresRequestFail: (state, action) => {
       state.loading = false;
-      state.errors.message = "Couldn't load leaguesgenres";
+      state.errors.message = action.payload.message;
+    },
+    leaguesgenreUpdated: (state, action) => {
+      state.loading = false;
+      state.onsuccess.message = action.payload.message;
     },
     leaguesgenresReceived: (state, action) => {
       state.list = action.payload.data;
@@ -37,6 +40,7 @@ const {
   leaguesgenresRequested,
   leaguesgenresRequestFail,
   leaguesgenreServerFail,
+  leaguesgenreUpdated,
 } = leaguegenreSlice.actions;
 const url = config.leaguesgenres;
 
@@ -48,6 +52,49 @@ export const loadLeaguesgenres = () => (dispatch, getState) => {
       onError: leaguesgenresRequestFail.type,
       onSuccess: leaguesgenresReceived.type,
       onServerFail: leaguesgenreServerFail.type,
+    })
+  );
+};
+
+export const updateLeaguegenre = (parametres, leaguesgenre) => (
+  dispatch,
+  getState
+) => {
+  return dispatch(
+    actions.apiCallBegan({
+      onStart: leaguesgenresRequested.type,
+      onError: leaguesgenresRequestFail.type,
+      onSuccess: leaguesgenreUpdated.type,
+      onServerFail: leaguesgenreServerFail.type,
+      url: url + parametres,
+      method: "put",
+      data: leaguesgenre,
+    })
+  );
+};
+export const postLeaguegenre = (leaguesgenre) => (dispatch, getState) => {
+  return dispatch(
+    actions.apiCallBegan({
+      onStart: leaguesgenresRequested.type,
+      onError: leaguesgenresRequestFail.type,
+      onSuccess: leaguesgenreUpdated.type,
+      onServerFail: leaguesgenreServerFail.type,
+      url: url,
+      method: "post",
+      data: leaguesgenre,
+    })
+  );
+};
+
+export const deleteLeaguegenre = (params) => (dispatch, getState) => {
+  return dispatch(
+    actions.apiCallBegan({
+      onStart: leaguesgenresRequested.type,
+      onError: leaguesgenresRequestFail.type,
+      onSuccess: leaguesgenreUpdated.type,
+      onServerFail: leaguesgenreServerFail.type,
+      url: url + params,
+      method: "delete",
     })
   );
 };

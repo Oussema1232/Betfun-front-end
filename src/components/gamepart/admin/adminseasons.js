@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddUpdateSeason from "../../../commun/admin/addupdateseason";
 import UpdateSeasonstatus from "../../../commun/admin/updateseasonstatus";
-import DeleteModal from "../../../commun/modal";
-import { deleteDomain } from "../../../features/domains/domainSlice";
+
 import { loadSeasons } from "../../../features/seasons/seasonSlice";
+
 export default function AdminDomain() {
   const dispatch = useDispatch();
   const betfunseasons = useSelector((state) => state.betfundata.seasons.list);
-  const successdelete = useSelector(
-    (state) => state.betfundata.seasons.onsuccess.message
-  );
-  const errordelete = useSelector(
-    (state) => state.betfundata.seasons.errors.message
-  );
-
-  const [isFinished, setIsfinished] = useState();
 
   useEffect(() => {
     dispatch(loadSeasons(`/`));
@@ -62,7 +54,7 @@ export default function AdminDomain() {
           <AddUpdateSeason update={true} initialSeason={s} />
         </div>
       ))}
-      <UpdateSeasonstatus  />
+      <UpdateSeasonstatus />
     </div>
   );
 }

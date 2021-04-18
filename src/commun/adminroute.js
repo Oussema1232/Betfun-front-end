@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 import auth from "../services/authService";
 
@@ -18,7 +18,7 @@ const AdminRoute = ({ component: Component, render, ...rest }) => {
               }}
             />
           );
-        } else if (!currentuser.isAdmin) {
+        } else if (currentuser.isAdmin != 1) {
           return (
             <Redirect
               to={{
@@ -31,3 +31,5 @@ const AdminRoute = ({ component: Component, render, ...rest }) => {
     />
   );
 };
+
+export default AdminRoute;

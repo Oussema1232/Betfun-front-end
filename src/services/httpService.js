@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import config from "../../src/config.json";
-// import logging from "./logService";
+
+
 
 axios.interceptors.response.use(null, (error) => {
   const expectedError =
@@ -18,14 +18,24 @@ axios.interceptors.response.use(null, (error) => {
       draggable: true,
       progress: undefined,
     });
-    // logging.log(error);
+    
   }
   return Promise.reject(error);
 });
 
-function setJwt(jwt) {
-  axios.defaults.headers.common["x-auth-token"] = jwt;
-}
+
+axios.interceptors.request.use(
+  function(config) {
+    const token = localStorage.getItem("token"); 
+    if (token) {
+      config.headers["x-auth-token"] =  token;
+    }
+    return config;
+  },
+  function(error) {
+    return Promise.reject(error);
+  }
+);
 
 const http = {
   get: axios.get,
@@ -33,7 +43,7 @@ const http = {
   delete: axios.delete,
   post: axios.post,
   request: axios.request,
-  setJwt,
+  
 };
 
 export default http;

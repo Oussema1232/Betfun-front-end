@@ -7,10 +7,9 @@ export default function Eyecomponent(props) {
   const onclick = props.onclick;
   return (
     <FontAwesomeIcon
-      color="#e9eac9"
+      color="#07617d"
       icon={slash ? faEyeSlash : faEye}
       size="1x"
-      color="#dddddd"
       onClick={onclick}
       style={{ cursor: "pointer", marginLeft: 5 }}
     />

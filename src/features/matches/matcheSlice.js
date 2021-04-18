@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createSelector } from "reselect";
 import * as actions from "../actions/api";
 import config from "../../config.json";
 
@@ -47,7 +46,7 @@ export const matcheSlice = createSlice({
     matchesRequestFail: (state, action) => {
       state.loading = false;
       state.souslist = [];
-      state.errors.message = "Couldn't load matches";
+      state.errors.message = action.payload.message;
     },
     matchesReceived: (state, action) => {
       state.list = action.payload.data ? action.payload.data : [];
@@ -56,13 +55,12 @@ export const matcheSlice = createSlice({
           for (let j = 0; j < state.list[0].days[i].matches.length; j++) {
             state.souslist.push([state.list[0].days[i].matches[j].idMatch, ""]);
           }
-
-          for (let i = 0; i < state.list.length; i++) {
-            state.fixturegameweeks.push({
-              id: state.list[i].gameweekId,
-              name: state.list[i].gameweekname,
-            });
-          }
+        }
+        for (let i = 0; i < state.list.length; i++) {
+          state.fixturegameweeks.push({
+            id: state.list[i].gameweekId,
+            name: state.list[i].gameweekname,
+          });
         }
 
         for (let i = 0; i < state.list.length; i++) {

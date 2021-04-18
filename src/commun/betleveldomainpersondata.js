@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 
 export default function Betleveldomainpersondata(props) {
+  const levels = useSelector((state) => state.betfundata.levels.list);
+
+  const [logo, setLogo] = useState("");
+  useEffect(() => {
+    let levellogo = levels.find((l) => {
+      return (
+        l[`${props.domainname.split(" ").join("")}startpoints`] <=
+          props.points &&
+        props.points < l[`${props.domainname.split(" ").join("")}endpoints`]
+      );
+    });
+
+    if (levellogo) setLogo(levellogo.logo);
+  }, [props.domainname, props.points, levels]);
+
   return (
     <div
       style={{
@@ -96,7 +112,7 @@ export default function Betleveldomainpersondata(props) {
           position: "relative",
         }}
       >
-        <img style={{ width: "100%" }} src={props.imageSrc} />
+        <img style={{ width: "100%" }} src={logo} />
         <motion.div
           whileHover={{
             backgroundColor: "rgba(0,0,0,0)",

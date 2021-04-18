@@ -66,12 +66,7 @@ export const addUser = (user) =>
     onServerFail: addServerFail.type,
   });
 
-// {type:"api/CallBegan",payload:{
-//   url: url,
-//   method: "post",
-//   data: user,
-//   onSuccess: userAdded.type,
-// }}
+
 
 export const selectUserById = (userId) =>
   createSelector(

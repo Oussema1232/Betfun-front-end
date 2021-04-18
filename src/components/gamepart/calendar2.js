@@ -1,27 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import moment from "moment";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { makeStyles } from "@material-ui/core/styles";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { loadMatches } from "../../features/matches/matcheSlice";
-import { postBingos } from "../../features/matches/matcheSlice";
-import { loadGameweeks } from "../../features/gameweeks/gameweekSlice.js";
-import { loadTeams } from "../../features/teams/teamSlice.js";
 import Snackbar from "@material-ui/core/Snackbar";
 import { AlertTitle } from "@material-ui/lab";
 import MuiAlert from "@material-ui/lab/Alert";
-import { savecurrentDomain } from "../../features/currentdomain/currentdomainSlice";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
 
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import { loadMatches,postBingos } from "../../features/matches/matcheSlice";
+import { loadGameweeks } from "../../features/gameweeks/gameweekSlice.js";
+import { loadTeams } from "../../features/teams/teamSlice.js";
 
 import TabPanel from "../../commun/panelTab";
-import NativeSelect from "@material-ui/core/NativeSelect";
+
 import SkullCalendar from "../../commun/skulldata";
 import Updatematch from "../../commun/admin/updatematch";
 import Bingopost from "../../commun/admin/bingopost";
@@ -78,7 +72,7 @@ export default function Calendar(props) {
   const allmatches = useSelector(
     (state) => state.betfundata.matches.allmatches
   );
-  const teams = useSelector((state) => state.betfundata.teams.list);
+
   const loadmatches = useSelector((state) => state.betfundata.matches.loading);
   const matchesError = useSelector(
     (state) => state.betfundata.matches.errors.message
@@ -109,9 +103,9 @@ export default function Calendar(props) {
   const goTocreateBet = (matchtime) => {
     setTimeIsUp({ isUp: false, message: "" });
 
-    if (moment(matchtime).diff(moment(), "minutes") < 60) {
+    if (moment(matchtime).diff(moment(), "minutes") > 60) {
       props.history.push(
-        `/betfun/game/bets/createbet/${currentuser.username}/${
+        `/game/bet/bets/createbet/${currentuser.username}/${
           currentdomain.name
         }/${props.match.params.seasonname}/${
           gameweeks[0] && !gameweekvalue.name
@@ -180,6 +174,7 @@ export default function Calendar(props) {
               >
                 {gameweeks.map((g) => (
                   <Tab
+                  key={g.id}
                     label={g.name}
                     value={g.id}
                     onClick={() => setGameweekvalue(g)}
@@ -202,25 +197,29 @@ export default function Calendar(props) {
                     Create Bet
                   </div>
                 )}
-                <Updatematch
-                  initialMatch={{
-                    team1Id: "",
-                    team2Id: "",
-                    played_on: "2020-09-26 17:05:00",
-                    cote_1: "",
-                    cote_x: "",
-                    cote_2: "",
-                  }}
-                  gameweekId={
-                    gameweeks[0] && !gameweekvalue.id
-                      ? gameweeks[0].id
-                      : gameweekvalue.id
-                  }
-                />
+                {currentuser.isAdmin==1 && (
+                  <Updatematch
+                    initialMatch={{
+                      idMatch: "",
+                      team1Id: "",
+                      team2Id: "",
+                      played_on: "2020-09-26 17:05:00",
+                      cote_1: "",
+                      cote_x: "",
+                      cote_2: "",
+                    }}
+                    gameweekId={
+                      gameweeks[0] && !gameweekvalue.id
+                        ? gameweeks[0].id
+                        : gameweekvalue.id
+                    }
+                  />
+                )}
 
                 <div className="betsTableContainer">
                   {matches.map((m) => (
                     <TabPanel
+                    key={m.gameweekId}
                       value={
                         gameweeks[0] && !gameweekvalue.id
                           ? gameweeks[0].id
@@ -332,7 +331,7 @@ export default function Calendar(props) {
               </div>
             </div>
           )}
-          {currentuser.isAdmin && (
+          {currentuser.isAdmin==1 && (
             <button
               onClick={() =>
                 dispatch(

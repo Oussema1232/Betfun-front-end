@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, {  useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteRight, faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
-import knowledgeback from "../../img/knowledgeback2.jpg";
-import "./style.css";
+import { loadQuote } from "../../features/quotes/quoteSlice";
 import Islamiccolumn from "../../commun/logos/islamiccolumn2";
 
+import "./style.css";
+
 export default function Quote(props) {
+  const dispatch = useDispatch();
+  const quote = useSelector((state) => state.betfundata.quotes.oneQuote);
+  useEffect(() => {
+    dispatch(loadQuote(`/one`));
+  }, []);
   return (
     <div className="quotesoldiercontainer">
       <div className="islamiccolumnclass">
@@ -26,7 +33,6 @@ export default function Quote(props) {
             justifyContent: "center",
             flexDirection: "column",
             alignItems: "center",
-            // border: "1px solid blue",
           }}
         >
           <motion.div
@@ -40,25 +46,35 @@ export default function Quote(props) {
             width: "90%",
             fontSize: 17,
             display: "flex",
-            justifyContent: "center",
+            flexDirection: "column",
+
             alignItems: "center",
             textJustify: "inter-word",
+            textAlign: "center",
             marginBottom: 6,
           }}
         >
-          Kindness is a mark of faith, and whoever has no kindness has no faith.
+          <div
+            className="quoteoftheday"
+            style={{ marginTop: -30, marginBottom: 8 }}
+          >
+            --Quote of the day--
+          </div>
+          <div>{quote.description}</div>
         </div>
         <div
           style={{
             fontWeight: "bold",
-            fontSize: 15,
+            fontSize: 14,
+
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             textJustify: "inter-word",
+            textAlign: "center",
           }}
         >
-          Prophet Muhammad
+          {quote.author}
         </div>
         <div
           style={{

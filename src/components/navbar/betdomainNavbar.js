@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import _ from "lodash";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -6,8 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import DrawerDomainItems from "../popupsdrawers/drawerdomainitems";
 import Seasonspopup from "../../commun/seasonspopup";
-import { loadSeasons } from "../../features/seasons/seasonSlice";
-import { seasonsFinished } from "../../features/seasons/seasonSlice";
+import {
+  loadSeasons,
+  seasonsFinished,
+  seasonsUnfinished,
+} from "../../features/seasons/seasonSlice";
 
 import "./style.css";
 
@@ -75,20 +79,20 @@ class BetdomainNavbar extends Component {
           </div>
           <div className="betdomainNavbarItemsContainerDesktop">
             <Link
-              to={`/betfun/game/bets/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
+              to={`/game/bet/bets/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
               className="betdomainNavbarItem"
             >
               <div>Bets</div>
             </Link>
             <Link
-              to={`/betfun/game/leagues/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
+              to={`/game/bet/leagues/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
               className="betdomainNavbarItem"
             >
               <div className="betdomainNavbarItem">Leagues</div>
             </Link>
             {this.props.latestseason && (
               <Link
-                to={`/betfun/game/fixtures/${this.props.currentdomain.name}/${this.props.latestseason.name}/${this.props.currentdomain.id}/${this.props.latestseason.id}`}
+                to={`/game/bet/fixtures/${this.props.currentdomain.name}/${this.props.latestseason.name}/${this.props.currentdomain.id}/${this.props.latestseason.id}`}
                 className="betdomainNavbarItem"
               >
                 <div className="betdomainNavbarItem">Fixtures</div>
@@ -96,38 +100,50 @@ class BetdomainNavbar extends Component {
             )}
             <div>
               <Seasonspopup
+                backgroundColor={
+                  !this.props.seasonsError
+                    ? this.props.unfinishedseasons.length >= 1
+                      ? "#f9a828"
+                      : "#fbfbfb"
+                    : "#f44336"
+                }
+                color={!this.props.seasonsError ? "#171717" : "#fbfbfb"}
                 seasons={
                   !this.props.seasonsError
-                    ? this.props.seasons
+                    ? this.props.unfinishedseasons.length >= 1
+                      ? this.props.unfinishedseasons
+                      : [{ name: "No seasons yet" }]
                     : [{ name: this.props.seasonsError }]
                 }
                 thepathname="calendar"
-                backgroundColor={
-                  !this.props.seasonsError ? "#ffcb05" : "#f9a828"
+                link={
+                  !this.props.seasonsError
+                    ? this.props.unfinishedseasons.length >= 1
+                      ? true
+                      : false
+                    : false
                 }
-                color="#02010f"
-                link={!this.props.seasonsError ? true : false}
               >
                 <div className="betdomainNavbarItem">Calendar</div>
               </Seasonspopup>
             </div>
             <Link
-              to={`/betfun/game/levels/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
+              to={`/game/bet/levels/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
               className="betdomainNavbarItem"
             >
               <div>Levels</div>
             </Link>
-            {this.props.currentprofile.id !== this.props.currentuser.id && (
+            {this.props.currentprofile.id != this.props.currentuser.id && (
               <Link
-                to={`/betfun/game/stats/${this.props.currentdomain.name}/${this.props.currentdomain.id}/${this.props.currentprofile.username}/${this.props.currentprofile.id}`}
+                to={`/game/bet/stats/${this.props.currentdomain.name}/${this.props.currentdomain.id}/${this.props.currentprofile.username}/${this.props.currentprofile.id}`}
                 className="betdomainNavbarItem"
               >
                 <div>Stats</div>
               </Link>
             )}
-            {true && (
+            {this.props.currentuser.isAdmin==1 && (
               <Link
-                to={`/betfun/game/teams/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
+                to={`/game/bet/teams/${this.props.currentdomain.name}/${this.props.currentdomain.id}`}
                 className="betdomainNavbarItem"
               >
                 <div>Teams</div>
@@ -145,11 +161,11 @@ class BetdomainNavbar extends Component {
                 backgroundColor={
                   !this.props.seasonsError
                     ? this.props.finishedseasons.length >= 1
-                      ? "#ffcb05"
-                      : "#fbf9f9"
-                    : "#d10d2f"
+                      ? "#f9a828"
+                      : "#fbfbfb"
+                    : "#f44336"
                 }
-                color="#02010f"
+                color={!this.props.seasonsError ? "#171717" : "#fbfbfb"}
                 seasons={
                   !this.props.seasonsError
                     ? this.props.finishedseasons.length >= 1
@@ -168,7 +184,7 @@ class BetdomainNavbar extends Component {
             <FontAwesomeIcon
               icon={faBars}
               size="lg"
-              color="#eeeeee"
+              color="#fbfbfb"
               style={{ cursor: "pointer" }}
               onClick={this.openDrawerDomainItems}
             />
@@ -180,6 +196,7 @@ class BetdomainNavbar extends Component {
           seasons={this.props.seasons}
           theLatestseason={this.props.latestseason}
           theFinishedseasons={this.props.finishedseasons}
+          unfinishedseasons={this.props.unfinishedseasons}
           theseasonsError={this.props.seasonsError}
         />
       </div>
@@ -196,6 +213,7 @@ const mapStateToProps = (state) => ({
   seasons: state.betfundata.seasons.list,
   seasonsError: state.betfundata.seasons.errors.message,
   finishedseasons: seasonsFinished(state),
+  unfinishedseasons: seasonsUnfinished(state),
   latestseason: state.betfundata.seasons.latestseason,
 });
 

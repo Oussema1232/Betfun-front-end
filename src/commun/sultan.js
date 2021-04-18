@@ -5,7 +5,7 @@ import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import Usermoonavatar from "./usermoonavatar";
 
 export default function SultanComponent({
-  sex,
+  gender,
   countrylogo,
   sultanusername,
 
@@ -18,7 +18,7 @@ export default function SultanComponent({
       <div
         style={{
           flexGrow: 1,
-          color: "#eeeeee",
+          color: "#fbfbfb",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-around",
@@ -31,7 +31,9 @@ export default function SultanComponent({
           width: "100%",
         }}
       >
-        <div className="sultanpointsContainer">{`${points} pts | ${NTSultan} Time(s) sultan`}</div>
+        <div className="sultanpointsContainer">{`${points} pts | ${NTSultan} Time(s) ${
+          gender == "Male" ? "Sultan" : "Sultana"
+        }`}</div>
         <div className="sultanBarTitle">
           <div className="sultanBarglibeseasonicon">
             <FontAwesomeIcon icon={faGlobe} size="lg" color="#f9a828" />
@@ -44,7 +46,7 @@ export default function SultanComponent({
               alignItems: "center",
             }}
           >
-            {sex == "Male" ? "Sultan" : "Sultana"}
+            {gender == "Male" ? "Sultan" : "Sultana"}
           </div>
         </div>
         <div className="countryLogoContainer">

@@ -14,7 +14,18 @@
   "leagues": "/leagues",
   "seasons": "/seasons",
   "bets": "/bets",
+  "levels": "/levels",
   "betdetails": "/betdetails",
   "countries": "/countries",
-  "confirmation": "/confirmation"
+  "confirmation": "/confirmation",
+  "categories": "/categories",
+  "difficulties": "/difficulties",
+  "quotes": "/quotes",
+  "informations": "/informations",
+  "questions": "/questions",
+  "round": "/round",
+  "suggestions": "/suggestions",
+  "domainstats": "/domainstats",
+  "knowledgestats": "/knowledgestats/stats",
+  "knowledgecategories": "/categories"
 }

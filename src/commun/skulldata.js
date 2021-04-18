@@ -51,7 +51,7 @@ export default function Calendar(props) {
             justifyContent: "center",
           }}
         >
-          <Spincrescentcomponent color="#070427" size="2x" />
+          <Spincrescentcomponent color="#2e383f" size="2x" />
         </div>
       </div>
       {!props.dontshowtabs && (

@@ -1,37 +1,44 @@
 import React, { Component } from "react";
-import back from "../../img/vintageback.jpg";
-import ProgressBar from "../../commun/progressBar";
+import { connect } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
-import backquest from "../../img/backquest.jpg";
-import borderimage from "../../img/frondmat.jpg";
-import * as knowledgedata from "./questionsservice";
 import Wronganswers from "./wronganswers";
 import Welldone from "./welldone";
+import {
+  loadRound,
+  sousListroundupdated,
+} from "../../features/round/roundSlice";
+import back from "../../img/vintageback.jpg";
+import AnswerItem from "../../commun/answerItem";
+import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
+import QuestionItem from "../../commun/questionItem";
+import ProgressBar from "../../commun/progressBar";
 
 import "./style.css";
 
-export default class Playround extends Component {
+class Playround extends Component {
   state = {
-    answerColor: "rgba(68,119,178,0.5)",
+    answerColor: "#f8f5de",
     clickable: true,
     updatestate: true,
     show: { one: true, two: true, three: true, four: true },
     complete: false,
     numbcorrectanswers: 0,
-    progressinitialvalue: 0,
     progress: 0,
     n: 0,
     score: 0,
   };
 
-  difficilty = {
-    id: 1,
-    name: "Medium",
-    coef: 0.6,
-    numbmincorrectanswers: 6,
-  };
+  Engerroranswers = `You have exceeded the maximum number of wrong answers. Sorry Bettor,
+  better luck next Time`;
+
+  Araberroranswers =
+    "لقد تجاوزت الحد الأقصى لعدد الإجابات الخاطئة, حظ أفضل في المرة القادمة";
+
+  componentDidMount() {
+    this.props.loadRound(
+      `/${this.props.currentcategory.id}/${this.props.currentuser.language}`
+    );
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.updatestate) {
@@ -39,7 +46,7 @@ export default class Playround extends Component {
         if (
           this.state.n == 9 ||
           10 - (this.state.n + 1) + this.state.numbcorrectanswers <
-            this.difficilty.numbmincorrectanswers
+            this.props.location.state.difficultychosen.minCorrect
         ) {
           this.setState({
             complete: true,
@@ -61,7 +68,7 @@ export default class Playround extends Component {
     }));
   };
 
-  clickAnswer = (answername, answershow) => {
+  clickAnswer = (answername, answershow, userAnswer) => {
     if (this.state.clickable) {
       let {
         show: newshow,
@@ -81,20 +88,24 @@ export default class Playround extends Component {
 
       this.setState({
         show: newshow,
-        answerColor: "#ffae19",
+        answerColor: "#f9a828",
         clickable: false,
       });
 
+      this.props.sousListroundupdated(userAnswer);
+
       setTimeout(() => {
         if (
-          knowledgedata.questions[newn].correctAnswer ==
-          knowledgedata.questions[newn][answername]
+          this.props.round[newn].EngCorrectAnswer ==
+          this.props.round[newn][answername]
         ) {
-          newscore += knowledgedata.questions[newn].cote * this.difficilty.coef;
+          newscore +=
+            this.props.round[newn].cote *
+            this.props.location.state.difficultychosen.coefficient;
           newnumbcorrectanswers += 1;
-          newcolor = "green";
+          newcolor = "#458B00";
         } else {
-          newcolor = "red";
+          newcolor = "#f22a2a";
         }
 
         this.setState({
@@ -107,14 +118,13 @@ export default class Playround extends Component {
       setTimeout(() => {
         if (
           10 - (this.state.n + 1) + this.state.numbcorrectanswers <
-            this.difficilty.numbmincorrectanswers ||
-          newn == knowledgedata.questions.length - 1
+            this.props.location.state.difficultychosen.minCorrect ||
+          newn == this.props.round.length - 1
         ) {
           this.setState({ complete: true, updatestate: false });
-          // clearInterval(this.timer);
         } else {
           this.setState({
-            answerColor: "rgba(68,119,178,0.5)",
+            answerColor: "#f8f5de",
             clickable: true,
             show: { one: true, two: true, three: true, four: true },
             complete: false,
@@ -124,6 +134,23 @@ export default class Playround extends Component {
         }
       }, 1500);
     }
+  };
+
+  replay = () => {
+    this.setState({
+      answerColor: "#f8f5de",
+      clickable: true,
+      updatestate: true,
+      show: { one: true, two: true, three: true, four: true },
+      complete: false,
+      numbcorrectanswers: 0,
+      progress: 0,
+      n: 0,
+      score: 0,
+    });
+    this.props.loadRound(
+      `/${this.props.currentcategory.id}/${this.props.currentuser.language}`
+    );
   };
 
   render() {
@@ -138,35 +165,17 @@ export default class Playround extends Component {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          // justifyContent: "center",
           paddingLeft: 5,
           paddingRight: 5,
           paddingTop: 5,
           boxSizing: "border-box",
         }}
       >
-        {!this.state.complete ? (
+        {!this.state.complete &&
+        this.props.round[0] &&
+        !this.props.loadinground ? (
           <>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: 30,
-                fontWeight: "bold",
-                color: "black",
-                fontSize: 25,
-                minHeight: 40,
-                boxSizing: "border-box",
-                width: "98%",
-                maxWidth: 800,
-                padding: 12,
-                backgroundColor: "rgba(169,121,71,0.5)",
-                border: "2px dashed black",
-              }}
-            >
-              {knowledgedata.questions[this.state.n].description}
-            </div>
+            <QuestionItem round={this.props.round} n={this.state.n} />
             <div
               style={{
                 width: "100%",
@@ -174,7 +183,7 @@ export default class Playround extends Component {
                 paddingBottom: 30,
                 flexGrow: 1,
                 boxSizing: "border-box",
-                // border: "1px solid blue",
+
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
@@ -193,99 +202,41 @@ export default class Playround extends Component {
                   width: "100%",
                 }}
               >
-                <AnimatePresence>
-                  {this.state.show.one && (
-                    <motion.div
-                      initial={{
-                        border: "1px dashed black",
-                      }}
-                      whileHover={{
-                        borderColor: this.state.clickable ? "#F4F1C9" : "black",
-                        borderWidth: this.state.clickable ? "5px" : "1px",
-                        borderStyle: this.state.clickable ? "solid" : "dashed",
-                      }}
-                      exit={{ x: -1000, transition: { duration: 0.2 } }}
-                      whileTap={{
-                        borderColor: this.state.clickable ? "#F4F1C9" : "black",
-                        borderWidth: this.state.clickable ? "5px" : "1px",
-                        borderStyle: this.state.clickable ? "solid" : "dashed",
-                      }}
-                      onClick={() => {
-                        this.clickAnswer("answerOne", "one");
-                      }}
-                      style={{
-                        backgroundColor: this.state.answerColor,
-                        cursor: "pointer",
-                        color: "black",
-                        fontWeight: "bold",
-                        width: "40%",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        minHeight: 70,
-                        wordBreak: "break-all",
-                        boxSizing: "border-box",
-                        padding: 4,
-                        borderRadius: 5,
-                      }}
-                    >
-                      {knowledgedata.questions[this.state.n].answerOne}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <AnswerItem
+                  n={this.state.n}
+                  round={this.props.round}
+                  rank="one"
+                  clickable={this.state.clickable}
+                  clickAnswer={this.clickAnswer}
+                  Engname="EngAnswerone"
+                  Arabname="ArabAnswerone"
+                  answerColor={this.state.answerColor}
+                  show={this.state.show.one}
+                />
 
                 <div style={{ flexGrow: 1 }}></div>
-                <AnimatePresence>
-                  {this.state.show.two && (
-                    <motion.div
-                      initial={{
-                        border: "1px dashed black",
-                      }}
-                      whileHover={{
-                        borderColor: this.state.clickable ? "#ffae19" : "black",
-                        borderWidth: this.state.clickable ? "5px" : "1px",
-                        borderStyle: this.state.clickable ? "solid" : "dashed",
-                      }}
-                      exit={{ x: 1000, transition: { duration: 0.2 } }}
-                      whileTap={{
-                        borderColor: this.state.clickable ? "#ffae19" : "black",
-                        borderWidth: this.state.clickable ? "5px" : "1px",
-                        borderStyle: this.state.clickable ? "solid" : "dashed",
-                      }}
-                      onClick={() => {
-                        this.clickAnswer("answerTwo", "two");
-                      }}
-                      style={{
-                        backgroundColor: this.state.answerColor,
-                        cursor: "pointer",
-                        color: "black",
-                        fontWeight: "bold",
-                        width: "40%",
-
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        minHeight: 70,
-                        wordBreak: "break-all",
-                        boxSizing: "border-box",
-                        padding: 4,
-                        borderRadius: 5,
-                      }}
-                    >
-                      {knowledgedata.questions[this.state.n].answerTwo}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <AnswerItem
+                  n={this.state.n}
+                  round={this.props.round}
+                  rank="two"
+                  clickable={this.state.clickable}
+                  clickAnswer={this.clickAnswer}
+                  Engname="EngAnswertwo"
+                  Arabname="ArabAnswertwo"
+                  answerColor={this.state.answerColor}
+                  show={this.state.show.two}
+                />
               </div>
 
               <div
                 style={{
                   flexGrow: 1,
                   minHeight: 20,
+                  maxHeight: 250,
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  // backgroundColor: "green",
+
                   width: "100%",
                 }}
               >
@@ -299,7 +250,6 @@ export default class Playround extends Component {
                         exit={{ opacity: 0, transition: { duration: 0.2 } }}
                       >
                         <ProgressBar
-                          // progressinitialvalue={this.state.progressinitialvalue}
                           beginTime={this.timeprogress}
                           progress={this.state.progress}
                         />
@@ -313,106 +263,74 @@ export default class Playround extends Component {
                   marginTop: 20,
                   marginBottom: 20,
                   display: "flex",
+                  fontSize: 20,
                   alignItems: "center",
                   width: "100%",
                   justifyContent: "center",
                 }}
               >
-                <AnimatePresence>
-                  {this.state.show.three && (
-                    <motion.div
-                      initial={{
-                        border: "1px dashed black",
-                      }}
-                      whileHover={{
-                        borderColor: this.state.clickable ? "#ffae19" : "black",
-                        borderWidth: this.state.clickable ? "5px" : "1px",
-                        borderStyle: this.state.clickable ? "solid" : "dashed",
-                      }}
-                      exit={{ x: -1000, transition: { duration: 0.2 } }}
-                      whileTap={{
-                        borderColor: this.state.clickable ? "#ffae19" : "black",
-                        borderWidth: this.state.clickable ? "5px" : "1px",
-                        borderStyle: this.state.clickable ? "solid" : "dashed",
-                      }}
-                      onClick={() => {
-                        this.clickAnswer("answerThree", "three");
-                      }}
-                      style={{
-                        backgroundColor: this.state.answerColor,
-                        cursor: "pointer",
-                        color: "black",
-                        fontWeight: "bold",
-                        width: "40%",
-                        border: "1px solid #eeeeee",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        minHeight: 70,
-                        wordBreak: "break-all",
-                        boxSizing: "border-box",
-                        padding: 4,
-                        borderRadius: 5,
-                      }}
-                    >
-                      {knowledgedata.questions[this.state.n].answerThree}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <AnswerItem
+                  n={this.state.n}
+                  round={this.props.round}
+                  rank="three"
+                  clickable={this.state.clickable}
+                  clickAnswer={this.clickAnswer}
+                  Engname="EngAnswerthree"
+                  Arabname="ArabAnswerthree"
+                  answerColor={this.state.answerColor}
+                  show={this.state.show.three}
+                />
 
                 <div style={{ flexGrow: 1 }}></div>
-                <AnimatePresence>
-                  {this.state.show.four && (
-                    <motion.div
-                      initial={{
-                        border: "1px dashed black",
-                      }}
-                      whileHover={{
-                        borderColor: this.state.clickable ? "#ffae19" : "black",
-                        borderWidth: this.state.clickable ? "5px" : "1px",
-                        borderStyle: this.state.clickable ? "solid" : "dashed",
-                      }}
-                      exit={{ x: 1000, transition: { duration: 0.2 } }}
-                      whileTap={{
-                        borderColor: this.state.clickable ? "#ffae19" : "black",
-                        borderWidth: this.state.clickable ? "5px" : "1px",
-                        borderStyle: this.state.clickable ? "solid" : "dashed",
-                      }}
-                      onClick={() => {
-                        this.clickAnswer("answerFour", "four");
-                      }}
-                      style={{
-                        backgroundColor: this.state.answerColor,
-                        cursor: "pointer",
-                        color: "black",
-                        fontWeight: "bold",
-                        width: "40%",
-                        border: "1px solid #eeeeee",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        minHeight: 70,
-                        wordBreak: "break-all",
-                        boxSizing: "border-box",
-                        padding: 4,
-
-                        borderRadius: 5,
-                      }}
-                    >
-                      {knowledgedata.questions[this.state.n].answerFour}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <AnswerItem
+                  n={this.state.n}
+                  round={this.props.round}
+                  rank="four"
+                  clickable={this.state.clickable}
+                  clickAnswer={this.clickAnswer}
+                  Engname="EngAnswerfour"
+                  Arabname="ArabAnswerfour"
+                  answerColor={this.state.answerColor}
+                  show={this.state.show.four}
+                />
               </div>
             </div>
           </>
         ) : (
           <>
-            {10 - (this.state.n + 1) + this.state.numbcorrectanswers <
-            this.difficilty.numbmincorrectanswers ? (
-              <Wronganswers />
+            {this.props.loadinground ? (
+              <div style={{ marginTop: 50 }}>
+                <Spincrescentcomponenet color="#07617d" size="4x" />
+              </div>
             ) : (
-              <Welldone score={this.state.score} />
+              <>
+                {this.props.errormessage ? (
+                  <Wronganswers
+                    Araberror={this.props.errormessage}
+                    Engerror={this.props.errormessage}
+                  />
+                ) : (
+                  <>
+                    {10 - (this.state.n + 1) + this.state.numbcorrectanswers <
+                    this.props.location.state.difficultychosen.minCorrect ? (
+                      <Wronganswers
+                        Araberror={this.Araberroranswers}
+                        Engerror={this.Engerroranswers}
+                        onRetry={this.replay}
+                      />
+                    ) : (
+                      <Welldone
+                        score={this.state.score}
+                        difficultyId={
+                          this.props.location.state.difficultychosen.id
+                        }
+                        allanswers={this.props.allanswers}
+                        onRetry={this.replay}
+                      />
+                    )}
+                  </>
+                )}
+              </>
             )}
           </>
         )}
@@ -420,3 +338,15 @@ export default class Playround extends Component {
     );
   }
 }
+const mapDispatchToProps = { loadRound, sousListroundupdated };
+
+const mapStateToProps = (state) => ({
+  currentuser: state.betfundata.currentuser.data,
+  allanswers: state.betfundata.round.souslist,
+  currentcategory: state.betfundata.currentcategory.data,
+  round: state.betfundata.round.list,
+  errormessage: state.betfundata.round.errors.message,
+  loadinground: state.betfundata.round.loading,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Playround);

@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
-import NativeSelect from "@material-ui/core/NativeSelect";
+import React, {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { loadDomains } from "../../features/domains/domainSlice";
-import { updateDomain } from "../../features/domains/domainSlice";
-import { postDomain } from "../../features/domains/domainSlice";
+import DeleteModal from "../modal";
+import {
+  
+  updateDomain,
+  postDomain,
+  deleteDomain,
+} from "../../features/domains/domainSlice";
 
 export default function AddUpdateDomain(props) {
   const dispatch = useDispatch();
-  const betfundomains = useSelector((state) => state.betfundata.domains.list);
+  
   const errormessage = useSelector(
     (state) => state.betfundata.domains.errors.message
   );
@@ -18,23 +20,17 @@ export default function AddUpdateDomain(props) {
 
   const loading = useSelector((state) => state.betfundata.domains.loading);
 
-  const [domainname, setDomainname] = useState(props.initialDomain.domainname);
+  const [domainname, setDomainname] = useState(props.initialDomain.name);
   const [domainId, setDomainId] = useState(props.initialDomain.id);
-  const [file, setFile] = useState(props.initialDomain.domainname);
+  const [file, setFile] = useState(props.initialDomain.name);
 
-  useEffect(() => {
-    dispatch(loadDomains());
-  }, []);
+  
 
   const handleChangeName = (event) => {
     const value = event.target.value;
     setDomainname(value);
   };
-  const handleChangedomainId = (event) => {
-    const value = event.target.value;
-    console.log(value);
-    setDomainId(value);
-  };
+
   const handleChangelogo = (event) => {
     const value = event.target.files[0];
     setFile(value);
@@ -44,7 +40,7 @@ export default function AddUpdateDomain(props) {
     const data = new FormData();
 
     data.append("domainname", domainname);
-    data.append("domainId", domainId);
+
     data.append("file", file);
 
     dispatch(updateDomain(`/${domainId}`, data));
@@ -78,16 +74,6 @@ export default function AddUpdateDomain(props) {
         />
         <input type="file" name="file" onChange={handleChangelogo} />
 
-        <NativeSelect
-          value={domainId}
-          name="domainId"
-          onChange={handleChangedomainId}
-        >
-          {betfundomains.map((d) => (
-            <option value={d.id}>{d.domainname}</option>
-          ))}
-        </NativeSelect>
-
         <button onClick={props.update ? submit : submitpost}>
           {loading ? "loading ..." : props.update ? "Update" : "post"}
         </button>
@@ -96,6 +82,30 @@ export default function AddUpdateDomain(props) {
         ) : (
           <div style={{ color: "green" }}>{successmessage}</div>
         )}
+        <DeleteModal buttonname="delete">
+          <h6>do you wanna delete {props.initialDomain.name} ?</h6>
+          {errormessage ? (
+            <h6 style={{ color: "red" }}>{errormessage}</h6>
+          ) : (
+            <h6 style={{ color: "green" }}>{successmessage}</h6>
+          )}
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-around",
+            }}
+          >
+            <div
+              className="createbetorleagueButton"
+              onClick={() =>
+                dispatch(deleteDomain(`/${props.initialDomain.id}`))
+              }
+            >
+              Delete
+            </div>
+          </div>
+        </DeleteModal>
       </div>
     </div>
   );

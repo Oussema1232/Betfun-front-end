@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import { useDispatch, useSelector } from "react-redux";
 import DeleteModal from "../modal";
-import { updateTeam } from "../../features/teams/teamSlice";
-import { postTeam } from "../../features/teams/teamSlice";
-import { deleteTeam } from "../../features/teams/teamSlice";
+import {
+  updateTeam,
+  postTeam,
+  deleteTeam,
+} from "../../features/teams/teamSlice";
 
 export default function UpdateTeam(props) {
   const dispatch = useDispatch();
@@ -69,6 +71,7 @@ export default function UpdateTeam(props) {
       >
         <input
           type="text"
+          id={"teamname" + props.initialTeam.id}
           value={teamname}
           name="teamname"
           onChange={handleChangeName}
@@ -76,6 +79,7 @@ export default function UpdateTeam(props) {
         <input type="file" name="file" onChange={handleChangelogo} />
 
         <NativeSelect
+          id={"playornot" + props.initialTeam.id}
           value={plays}
           name="playornot"
           onChange={handleChangeplays}
@@ -107,7 +111,6 @@ export default function UpdateTeam(props) {
                 className="createbetorleagueButton"
                 onClick={() => {
                   dispatch(deleteTeam(`/${props.initialTeam.id}`));
-                  console.log("id", props.initialTeam.id);
                 }}
               >
                 Delete

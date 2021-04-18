@@ -48,23 +48,13 @@
   flex-grow: 1;
 }
 
-.blogosearchContainer {
-  display: flex;
-}
-
-.logosearchContainer {
-  display: flex;
-}
-
 .phonescreenbetpub {
   display: none;
 }
 
 .desktopscreenbetpub {
   display: flex;
-  /* align-items: center; */
   color: #171717;
-
   font-size: 13px;
   font-weight: bold;
 }
@@ -87,7 +77,7 @@
 
   flex-direction: column;
   align-items: center;
-  /* border-right: 1px solid #e6ab2d; */
+  
 }
 
 .fabarContainer {
@@ -109,10 +99,6 @@
 }
 
 @media only screen and (max-width: 700px) {
-  .logosearchContainer:focus-within {
-    flex-grow: 1;
-  }
-
   .fabarContainer {
     display: block;
   }
@@ -159,6 +145,7 @@
   background-color: #f9a828;
   -moz-user-select: none;
   -webkit-user-select: none;
+  user-select:none;
   cursor: pointer;
 }
 
@@ -167,10 +154,6 @@
     padding-right: 5px;
     padding-left: 5px;
     width: 100%;
-  }
-
-  .logosearchContainer {
-    margin-right: 3px;
   }
 
   .domainNamePhone {
@@ -182,6 +165,7 @@
   background-color: #424b52;
   -webkit-user-select: none;
   -moz-user-select: none;
+  user-select:none
 }
 
 .drawerdomainItem {

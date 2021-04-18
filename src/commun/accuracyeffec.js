@@ -1,6 +1,5 @@
 import React from "react";
 import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import { makeStyles } from "@material-ui/core/styles";
@@ -40,6 +39,7 @@ export default function AccuracyEffec({
   value,
   list,
   changeselect,
+  allseasons,
   canselect = true,
 }) {
   const classes = useStyles();
@@ -94,7 +94,7 @@ export default function AccuracyEffec({
             fontSize: 13,
           }}
         >
-          All seasons
+          {allseasons}
         </div>
       )}
       <div

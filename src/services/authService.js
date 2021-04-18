@@ -4,15 +4,13 @@ import jwtDecode from "jwt-decode";
 
 export const myToken = "token";
 
-http.setJwt(localStorage.getItem(myToken));
-
 export async function login(email, userpassword) {
   const response = await http.post(`${config.apiUrl}/auth`, {
     email,
     userpassword,
   });
 
-  localStorage.setItem(myToken, response.data.token);
+  localStorage.setItem(myToken, response.headers["x-auth-token"]);
 }
 
 export function loginWithjwt(jwt) {
@@ -26,15 +24,17 @@ export function logout() {
 export function getCurrentUser() {
   try {
     const token = localStorage.getItem(myToken);
+    
     return jwtDecode(token);
   } catch (err) {
     return null;
   }
 }
 
-export default {
+const auth = {
   login,
   loginWithjwt,
   logout,
   getCurrentUser,
 };
+export default auth;
