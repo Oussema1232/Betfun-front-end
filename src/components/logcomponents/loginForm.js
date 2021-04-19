@@ -44,7 +44,7 @@ class Login extends Form {
 
     try {
       const response = await http.get(
-        `http://localhost:3001/api/loginconfirmation/${this.state.emailtoken}`
+        `/loginconfirmation/${this.state.emailtoken}`
       );
       this.setState({
         message: response.data.message,
@@ -71,7 +71,7 @@ class Login extends Form {
     try {
       this.setState({ loadinglogin: true });
       const { email, userpassword } = this.state.data;
-       await auth.login(email, userpassword);
+      await auth.login(email, userpassword);
       this.props.savecurrentUser();
       this.props.history.replace("/");
     } catch (err) {

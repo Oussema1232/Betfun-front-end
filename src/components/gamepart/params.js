@@ -58,7 +58,6 @@ export default function Params(props) {
         alignSelf: "center",
         display: "flex",
         justifyContent: "center",
-        // border: "2px solid #2e383f",
         padding: 10,
         boxSizing: "border-box",
         borderBottom: "none",

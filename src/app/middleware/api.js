@@ -1,4 +1,3 @@
-import config from "../../config.json";
 import http from "../../services/httpService";
 import * as actions from "../../features/actions/api";
 
@@ -20,7 +19,6 @@ const api = ({ dispatch }) => (next) => async (action) => {
 
   try {
     const response = await http.request({
-      baseURL: config.apiUrl,
       url,
       method,
       data,

@@ -26,12 +26,9 @@ class Usernameparams extends Form {
     try {
       this.setState({ loading: true });
       const { username } = this.state.data;
-      const response = await http.put(
-        `http://localhost:3001/api/params/username`,
-        {
-          username,
-        }
-      );
+      const response = await http.put(`/params/username`, {
+        username,
+      });
       auth.loginWithjwt(response.data.token);
       this.props.savecurrentUser();
       this.setState({

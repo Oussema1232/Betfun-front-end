@@ -92,13 +92,10 @@ class Passwordparams extends Component {
       reseterror: "",
     });
     try {
-      const response = await http.put(
-        `http://localhost:3001/api/params/password`,
-        {
-          oldPassword: this.state.data.oldpassword,
-          newPassword: this.state.data.userpassword,
-        }
-      );
+      const response = await http.put(`/params/password`, {
+        oldPassword: this.state.data.oldpassword,
+        newPassword: this.state.data.userpassword,
+      });
 
       this.setState({
         successmessage: "Password updated successfully",

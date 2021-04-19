@@ -23,7 +23,7 @@ class Confirmation extends Component {
     this.setState({ message: "", showmessage: false, showerror: false });
     try {
       const response = await http.post(
-        `http://localhost:3001/api/confirmation/${token}`,
+        `/confirmation/${token}`,
         { data: pathname }
       );
 

@@ -110,10 +110,9 @@ class Resetpassword extends Component {
     );
     this.setState({ message: "", showmessage: false });
     try {
-      const response = await http.post(
-        `http://localhost:3001/api/confirmation/${token}`,
-        { data: pathname }
-      );
+      const response = await http.post(`/confirmation/${token}`, {
+        data: pathname,
+      });
       this.setState({
         showform: true,
         email: response.data.data,
@@ -134,7 +133,7 @@ class Resetpassword extends Component {
     this.setState({ loading: true, message: "" });
     try {
       const response = await http.post(
-        `http://localhost:3001/api/resetpassword/${this.state.emailtoken}`,
+        `/resetpassword/${this.state.emailtoken}`,
         { userpassword: this.state.data.userpassword }
       );
       await auth.login(this.state.email, this.state.data.userpassword);
@@ -187,7 +186,7 @@ class Resetpassword extends Component {
                   <form
                     style={{
                       width: "100%",
-                      
+
                       paddingTop: 6,
                       paddingBottom: 6,
                     }}
@@ -243,7 +242,6 @@ class Resetpassword extends Component {
                       type="submit"
                       className="resendlink"
                       onClick={this.onSubmit}
-                      
                     >
                       {!this.state.loading ? (
                         "Reset"

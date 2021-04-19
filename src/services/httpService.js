@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 axios.interceptors.response.use(null, (error) => {
   const expectedError =
@@ -18,21 +18,19 @@ axios.interceptors.response.use(null, (error) => {
       draggable: true,
       progress: undefined,
     });
-    
   }
   return Promise.reject(error);
 });
 
-
 axios.interceptors.request.use(
-  function(config) {
-    const token = localStorage.getItem("token"); 
+  function (config) {
+    const token = localStorage.getItem("token");
     if (token) {
-      config.headers["x-auth-token"] =  token;
+      config.headers["x-auth-token"] = token;
     }
     return config;
   },
-  function(error) {
+  function (error) {
     return Promise.reject(error);
   }
 );
@@ -43,7 +41,6 @@ const http = {
   delete: axios.delete,
   post: axios.post,
   request: axios.request,
-  
 };
 
 export default http;

@@ -34,7 +34,7 @@ export default class Checkemail extends Form {
 
     try {
       const response = await http.get(
-        `http://localhost:3001/api/checkemail/${this.state.data.email}`
+        `/checkemail/${this.state.data.email}`
       );
       this.setState({
         message: response.data.message,
