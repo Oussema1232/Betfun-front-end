@@ -5,7 +5,8 @@ import "../src/commun/logos/style.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { PersistGate } from "redux-persist/integration/react";
-import store from "./app/store";
+// import store from "./app/store";
+import { persistor, store } from "./app/store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import history from "../src/app/history";
@@ -16,11 +17,11 @@ const render = () => {
   ReactDOM.render(
     <React.StrictMode>
       <Provider store={store}>
-        <ConnectedRouter history={history}>
-          {/* <PersistGate loading={null} persistor={store.persistor}> */}
-          <App />
-          {/* </PersistGate> */}
-        </ConnectedRouter>
+        <PersistGate loading={null} persistor={persistor}>
+          <ConnectedRouter history={history}>
+            <App />
+          </ConnectedRouter>
+        </PersistGate>
       </Provider>
     </React.StrictMode>,
     document.getElementById("root")
@@ -37,5 +38,3 @@ if (process.env.NODE_ENV === "development" && module.hot) {
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-
-

@@ -27,6 +27,7 @@
     "react-toastify": "^6.1.0",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
+    "serve": "^11.3.2",
     "use-sound": "^2.0.1"
   },
   "scripts": {
