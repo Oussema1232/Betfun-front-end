@@ -25,7 +25,7 @@ export default function CategoryIcon(props) {
       case "History":
         setIcon(faHistory);
         break;
-      case "Giography":
+      case "Geography":
         setIcon(faMapMarkedAlt);
         break;
       case "Science":
