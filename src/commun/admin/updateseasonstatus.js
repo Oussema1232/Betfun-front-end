@@ -44,7 +44,7 @@ export default function UpdateSeasonstatus(props) {
           onChange={handleChangedomain}
         >
           {betfundomains.map((d) => (
-            <option value={d.id}>{d.domainname}</option>
+            <option value={d.id}>{d.name}</option>
           ))}
         </NativeSelect>
         <div style={{ display: "flex", flexDirection: "column" }}>

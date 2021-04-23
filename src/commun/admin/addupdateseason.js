@@ -69,7 +69,7 @@ export default function AddUpdateSeason(props) {
           >
             <option value=""></option>
             {betdomains.map((d) => (
-              <option value={d.id}>{d.domainname}</option>
+              <option value={d.id}>{d.name}</option>
             ))}
           </NativeSelect>
         )}
