@@ -18,7 +18,7 @@ export const leaguedetailSlice = createSlice({
     },
     leaguedetailsRequestFail: (state, action) => {
       state.loading = false;
-      state.errors.message = "Couldn't load leaguedetails";
+      state.errors.message = action.payload.message;
     },
     leaguedetailsReceived: (state, action) => {
       state.list = action.payload.data;
