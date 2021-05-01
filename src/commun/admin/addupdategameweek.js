@@ -68,7 +68,7 @@ export default function Addupdategameweek(props) {
       >
         {props.domains.map((d) => (
           <option key={d.id} value={d.id}>
-            {d.domainname}
+            {d.name}
           </option>
         ))}
       </NativeSelect>
