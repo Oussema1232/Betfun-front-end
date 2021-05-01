@@ -55,6 +55,7 @@ export default function Addupdategameweek(props) {
         name="seasonId"
         onChange={onchange}
       >
+        <option key="" value=""></option>
         {props.seasons.map((s) => (
           <option key={s.id} value={s.id}>
             {s.name}
@@ -66,6 +67,7 @@ export default function Addupdategameweek(props) {
         name="domainId"
         onChange={onchange}
       >
+        <option key="" value=""></option>
         {props.domains.map((d) => (
           <option key={d.id} value={d.id}>
             {d.name}
