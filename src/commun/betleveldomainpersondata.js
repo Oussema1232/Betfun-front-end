@@ -11,9 +11,9 @@ export default function Betleveldomainpersondata(props) {
   useEffect(() => {
     let levellogo = levels.find((l) => {
       return (
-        l[`${props.domainname.split(" ").join("")}startpoints`] <=
+        l[`${props.domainname.split(" ").join("")}startpoints`] <
           props.points &&
-        props.points < l[`${props.domainname.split(" ").join("")}endpoints`]
+        props.points <= l[`${props.domainname.split(" ").join("")}endpoints`]
       );
     });
 
