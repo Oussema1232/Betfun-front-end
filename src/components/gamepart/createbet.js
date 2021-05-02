@@ -148,7 +148,7 @@ export default function CreateBet(props) {
           moment(matches[0].days[0].matches[0].played_on).diff(
             moment(),
             "minutes"
-          ) < 60 ? (
+          ) > 60 ? (
             <>
               {matchesError ? (
                 <div className="loadingerrorMessage">
@@ -162,7 +162,7 @@ export default function CreateBet(props) {
                       fontWeight: "bold",
                     }}
                   >
-                    {matchesError} ...
+                    {matchesError}
                   </div>
                 </div>
               ) : (
