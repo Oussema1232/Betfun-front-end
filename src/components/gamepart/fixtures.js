@@ -103,7 +103,6 @@ export default function Fixtures(props) {
                   fontSize: 20,
                   backgroundColor: "#ececeb",
                   border: "none",
-                  fontWeight: "bold",
                 }}
               >
                 {gameweeksError}

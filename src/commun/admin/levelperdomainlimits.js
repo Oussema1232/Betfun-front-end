@@ -50,6 +50,7 @@ export default function LevelperdomainUpdate(props) {
           name="domainId"
           onChange={handleChangedomain}
         >
+          <option key="" value=""></option>
           {betfundomains.map((d) => (
             <option value={d.id}>{d.name}</option>
           ))}

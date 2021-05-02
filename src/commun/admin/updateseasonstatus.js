@@ -43,6 +43,7 @@ export default function UpdateSeasonstatus(props) {
           name="domainId"
           onChange={handleChangedomain}
         >
+          <option key="" value=""></option>
           {betfundomains.map((d) => (
             <option value={d.id}>{d.name}</option>
           ))}

@@ -126,10 +126,9 @@ export default function BetdetailsList(props) {
                   fontSize: 20,
                   backgroundColor: "#ececeb",
                   border: "none",
-                  fontWeight: "bold",
                 }}
               >
-                {leaguedetailsError} ...
+                {leaguedetailsError}
               </div>
             </div>
           ) : (

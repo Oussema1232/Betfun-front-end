@@ -133,10 +133,9 @@ export default function LeaguesList(props) {
                     fontSize: 20,
                     backgroundColor: "#ececeb",
                     border: "none",
-                    fontWeight: "bold",
                   }}
                 >
-                  {leaguesGenresError}...
+                  {leaguesGenresError}
                 </div>
               )}
               {leaguesError && (
@@ -146,10 +145,9 @@ export default function LeaguesList(props) {
                     fontSize: 20,
                     backgroundColor: "#ececeb",
                     border: "none",
-                    fontWeight: "bold",
                   }}
                 >
-                  {leaguesError}...
+                  {leaguesError}
                 </div>
               )}
             </div>

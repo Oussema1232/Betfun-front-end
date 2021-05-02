@@ -4,7 +4,6 @@ import LevelandLimits from "../../commun/logos/levelandLimits";
 import { loadLevelbydomainadmin } from "../../features/levels/levelSlice";
 import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
 
-
 export default function Levels() {
   const dispatch = useDispatch();
   const currentdomain = useSelector(
@@ -39,7 +38,6 @@ export default function Levels() {
                   fontSize: 20,
                   backgroundColor: "#ececeb",
                   border: "none",
-                  fontWeight: "bold",
                 }}
               >
                 {errormessage}

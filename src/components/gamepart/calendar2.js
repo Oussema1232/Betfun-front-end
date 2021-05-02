@@ -10,7 +10,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import { loadMatches,postBingos } from "../../features/matches/matcheSlice";
+import { loadMatches, postBingos } from "../../features/matches/matcheSlice";
 import { loadGameweeks } from "../../features/gameweeks/gameweekSlice.js";
 import { loadTeams } from "../../features/teams/teamSlice.js";
 
@@ -141,10 +141,9 @@ export default function Calendar(props) {
                   fontSize: 20,
                   backgroundColor: "#ececeb",
                   border: "none",
-                  fontWeight: "bold",
                 }}
               >
-                {gameweeksError} ...
+                {gameweeksError}
               </div>
               <div
                 className="betstabLine headerBets"
@@ -152,10 +151,9 @@ export default function Calendar(props) {
                   fontSize: 20,
                   backgroundColor: "#ececeb",
                   border: "none",
-                  fontWeight: "bold",
                 }}
               >
-                {matchesError} ...
+                {matchesError}
               </div>
             </div>
           ) : (
@@ -174,7 +172,7 @@ export default function Calendar(props) {
               >
                 {gameweeks.map((g) => (
                   <Tab
-                  key={g.id}
+                    key={g.id}
                     label={g.name}
                     value={g.id}
                     onClick={() => setGameweekvalue(g)}
@@ -197,7 +195,7 @@ export default function Calendar(props) {
                     Create Bet
                   </div>
                 )}
-                {currentuser.isAdmin==1 && (
+                {currentuser.isAdmin == 1 && (
                   <Updatematch
                     initialMatch={{
                       idMatch: "",
@@ -216,122 +214,135 @@ export default function Calendar(props) {
                   />
                 )}
 
-                <div className="betsTableContainer">
-                  {matches.map((m) => (
-                    <TabPanel
-                    key={m.gameweekId}
-                      value={
-                        gameweeks[0] && !gameweekvalue.id
-                          ? gameweeks[0].id
-                          : gameweekvalue.id
-                      }
-                      index={m.gameweekId}
-                      isclass={true}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          marginTop: 10,
-                          fontWeight: "bold",
-                        }}
+                {matches.length == 0 ? (
+                  <div
+                    className="betstabLine headerBets"
+                    style={{
+                      fontSize: 20,
+                      backgroundColor: "#ececeb",
+                      border: "none",
+                    }}
+                  >
+                    There is no matches yet
+                  </div>
+                ) : (
+                  <div className="betsTableContainer">
+                    {matches.map((m) => (
+                      <TabPanel
+                        key={m.gameweekId}
+                        value={
+                          gameweeks[0] && !gameweekvalue.id
+                            ? gameweeks[0].id
+                            : gameweekvalue.id
+                        }
+                        index={m.gameweekId}
+                        isclass={true}
                       >
-                        {m.days.map((matche) => (
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                            }}
-                          >
-                            <div className="betstabLine headerBets">
-                              {matche.day}
-                            </div>
-
-                            {matche.matches.map((mtch) => (
-                              <div
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                }}
-                              >
-                                <div className="betstabLine">
-                                  <div
-                                    className="betsTabCellule"
-                                    style={{
-                                      width: "45%",
-                                      justifyContent: "flex-end",
-                                    }}
-                                  >
-                                    <div>{mtch.team1}</div>
-
-                                    <img
-                                      src={mtch.team1logo}
-                                      style={{
-                                        width: 30,
-                                        marginLeft: 5,
-                                        marginRight: 5,
-                                      }}
-                                    />
-                                  </div>
-
-                                  <div
-                                    className="betsTabCellule playedatBetTime"
-                                    style={{
-                                      width: "10%",
-                                      fontWeight: "normal",
-                                      wordBreak: "normal",
-                                    }}
-                                  >
-                                    {mtch.time}
-                                  </div>
-
-                                  <div
-                                    className="betsTabCellule"
-                                    style={{
-                                      width: "45%",
-                                      justifyContent: "flex-start",
-                                      flexGrow: 1,
-                                    }}
-                                  >
-                                    <img
-                                      src={mtch.team2logo}
-                                      style={{
-                                        width: 30,
-                                        marginRight: 5,
-                                        marginLeft: 5,
-                                      }}
-                                    />
-                                    <div>{mtch.team2}</div>
-                                  </div>
-                                </div>
-                                {currentuser.isAdmin && (
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      flexDirection: "column",
-                                      borderBottom: "2px solid black",
-                                    }}
-                                  >
-                                    <Updatematch
-                                      update={true}
-                                      initialMatch={mtch}
-                                    />
-
-                                    <Bingopost initialMatch={mtch} />
-                                  </div>
-                                )}
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            marginTop: 10,
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {m.days.map((matche) => (
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                              }}
+                            >
+                              <div className="betstabLine headerBets">
+                                {matche.day}
                               </div>
-                            ))}
-                          </div>
-                        ))}
-                      </div>
-                    </TabPanel>
-                  ))}
-                </div>
+
+                              {matche.matches.map((mtch) => (
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                  }}
+                                >
+                                  <div className="betstabLine">
+                                    <div
+                                      className="betsTabCellule"
+                                      style={{
+                                        width: "45%",
+                                        justifyContent: "flex-end",
+                                      }}
+                                    >
+                                      <div>{mtch.team1}</div>
+
+                                      <img
+                                        src={mtch.team1logo}
+                                        style={{
+                                          width: 30,
+                                          marginLeft: 5,
+                                          marginRight: 5,
+                                        }}
+                                      />
+                                    </div>
+
+                                    <div
+                                      className="betsTabCellule playedatBetTime"
+                                      style={{
+                                        width: "10%",
+                                        fontWeight: "normal",
+                                        wordBreak: "normal",
+                                      }}
+                                    >
+                                      {mtch.time}
+                                    </div>
+
+                                    <div
+                                      className="betsTabCellule"
+                                      style={{
+                                        width: "45%",
+                                        justifyContent: "flex-start",
+                                        flexGrow: 1,
+                                      }}
+                                    >
+                                      <img
+                                        src={mtch.team2logo}
+                                        style={{
+                                          width: 30,
+                                          marginRight: 5,
+                                          marginLeft: 5,
+                                        }}
+                                      />
+                                      <div>{mtch.team2}</div>
+                                    </div>
+                                  </div>
+                                  {currentuser.isAdmin && (
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        borderBottom: "2px solid black",
+                                      }}
+                                    >
+                                      <Updatematch
+                                        update={true}
+                                        initialMatch={mtch}
+                                      />
+
+                                      <Bingopost initialMatch={mtch} />
+                                    </div>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          ))}
+                        </div>
+                      </TabPanel>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           )}
-          {currentuser.isAdmin==1 && (
+          {currentuser.isAdmin == 1 && (
             <button
               onClick={() =>
                 dispatch(

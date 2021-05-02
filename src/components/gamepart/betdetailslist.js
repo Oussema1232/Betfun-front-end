@@ -148,10 +148,9 @@ export default function BetdetailsList(props) {
                   fontSize: 20,
                   backgroundColor: "#ececeb",
                   border: "none",
-                  fontWeight: "bold",
                 }}
               >
-                {betdetailsError} ...
+                {betdetailsError}
               </div>
             </div>
           ) : (
@@ -198,10 +197,8 @@ export default function BetdetailsList(props) {
                 </div>
                 {currentuser.id == currentprofile.id &&
                   betdetails[0] &&
-                  (
-                    moment(betdetails[0].played_on).diff(moment(), "minutes") >
-                    60
-                  ) && (
+                  moment(betdetails[0].played_on).diff(moment(), "minutes") >
+                    60 && (
                     <div
                       className="createbetorleagueButton buttonsubmit"
                       style={{
