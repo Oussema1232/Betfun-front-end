@@ -60,7 +60,9 @@ export default function Levels() {
                   src={lev.logo}
                   startingpoints={
                     currentdomain.name &&
-                    lev[`${currentdomain.name.split(" ").join("")}startpoints`]
+                    lev[
+                      `${currentdomain.name.split(" ").join("")}startpoints`
+                    ] >= 0
                       ? lev[
                           `${currentdomain.name.split(" ").join("")}startpoints`
                         ]
@@ -68,7 +70,8 @@ export default function Levels() {
                   }
                   endingpoints={
                     currentdomain.name &&
-                    lev[`${currentdomain.name.split(" ").join("")}endpoints`]
+                    lev[`${currentdomain.name.split(" ").join("")}endpoints`] >=
+                      0
                       ? lev[
                           `${currentdomain.name.split(" ").join("")}endpoints`
                         ]
