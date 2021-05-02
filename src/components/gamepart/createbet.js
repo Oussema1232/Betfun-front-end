@@ -220,13 +220,9 @@ export default function CreateBet(props) {
                                     updateguess={sousListMatchguessescreated}
                                     disabled={
                                       matches[0].days[0].matches[0] &&
-                                      moment().diff(
-                                        moment(
-                                          matches[0].days[0].matches[0]
-                                            .played_on
-                                        ),
-                                        "minutes"
-                                      ) < 60
+                                      moment(
+                                        matches[0].days[0].matches[0].played_on
+                                      ).diff(moment(), "minutes") < 60
                                     }
                                   />
                                 ))}
@@ -254,7 +250,7 @@ export default function CreateBet(props) {
                           }}
                         >
                           {loadingCreateBet ? (
-                            <Spincrescentcomponenet size="1x" color="white" />
+                            <Spincrescentcomponenet size="1x" color="#fbfbfb" />
                           ) : (
                             "Send"
                           )}

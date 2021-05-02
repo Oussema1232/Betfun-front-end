@@ -50,7 +50,7 @@ export default function Betdetail(props) {
         <div className="betsTabCellule team1">
           <div>{props.betdetail.team1}</div>
           <img
-            src="../../../../../csslogo.png"
+            src={props.betdetail.team1logo}
             style={{ width: 20, marginRight: 5 }}
           />
         </div>
@@ -77,10 +77,10 @@ export default function Betdetail(props) {
         </div>
         <div className="betsTabCellule team2">
           <img
-            src="../../../../../csslogo.png"
+            src={props.betdetail.team2logo}
             style={{ width: 20, marginLeft: 5 }}
           />
-          <div>{props.betdetail.team2}manunited</div>
+          <div>{props.betdetail.team2}</div>
         </div>
       </div>
       <div
