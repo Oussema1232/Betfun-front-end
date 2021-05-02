@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
-
+import moment from "moment";
 import FormControl from "@material-ui/core/FormControl";
 import Snackbar from "@material-ui/core/Snackbar";
 import { AlertTitle } from "@material-ui/lab";
@@ -112,6 +112,7 @@ export default function Betsofdomain(props) {
     denied: false,
     message: "",
   });
+  const [open, setOpen] = React.useState(false);
 
   const handleChangeSort = (event) => {
     const name = event.target.name;
@@ -119,6 +120,10 @@ export default function Betsofdomain(props) {
       ...state,
       [name]: event.target.value,
     });
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const goToBetdetails = (bet) => {
