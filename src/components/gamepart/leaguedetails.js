@@ -287,8 +287,8 @@ export default function BetdetailsList(props) {
                           <FontAwesomeIcon
                             icon={
                               league.rank == league.oldRank ||
-                              (league.oldRank == "-" &&
-                                leaguedetails.length == 1)
+                              league.oldRank == "-" ||
+                              leaguedetails.length == 1
                                 ? faCircle
                                 : league.rank < league.oldRank
                                 ? faArrowCircleUp
@@ -297,8 +297,8 @@ export default function BetdetailsList(props) {
                             size=""
                             color={
                               league.rank == league.oldRank ||
-                              (league.oldRank == "-" &&
-                                leaguedetails.length == 1)
+                              league.oldRank == "-" ||
+                              leaguedetails.length == 1
                                 ? "#838193"
                                 : league.rank < league.oldRank
                                 ? "green"

@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 
 import FormControl from "@material-ui/core/FormControl";
-
+import Snackbar from "@material-ui/core/Snackbar";
+import { AlertTitle } from "@material-ui/lab";
+import MuiAlert from "@material-ui/lab/Alert";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -67,7 +68,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 export default function Betsofdomain(props) {
   //you have to make usernav as a redux state to show wich profile ou are on
 
@@ -80,7 +83,7 @@ export default function Betsofdomain(props) {
   const seasonsError = useSelector(
     (state) => state.betfundata.seasons.errors.message
   );
-
+  const matches = useSelector((state) => state.betfundata.matches.list);
   const bets = useSelector((state) => state.betfundata.bets.list);
   const loadingBets = useSelector((state) => state.betfundata.bets.loading);
   const betsError = useSelector(
@@ -105,6 +108,10 @@ export default function Betsofdomain(props) {
   const [state, setState] = React.useState({
     Sorted_By: "",
   });
+  const [accessdenied, setAccessdenied] = React.useState({
+    denied: false,
+    message: "",
+  });
 
   const handleChangeSort = (event) => {
     const name = event.target.name;
@@ -112,6 +119,28 @@ export default function Betsofdomain(props) {
       ...state,
       [name]: event.target.value,
     });
+  };
+
+  const goToBetdetails = (bet) => {
+    setAccessdenied({ denied: false, message: "" });
+
+    if (
+      currentuser.id !== currentprofile.id &&
+      matches[0].days[0].matches[0] &&
+      moment(matches[0].days[0].matches[0].played_on).diff(
+        moment(),
+        "minutes"
+      ) > 60
+    ) {
+      setAccessdenied({
+        denied: true,
+        message:
+          "You can't access bet details of other Bettors until one hour before the gameweek starts.",
+      });
+    } else {
+      props.history.push(`/game/bet/betguess/${currentdomain.name}/${bet.id}`);
+    }
+    setOpen(true);
   };
 
   return (
@@ -257,61 +286,14 @@ export default function Betsofdomain(props) {
                       {state.Sorted_By != ""
                         ? _.orderBy(bets, "points", state.Sorted_By).map(
                             (bet) => (
-                              <Link
-                                key={bet.id}
-                                to={`/game/bet/betguess/${currentdomain.name}/${bet.id}`}
-                                style={{ textDecoration: "none" }}
-                              >
-                                <TabPanel
-                                  value={
-                                    seasons[0] && !value ? seasons[0].id : value
-                                  }
-                                  index={bet.seasonId}
-                                >
-                                  <div
-                                    className="betsTabCellule"
-                                    style={{ width: "50%" }}
-                                  >
-                                    {bet.gameweekname}
-                                  </div>
-                                  <div
-                                    className="betsTabCellule"
-                                    style={{
-                                      width: "30%",
-                                      display: "flex",
-                                      flexDirection: "column",
-                                    }}
-                                  >
-                                    <div className="playedatBetDate">
-                                      {bet.date}
-                                    </div>
-                                    <div className="playedatBetTime">
-                                      {bet.time}
-                                    </div>
-                                  </div>
-                                  <div
-                                    className="betsTabCellule"
-                                    style={{ width: "20%", minWidth: 45 }}
-                                  >
-                                    {bet.points >= 0 ? bet.points : "TBD"}
-                                  </div>
-                                </TabPanel>
-                              </Link>
-                            )
-                          )
-                        : bets.map((bet) => (
-                            <Link
-                              key={bet.id}
-                              to={`/game/bet/betguess/${currentdomain.name}/${bet.id}`}
-                              style={{
-                                textDecoration: "none",
-                              }}
-                            >
                               <TabPanel
                                 value={
                                   seasons[0] && !value ? seasons[0].id : value
                                 }
                                 index={bet.seasonId}
+                                onClick={() => {
+                                  goToBetdetails(bet);
+                                }}
                               >
                                 <div
                                   className="betsTabCellule"
@@ -338,10 +320,53 @@ export default function Betsofdomain(props) {
                                   className="betsTabCellule"
                                   style={{ width: "20%", minWidth: 45 }}
                                 >
-                                  {bet.points >= 0 ? bet.points : "TBD"}
+                                  {bet.points >= 0 && bet.points !== "-"
+                                    ? bet.points
+                                    : "TBD"}
                                 </div>
                               </TabPanel>
-                            </Link>
+                            )
+                          )
+                        : bets.map((bet) => (
+                            <TabPanel
+                              value={
+                                seasons[0] && !value ? seasons[0].id : value
+                              }
+                              index={bet.seasonId}
+                              onClick={() => {
+                                goToBetdetails(bet);
+                              }}
+                            >
+                              <div
+                                className="betsTabCellule"
+                                style={{ width: "50%" }}
+                              >
+                                {bet.gameweekname}
+                              </div>
+                              <div
+                                className="betsTabCellule"
+                                style={{
+                                  width: "30%",
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <div className="playedatBetDate">
+                                  {bet.date}
+                                </div>
+                                <div className="playedatBetTime">
+                                  {bet.time}
+                                </div>
+                              </div>
+                              <div
+                                className="betsTabCellule"
+                                style={{ width: "20%", minWidth: 45 }}
+                              >
+                                {bet.points >= 0 && bet.points !== "-"
+                                  ? bet.points
+                                  : "TBD"}
+                              </div>
+                            </TabPanel>
                           ))}
                     </>
                   ) : (
@@ -362,6 +387,18 @@ export default function Betsofdomain(props) {
             </div>
           )}
         </>
+      )}
+      {accessdenied.denied && (
+        <Snackbar
+          open={open}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert severity="warning">
+            <AlertTitle>Access denied</AlertTitle>
+            {accessdenied.message}
+          </Alert>
+        </Snackbar>
       )}
     </div>
   );
