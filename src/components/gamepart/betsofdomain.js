@@ -326,9 +326,7 @@ export default function Betsofdomain(props) {
                                   className="betsTabCellule"
                                   style={{ width: "20%", minWidth: 45 }}
                                 >
-                                  {bet.points >= 0 && bet.points !== "-"
-                                    ? bet.points
-                                    : "TBD"}
+                                  {bet.points == null ? "TBD" : bet.points}
                                 </div>
                               </TabPanel>
                             )
@@ -368,9 +366,7 @@ export default function Betsofdomain(props) {
                                 className="betsTabCellule"
                                 style={{ width: "20%", minWidth: 45 }}
                               >
-                                {bet.points >= 0 && bet.points !== "-"
-                                  ? bet.points
-                                  : "TBD"}
+                                {bet.points == null ? "TBD" : bet.points}
                               </div>
                             </TabPanel>
                           ))}

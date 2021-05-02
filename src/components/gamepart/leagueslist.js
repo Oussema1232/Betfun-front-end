@@ -271,7 +271,8 @@ export default function LeaguesList(props) {
                         >
                           <FontAwesomeIcon
                             icon={
-                              league.userRank == league.oldRank
+                              league.userRank == league.oldRank ||
+                              league.oldRank == "-"
                                 ? faCircle
                                 : league.userRank > league.oldRank
                                 ? faArrowCircleUp
@@ -279,7 +280,8 @@ export default function LeaguesList(props) {
                             }
                             size="  "
                             color={
-                              league.userRank == league.oldRank
+                              league.userRank == league.oldRank ||
+                              league.oldRank == "-"
                                 ? "#838193"
                                 : league.userRank > league.oldRank
                                 ? "green"
