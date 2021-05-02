@@ -96,6 +96,7 @@ export default function Betsofdomain(props) {
   const currentprofile = useSelector(
     (state) => state.betfundata.currentprofile.data
   );
+  const currentuser = useSelector((state) => state.betfundata.currentuser.data);
 
   useEffect(() => {
     dispatch(loadSeasons(`/${currentdomain.id}`));

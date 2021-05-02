@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import { useDispatch, useSelector } from "react-redux";
-import { updateMatch ,postMatch,deleteMatch} from "../../features/matches/matcheSlice";
+import {
+  updateMatch,
+  postMatch,
+  deleteMatch,
+} from "../../features/matches/matcheSlice";
 import { loadTeams } from "../../features/teams/teamSlice";
 import DeleteModal from "../modal";
 
@@ -56,10 +60,10 @@ export default function Updatematch(props) {
         }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <label for="team1Id">team1</label>
+          <label for={"team1Id" + props.initialMatch.idMatch}>team1</label>
           <NativeSelect
             value={match.team1Id}
-            id="team1Id"
+            id={"team1Id" + props.initialMatch.idMatch}
             name="team1Id"
             onChange={handleChange}
           >
@@ -74,7 +78,7 @@ export default function Updatematch(props) {
           <NativeSelect
             id={"team2Id" + props.initialMatch.idMatch}
             value={match.team2Id}
-            name={"team2Id" + props.initialMatch.idMatch}
+            name="team2Id"
             onChange={handleChange}
           >
             {!props.update && <option value=""></option>}
@@ -88,7 +92,7 @@ export default function Updatematch(props) {
           type="datetime"
           value={match.played_on}
           id={"played_on" + props.initialMatch.idMatch}
-          name={"played_on" + props.initialMatch.idMatch}
+          name="played_on"
           onChange={handleChange}
         />
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -98,7 +102,7 @@ export default function Updatematch(props) {
             style={{ width: 35 }}
             type="text"
             value={match.cote_1}
-            name={"cote_1" + props.initialMatch.idMatch}
+            name="cote_1"
             onChange={handleChange}
           />
         </div>
@@ -108,7 +112,7 @@ export default function Updatematch(props) {
             style={{ width: 35 }}
             type="text"
             value={match.cote_x}
-            name={"cote_x" + props.initialMatch.idMatch}
+            name="cote_x"
             id={"cote_x" + props.initialMatch.idMatch}
             onChange={handleChange}
           />
@@ -119,7 +123,7 @@ export default function Updatematch(props) {
             style={{ width: 35 }}
             type="text"
             value={match.cote_2}
-            name={"cote_2" + props.initialMatch.idMatch}
+            name="cote_2"
             id={"cote_2" + props.initialMatch.idMatch}
             onChange={handleChange}
           />
