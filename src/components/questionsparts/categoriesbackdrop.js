@@ -59,7 +59,7 @@ export default function Categories(props) {
       setLoading(true);
 
       const response = await http.put(
-        `http://localhost:3001/api/params/language/${currentuser.id}`,
+        `https://betfunbackend1.herokuapp.com/api/params/language/${currentuser.id}`,
         {
           language,
         }

@@ -59,17 +59,16 @@ export default function KnowledgeComponent(props) {
             marginTop: 10,
           }}
         >
-          <span
+          <div
             className={currentuser.language == "Eng" ? "welcometocategory" : ""}
             style={{
-              display: "inline-block",
               backgroundColor: "rgba(0,85,165,0.3)",
               textAlign: "center",
             }}
           >
             {currentuser.language == "Eng" ? "Welcome to " : "مرحبا بك في "}
             {props.match.params.categoryname}
-          </span>
+          </div>
         </div>
         <div style={{ width: "100%", display: "flex" }}>
           <InformationTop categoryId={props.match.params.categoryId} />
