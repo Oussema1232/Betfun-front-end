@@ -63,7 +63,7 @@ export default function KnowledgeComponent(props) {
             className={currentuser.language == "Eng" ? "welcometocategory" : ""}
             style={{
               display: "inline-block",
-              linHeight: currentuser.language == "Eng" ? "210%" : "normal",
+              linHeight: currentuser.language == "Eng" ? "300%" : "normal",
               backgroundColor: "rgba(0,85,165,0.3)",
               textAlign: "center",
             }}
