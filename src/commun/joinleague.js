@@ -40,7 +40,7 @@ export default class JoinLeague extends Form {
 
     try {
       const response = await http.post(
-        `http://localhost:3001/api/leagues/join`,
+        `https://betfunbackend1.herokuapp.com/api/leagues/join`,
         {
           code: this.state.data.code,
           userId: this.props.userId,

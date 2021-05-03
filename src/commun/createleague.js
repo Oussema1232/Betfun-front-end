@@ -42,13 +42,16 @@ class CreateLeague extends Form {
     });
 
     try {
-      const response = await http.post(`http://localhost:3001/api/leagues`, {
-        name: this.state.data.league,
-        userId: this.props.userId,
-        seasonId: this.props.seasonId,
-        genreId: 2,
-        domainId: this.props.currentdomain.id,
-      });
+      const response = await http.post(
+        `https://betfunbackend1.herokuapp.com/api/leagues`,
+        {
+          name: this.state.data.league,
+          userId: this.props.userId,
+          seasonId: this.props.seasonId,
+          genreId: 2,
+          domainId: this.props.currentdomain.id,
+        }
+      );
       this.setState({
         message: response.data.message,
         code: response.data.data,
