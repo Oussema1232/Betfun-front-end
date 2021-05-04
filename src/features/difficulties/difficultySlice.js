@@ -18,7 +18,7 @@ export const difficultySlice = createSlice({
     },
     difficultiesRequestFail: (state, action) => {
       state.loading = false;
-      state.errors.message = "Couldn't load dificulties";
+      state.errors.message = action.payload.message;
     },
     difficultiesReceived: (state, action) => {
       state.list = action.payload.data;
