@@ -35,7 +35,7 @@ class CreateLeague extends React.Component {
 
     try {
       const response = await http.get(
-        `http://localhost:3001/api/leagues/${this.props.leagueId}`
+        `https://betfunbackend1.herokuapp.com/api/leagues/${this.props.leagueId}`
       );
       this.setState({
         code: response.data.data,
