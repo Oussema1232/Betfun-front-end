@@ -54,7 +54,7 @@ export default function AnswerItem(props) {
           {currentuser.language == "Arab"
             ? props.round[props.n][props.Arabname]
             : props.round[props.n][props.Engname]}
-          oussema ben soltana is awesome maybe yes yes yes
+          
         </motion.div>
       )}
     </AnimatePresence>

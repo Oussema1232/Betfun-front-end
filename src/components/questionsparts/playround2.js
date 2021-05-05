@@ -42,7 +42,7 @@ class Playround extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.updatestate) {
-      if (this.state.progress === 100) {
+      if (this.state.progress == 100) {
         if (
           this.state.n == 9 ||
           10 - (this.state.n + 1) + this.state.numbcorrectanswers <
@@ -84,7 +84,7 @@ class Playround extends Component {
         four: false,
       };
 
-      newshow[answershow] = true;
+      newshow = { ...newshow, [answershow]: true };
 
       this.setState({
         show: newshow,
