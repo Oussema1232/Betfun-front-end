@@ -27,7 +27,7 @@ export default function MyDrawer(props) {
 
     drawerPaper: {
       width: drawerWidth,
-      backgroundColor: "#fbfbfb",
+      // backgroundColor: "#fbfbfb",
       borderRight: "2px solid #d4d4d3",
     },
     drawer: {
