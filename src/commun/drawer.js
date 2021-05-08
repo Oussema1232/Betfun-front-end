@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { fade, makeStyles, useTheme } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-
-import clsx from "clsx";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -54,7 +51,7 @@ export default function MyDrawer(props) {
 
   return (
     <div>
-      <Drawer
+      <SwipeableDrawer
         className={classes.drawer}
         variant="persistent"
         anchor="right"
@@ -87,7 +84,7 @@ export default function MyDrawer(props) {
             to={
               c.domainname
                 ? `/game/bet/bets/${c.domainname}/${c.id}`
-                :  c.pathname && c.pathname
+                : c.pathname && c.pathname
             }
             style={{ textDecoration: "none", color: "black" }}
           >
@@ -96,6 +93,7 @@ export default function MyDrawer(props) {
               className="drawerItem"
               onClick={() => {
                 props.onclickItem && dispatch(props.onclickItem(c));
+                props.handleDrawerClose();
               }}
             >
               {c.icon && (
@@ -103,19 +101,16 @@ export default function MyDrawer(props) {
                   style={{
                     width: 35,
                     display: "flex",
-                    
                   }}
                 >
                   {c.icon}
                 </div>
               )}
               {c.name && <div>{c.name}</div>}
-              {c.domainname && <div>{c.domainname}</div>}
-              
             </div>
           </Link>
         ))}
-      </Drawer>
+      </SwipeableDrawer>
     </div>
   );
 }

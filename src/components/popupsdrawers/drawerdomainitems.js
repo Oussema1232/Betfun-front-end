@@ -2,8 +2,8 @@ import React from "react";
 import _ from "lodash";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {  makeStyles, useTheme } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -145,7 +145,7 @@ export default function MyDrawer(props) {
 
   return (
     <div className="drawer">
-      <Drawer
+      <SwipeableDrawer
         className={classes.drawer}
         variant="persistent"
         anchor="right"
@@ -185,7 +185,11 @@ export default function MyDrawer(props) {
                 to={c.pathname && c.pathname}
                 style={{ textDecoration: "none", color: "#fbfbfb" }}
               >
-                <div key={index} className="drawerdomainItem">
+                <div
+                  key={index}
+                  className="drawerdomainItem"
+                  onClick={props.handleDrawerClose}
+                >
                   <div>{c.domainnavbaritem}</div>
                 </div>
               </Link>
@@ -218,7 +222,12 @@ export default function MyDrawer(props) {
                                 style={{ textDecoration: "none" }}
                                 to={`/game/bet/calendar/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
                               >
-                                <div className="drawerseason">{s.name}</div>
+                                <div
+                                  className="drawerseason"
+                                  onClick={props.handleDrawerClose}
+                                >
+                                  {s.name}
+                                </div>
                               </Link>
                             ))}
                           </>
@@ -252,7 +261,12 @@ export default function MyDrawer(props) {
                                 style={{ textDecoration: "none" }}
                                 to={`/game/bet/titles/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
                               >
-                                <div className="drawerseason">{s.name}</div>
+                                <div
+                                  className="drawerseason"
+                                  onClick={props.handleDrawerClose}
+                                >
+                                  {s.name}
+                                </div>
                               </Link>
                             ))}
                           </>
@@ -278,12 +292,16 @@ export default function MyDrawer(props) {
             to={`/game/bet/stats/${currentdomain.name}/${currentdomain.id}/${currentprofile.username}/${currentprofile.id}`}
             style={{ textDecoration: "none", color: "#fbfbfb" }}
           >
-            <div key={6} className="drawerdomainItem">
+            <div
+              key={6}
+              className="drawerdomainItem"
+              onClick={props.handleDrawerClose}
+            >
               <div>Stats</div>
             </div>
           </Link>
         )}
-        {currentuser.isAdmin ==1 && (
+        {currentuser.isAdmin == 1 && (
           <Link
             key={7}
             to={`/game/bet/teams/${currentdomain.name}/${currentdomain.id}`}
@@ -294,7 +312,7 @@ export default function MyDrawer(props) {
             </div>
           </Link>
         )}
-      </Drawer>
+      </SwipeableDrawer>
     </div>
   );
 }

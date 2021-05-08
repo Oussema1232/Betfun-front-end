@@ -1,8 +1,8 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link} from "react-router-dom";
-import {  makeStyles, useTheme } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
+import { Link } from "react-router-dom";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -16,7 +16,6 @@ import { faDiceD6, faQuran } from "@fortawesome/free-solid-svg-icons";
 import { savecurrentDomain } from "../../features/currentdomain/currentdomainSlice";
 import { savecurrentProfile } from "../../features/currentprofile/currentprofileSlice";
 import { loadUserdomains } from "../../features/userdomains/userdomainSlice";
-
 
 import "./style.css";
 
@@ -134,7 +133,7 @@ export default function MyDrawerDomains(props) {
 
   return (
     <div>
-      <Drawer
+      <SwipeableDrawer
         className={classes.drawer}
         variant="persistent"
         anchor="right"
@@ -185,6 +184,7 @@ export default function MyDrawerDomains(props) {
 
                     color: "#fbfbfb",
                   }}
+                  onClick={props.handleDrawerClose}
                 >
                   <FontAwesomeIcon
                     icon={faQuran}
@@ -228,6 +228,7 @@ export default function MyDrawerDomains(props) {
                               username: currentuser.username,
                             })
                           );
+                          props.handleDrawerClose();
                         }}
                       >
                         {d.domainname}
@@ -239,7 +240,7 @@ export default function MyDrawerDomains(props) {
             )}
           </>
         ))}
-      </Drawer>
+      </SwipeableDrawer>
     </div>
   );
 }
