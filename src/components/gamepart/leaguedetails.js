@@ -60,9 +60,6 @@ export default function BetdetailsList(props) {
     (state) => state.betfundata.currentdomain.data
   );
   const currentuser = useSelector((state) => state.betfundata.currentuser.data);
-  const currentprofile = useSelector(
-    (state) => state.betfundata.currentprofile.data
-  );
 
   const leaguedetails = useSelector(
     (state) => state.betfundata.leaguedetails.list
@@ -84,7 +81,7 @@ export default function BetdetailsList(props) {
     dispatch(
       loadLeaguedetails(
         `/rank/${props.match.params.leagueId}/${props.match.params.seasonId}${
-          month && `/${month}`
+          month && `/${month}/${currentdomain.id}`
         }`
       )
     );

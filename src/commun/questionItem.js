@@ -30,7 +30,7 @@ export default function QuestionItem(props) {
 
           fontSize: 25,
 
-          width: "100%",
+          width: "95%",
 
           padding: 12,
         }}
