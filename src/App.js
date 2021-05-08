@@ -21,14 +21,14 @@ function App() {
     <>
       <ToastContainer style={{ zIndex: 10001 }} />
       <Switch>
-        {/* <LogRoute path="/account/resetpassword" component={Resetpassword} />
+        <LogRoute path="/account/resetpassword" component={Resetpassword} />
         <LogRoute path="/account/checkemail" component={Checkemail} />
         <LogRoute path="/register/confirmation" component={Confirmation} />
         <LogRoute path="/register" exact component={Register} />
         <LogRoute path="/login" exact component={Login} />
-        <ProtectedRoute path="/logout" exact component={Logout} /> */}
-        <Route path="/game" component={Mainscreen} />
-        <Route path="/knowledge" component={KnowledgeScreen} />
+        <ProtectedRoute path="/logout" exact component={Logout} />
+        <ProtectedRoute path="/game" component={Mainscreen} />
+        <ProtectedRoute path="/knowledge" component={KnowledgeScreen} />
         <Route path="/not-Found" component={Notfound} />
         <Redirect exact from="/" to="/game" component={Mainscreen} />
         <Redirect to="/not-Found" component={Notfound} />

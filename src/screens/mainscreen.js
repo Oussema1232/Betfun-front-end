@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Redirect, Switch ,Route} from "react-router-dom";
+import { Redirect, Switch } from "react-router-dom";
 
 import ProtectedRoute from "../commun/protectedRoute";
 import Navbar from "../components/navbar/navbar";
@@ -33,14 +33,14 @@ const Mainscreen = () => {
           }}
         >
           <Switch>
-            <Route
+            <ProtectedRoute
               path="/game/welcome"
               render={(props) => <WelcomeScreen {...props} />}
             />
-            <Route path="/game/bet" component={BetsScreen} />
-            <Route path="/game/params" component={Params} />
+            <ProtectedRoute path="/game/bet" component={BetsScreen} />
+            <ProtectedRoute path="/game/params" component={Params} />
 
-            <Route exact path="/game/admin" component={Admin} />
+            <ProtectedRoute exact path="/game/admin" component={Admin} />
             <Redirect from="/" to="/game/welcome" />
           </Switch>
         </div>
