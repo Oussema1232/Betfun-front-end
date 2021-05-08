@@ -135,13 +135,12 @@ export default function MyDrawerDomains(props) {
     <div>
       <SwipeableDrawer
         className={classes.drawer}
-        variant="persistent"
-        anchor="right"
         open={props.open}
         style={{ backgroundColor: "#971243" }}
         classes={{
           paper: classes.drawerPaper,
         }}
+        onClose={props.handleDrawerClose}
       >
         <div className={classes.drawerHeader}>
           <IconButton
@@ -174,7 +173,6 @@ export default function MyDrawerDomains(props) {
                   pathname: c.pathname && c.pathname,
                   state: { fromwhere: currentpathname },
                 }}
-                onClick={props.handleDrawerClose}
                 style={{ textDecoration: "none", color: "#fbfbfb" }}
               >
                 <div
@@ -217,7 +215,6 @@ export default function MyDrawerDomains(props) {
                       key={d.id}
                       style={{ textDecoration: "none" }}
                       to={`/game/bet/bets/${d.domainname}/${d.id}`}
-                      onClick={props.handleDrawerClose}
                     >
                       <div
                         className="drawerseason"

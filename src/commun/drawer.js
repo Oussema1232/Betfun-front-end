@@ -53,7 +53,6 @@ export default function MyDrawer(props) {
     <div>
       <SwipeableDrawer
         className={classes.drawer}
-        variant="persistent"
         open={props.open}
         style={{ backgroundColor: "#f5f5f5" }}
         classes={{
@@ -86,7 +85,6 @@ export default function MyDrawer(props) {
                 ? `/game/bet/bets/${c.domainname}/${c.id}`
                 : c.pathname && c.pathname
             }
-            onClick={props.handleDrawerClose}
             style={{ textDecoration: "none", color: "black" }}
           >
             <div

@@ -147,13 +147,12 @@ export default function MyDrawer(props) {
     <div className="drawer">
       <SwipeableDrawer
         className={classes.drawer}
-        variant="persistent"
-        anchor="right"
         open={props.open}
         style={{ backgroundColor: "#2e383f" }}
         classes={{
           paper: classes.drawerPaper,
         }}
+        onClose={props.handleDrawerClose}
       >
         <div className={classes.drawerHeader}>
           <IconButton
@@ -221,7 +220,6 @@ export default function MyDrawer(props) {
                                 key={s.id}
                                 style={{ textDecoration: "none" }}
                                 to={`/game/bet/calendar/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
-                                onClick={props.handleDrawerClose}
                               >
                                 <div className="drawerseason">{s.name}</div>
                               </Link>
@@ -256,7 +254,6 @@ export default function MyDrawer(props) {
                                 key={s.id}
                                 style={{ textDecoration: "none" }}
                                 to={`/game/bet/titles/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
-                                onClick={props.handleDrawerClose}
                               >
                                 <div className="drawerseason">{s.name}</div>
                               </Link>
@@ -283,7 +280,6 @@ export default function MyDrawer(props) {
             key={6}
             to={`/game/bet/stats/${currentdomain.name}/${currentdomain.id}/${currentprofile.username}/${currentprofile.id}`}
             style={{ textDecoration: "none", color: "#fbfbfb" }}
-            onClick={props.handleDrawerClose}
           >
             <div key={6} className="drawerdomainItem">
               <div>Stats</div>
