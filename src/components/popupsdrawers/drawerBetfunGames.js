@@ -174,6 +174,7 @@ export default function MyDrawerDomains(props) {
                   pathname: c.pathname && c.pathname,
                   state: { fromwhere: currentpathname },
                 }}
+                onClick={props.handleDrawerClose}
                 style={{ textDecoration: "none", color: "#fbfbfb" }}
               >
                 <div
@@ -184,7 +185,6 @@ export default function MyDrawerDomains(props) {
 
                     color: "#fbfbfb",
                   }}
-                  onClick={props.handleDrawerClose}
                 >
                   <FontAwesomeIcon
                     icon={faQuran}
@@ -217,6 +217,7 @@ export default function MyDrawerDomains(props) {
                       key={d.id}
                       style={{ textDecoration: "none" }}
                       to={`/game/bet/bets/${d.domainname}/${d.id}`}
+                      onClick={props.handleDrawerClose}
                     >
                       <div
                         className="drawerseason"
@@ -228,7 +229,6 @@ export default function MyDrawerDomains(props) {
                               username: currentuser.username,
                             })
                           );
-                          props.handleDrawerClose();
                         }}
                       >
                         {d.domainname}

@@ -221,13 +221,9 @@ export default function MyDrawer(props) {
                                 key={s.id}
                                 style={{ textDecoration: "none" }}
                                 to={`/game/bet/calendar/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
+                                onClick={props.handleDrawerClose}
                               >
-                                <div
-                                  className="drawerseason"
-                                  onClick={props.handleDrawerClose}
-                                >
-                                  {s.name}
-                                </div>
+                                <div className="drawerseason">{s.name}</div>
                               </Link>
                             ))}
                           </>
@@ -260,13 +256,9 @@ export default function MyDrawer(props) {
                                 key={s.id}
                                 style={{ textDecoration: "none" }}
                                 to={`/game/bet/titles/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
+                                onClick={props.handleDrawerClose}
                               >
-                                <div
-                                  className="drawerseason"
-                                  onClick={props.handleDrawerClose}
-                                >
-                                  {s.name}
-                                </div>
+                                <div className="drawerseason">{s.name}</div>
                               </Link>
                             ))}
                           </>
@@ -291,12 +283,9 @@ export default function MyDrawer(props) {
             key={6}
             to={`/game/bet/stats/${currentdomain.name}/${currentdomain.id}/${currentprofile.username}/${currentprofile.id}`}
             style={{ textDecoration: "none", color: "#fbfbfb" }}
+            onClick={props.handleDrawerClose}
           >
-            <div
-              key={6}
-              className="drawerdomainItem"
-              onClick={props.handleDrawerClose}
-            >
+            <div key={6} className="drawerdomainItem">
               <div>Stats</div>
             </div>
           </Link>

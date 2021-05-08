@@ -60,10 +60,18 @@ export default function MyDrawer(props) {
         classes={{
           paper: classes.drawerPaper,
         }}
+        onClose={() => {
+          props.toggleDrawer(props.anchor, false);
+        }}
+        onOpen={() => {
+          props.toggleDrawer(props.anchor, true);
+        }}
       >
         <div className={classes.drawerHeader}>
           <IconButton
-            onClick={props.handleDrawerClose}
+            onClick={() => {
+              props.toggleDrawer(props.anchor, false);
+            }}
             className={classes.iconbutton}
           >
             {theme.direction === "rtl" ? (
@@ -86,6 +94,9 @@ export default function MyDrawer(props) {
                 ? `/game/bet/bets/${c.domainname}/${c.id}`
                 : c.pathname && c.pathname
             }
+            onClick={() => {
+              props.toggleDrawer(props.anchor, false);
+            }}
             style={{ textDecoration: "none", color: "black" }}
           >
             <div
@@ -93,7 +104,6 @@ export default function MyDrawer(props) {
               className="drawerItem"
               onClick={() => {
                 props.onclickItem && dispatch(props.onclickItem(c));
-                props.handleDrawerClose();
               }}
             >
               {c.icon && (

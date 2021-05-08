@@ -31,12 +31,24 @@ class Navbar extends Component {
     });
   };
 
-  closeDrawerNotifications = () => {
-    this.setState({ opendrawernotifications: false });
-  };
+  // closeDrawerNotifications = () => {
+  //   this.setState({ opendrawernotifications: false });
+  // };
 
   closeDrawerDomains = () => {
     this.setState({ opendrawerDomains: false });
+  };
+
+  toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
   };
 
   render() {
@@ -102,7 +114,8 @@ class Navbar extends Component {
         </div>
         <MyDrawerNotification
           open={this.state.opendrawernotifications}
-          handleDrawerClose={this.closeDrawerNotifications}
+          anchor="opendrawernotifications"
+          toggleDrawer={this.toggleDrawer}
         />
 
         <MyDrawerDomains

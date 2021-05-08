@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSignOutAlt,
-  faCog,
-  
-} from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt, faCog } from "@fortawesome/free-solid-svg-icons";
 
 import MyDrawer from "../../commun/drawer";
 
@@ -23,7 +19,7 @@ export default class DrawerNotifications extends Component {
         />
       ),
     },
-    
+
     {
       id: 1,
       name: "Log out",
@@ -38,11 +34,13 @@ export default class DrawerNotifications extends Component {
       ),
     },
   ];
+
   render() {
     return (
       <MyDrawer
-        handleDrawerClose={this.props.handleDrawerClose}
+        toggleDrawer={this.props.toggleDrawer}
         open={this.props.open}
+        anchor={props.anchor}
         title={{ name: "Account" }}
         content={this.more}
       />
