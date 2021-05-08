@@ -94,7 +94,9 @@ class Navbar extends Component {
             </div>
 
             <div
-              onClick={this.openDrawerNotifications}
+              onClick={() => {
+                this.toggleDrawer("opendrawernotifications", true);
+              }}
               style={{
                 display: "flex",
                 flexDirection: "column",
