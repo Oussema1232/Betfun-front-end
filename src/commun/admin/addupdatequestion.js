@@ -58,6 +58,7 @@ export default function Addupdatequestion(props) {
           <label for={i.name}>{i.name}</label>
           <textarea
             name={i.name}
+            style={{ textAlign: "end", direction: "RTL" }}
             value={question[i.name]}
             onChange={onchange}
             onKeyUp={(e) => rtl(e)}
