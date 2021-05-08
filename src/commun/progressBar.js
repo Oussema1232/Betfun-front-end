@@ -9,7 +9,7 @@ export default function CircularStatic(props) {
   React.useEffect(() => {
     const timer = setInterval(() => {
       props.beginTime();
-    }, 800);
+    }, 1000);
 
     return () => {
       clearInterval(timer);
