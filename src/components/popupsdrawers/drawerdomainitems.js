@@ -222,7 +222,12 @@ export default function MyDrawer(props) {
                                 style={{ textDecoration: "none" }}
                                 to={`/game/bet/calendar/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
                               >
-                                <div className="drawerseason">{s.name}</div>
+                                <div
+                                  className="drawerseason"
+                                  onClick={props.handleDrawerClose}
+                                >
+                                  {s.name}
+                                </div>
                               </Link>
                             ))}
                           </>
