@@ -46,7 +46,7 @@ export default function Addupdatequestion(props) {
     setQuestion(data);
   };
   const rtl = (element) => {
-    if (element.setSelectionRange && currentuser.language == "Arab") {
+    if (element.setSelectionRange) {
       element.setSelectionRange(0, 0);
     }
   };
