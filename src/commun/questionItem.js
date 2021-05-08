@@ -28,7 +28,7 @@ export default function QuestionItem(props) {
           alignItems: "center",
           justifyContent: "center",
 
-          fontSize: 25,
+          fontSize: 19,
 
           width: "95%",
 
