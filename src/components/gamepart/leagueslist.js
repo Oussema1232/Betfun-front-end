@@ -187,7 +187,7 @@ export default function LeaguesList(props) {
                   {currentuser.id == currentprofile.id && (
                     <div style={{ display: "flex", alignItems: "flex-end" }}>
                       <CreateLeagueModal
-                        userId={6}
+                        userId={currentuser.id}
                         seasonId={leagues[0] && leagues[0].seasonId}
                       />
 
