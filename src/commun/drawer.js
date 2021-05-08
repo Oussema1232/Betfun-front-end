@@ -54,24 +54,16 @@ export default function MyDrawer(props) {
       <SwipeableDrawer
         className={classes.drawer}
         variant="persistent"
-        anchor="right"
         open={props.open}
         style={{ backgroundColor: "#f5f5f5" }}
         classes={{
           paper: classes.drawerPaper,
         }}
-        onClose={() => {
-          props.toggleDrawer(props.anchor, false);
-        }}
-        onOpen={() => {
-          props.toggleDrawer(props.anchor, true);
-        }}
+        onClose={props.handleDrawerClose}
       >
         <div className={classes.drawerHeader}>
           <IconButton
-            onClick={() => {
-              props.toggleDrawer(props.anchor, false);
-            }}
+            onClick={props.handleDrawerClose}
             className={classes.iconbutton}
           >
             {theme.direction === "rtl" ? (
@@ -94,9 +86,7 @@ export default function MyDrawer(props) {
                 ? `/game/bet/bets/${c.domainname}/${c.id}`
                 : c.pathname && c.pathname
             }
-            onClick={() => {
-              props.toggleDrawer(props.anchor, false);
-            }}
+            onClick={props.handleDrawerClose}
             style={{ textDecoration: "none", color: "black" }}
           >
             <div

@@ -38,9 +38,8 @@ export default class DrawerNotifications extends Component {
   render() {
     return (
       <MyDrawer
-        toggleDrawer={this.props.toggleDrawer}
+        handleDrawerClose={this.props.handleDrawerClose}
         open={this.props.open}
-        anchor={this.props.anchor}
         title={{ name: "Account" }}
         content={this.more}
       />
