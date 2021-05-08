@@ -381,7 +381,7 @@ export default function Betsofdomain(props) {
                         fontSize: 20,
                       }}
                     >
-                      No bets yet
+                      No bets yet, go to Calendar to create your first bet
                     </div>
                   )}
                 </div>
