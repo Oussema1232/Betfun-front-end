@@ -147,6 +147,7 @@ export default function MyDrawer(props) {
     <div className="drawer">
       <SwipeableDrawer
         className={classes.drawer}
+        anchor="right"
         open={props.open}
         style={{ backgroundColor: "#2e383f" }}
         classes={{

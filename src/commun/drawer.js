@@ -54,6 +54,7 @@ export default function MyDrawer(props) {
       <SwipeableDrawer
         className={classes.drawer}
         open={props.open}
+        anchor="right"
         style={{ backgroundColor: "#f5f5f5" }}
         classes={{
           paper: classes.drawerPaper,
@@ -92,6 +93,7 @@ export default function MyDrawer(props) {
               className="drawerItem"
               onClick={() => {
                 props.onclickItem && dispatch(props.onclickItem(c));
+                props.handleDrawerClose();
               }}
             >
               {c.icon && (
