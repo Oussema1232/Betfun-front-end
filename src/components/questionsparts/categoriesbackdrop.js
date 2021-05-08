@@ -139,7 +139,7 @@ export default function Categories(props) {
               classes={{ icon: classes.icon }}
             >
               <MenuItem value={"Eng"}>Eng</MenuItem>
-              <MenuItem value={"Arab"}>العربية</MenuItem>
+              <MenuItem value={"Arab"}>عربية</MenuItem>
             </Select>
           </FormControl>
           {loading && <Spincrescentcomponenet color="#eeeeee" size="1x" />}
