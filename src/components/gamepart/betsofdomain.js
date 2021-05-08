@@ -381,7 +381,10 @@ export default function Betsofdomain(props) {
                         fontSize: 20,
                       }}
                     >
-                      No bets yet, go to Calendar to create your first bet
+                      No bets yet
+                      {currentuser.id == currentprofile.id && (
+                        <span>, go to Calendar to create your first bet</span>
+                      )}
                     </div>
                   )}
                 </div>
