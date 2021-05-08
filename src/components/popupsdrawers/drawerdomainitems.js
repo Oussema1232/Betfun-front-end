@@ -149,7 +149,7 @@ export default function MyDrawer(props) {
         className={classes.drawer}
         anchor="right"
         open={props.open}
-        style={{ backgroundColor: "#2e383f" }}
+        // style={{ backgroundColor: "#2e383f" }}
         classes={{
           paper: classes.drawerPaper,
         }}
@@ -256,7 +256,12 @@ export default function MyDrawer(props) {
                                 style={{ textDecoration: "none" }}
                                 to={`/game/bet/titles/${currentdomain.name}/${s.name}/${currentdomain.id}/${s.id}`}
                               >
-                                <div className="drawerseason">{s.name}</div>
+                                <div
+                                  className="drawerseason"
+                                  onClick={props.handleDrawerClose}
+                                >
+                                  {s.name}
+                                </div>
                               </Link>
                             ))}
                           </>

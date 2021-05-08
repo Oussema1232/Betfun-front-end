@@ -137,7 +137,6 @@ export default function MyDrawerDomains(props) {
         className={classes.drawer}
         open={props.open}
         anchor="right"
-        style={{ backgroundColor: "#2e383f" }}
         classes={{
           paper: classes.drawerPaper,
         }}
@@ -227,6 +226,7 @@ export default function MyDrawerDomains(props) {
                               username: currentuser.username,
                             })
                           );
+                          props.handleDrawerClose()
                         }}
                       >
                         {d.domainname}

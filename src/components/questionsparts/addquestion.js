@@ -157,6 +157,7 @@ export default function Addquestion(props) {
               backgroundImage: `url(${mozher})`,
               backgroundRepeat: "repeat",
               fontSize: 35,
+              textAlign: "center",
             }}
             alt={currentuser.username}
             dimentionmoon={65}
