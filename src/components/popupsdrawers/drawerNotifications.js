@@ -40,7 +40,7 @@ export default class DrawerNotifications extends Component {
       <MyDrawer
         toggleDrawer={this.props.toggleDrawer}
         open={this.props.open}
-        anchor={props.anchor}
+        anchor={this.props.anchor}
         title={{ name: "Account" }}
         content={this.more}
       />

@@ -47,8 +47,8 @@ class Navbar extends Component {
     ) {
       return;
     }
-
-    setState({ ...state, [anchor]: open });
+    state = { ...this.state };
+    this.setState({ ...state, [anchor]: open });
   };
 
   render() {
