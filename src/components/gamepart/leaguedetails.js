@@ -81,8 +81,8 @@ export default function BetdetailsList(props) {
     dispatch(
       loadLeaguedetails(
         `/rank/${props.match.params.leagueId}/${props.match.params.seasonId}${
-          month && `/${month}/${currentdomain.id}`
-        }`
+          month && `/${month}`
+        }/${currentdomain.id}`
       )
     );
   }, [props.match.params.leagueId, month]);
