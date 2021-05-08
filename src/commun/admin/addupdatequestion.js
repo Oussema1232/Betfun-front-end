@@ -45,6 +45,11 @@ export default function Addupdatequestion(props) {
     data[input.name] = input.value;
     setQuestion(data);
   };
+  const rtl = (element) => {
+    if (element.setSelectionRange && currentuser.language == "Arab") {
+      element.setSelectionRange(0, 0);
+    }
+  };
 
   return (
     <div style={{ display: "flex", flexWrap: "wrap", marginBottom: 20 }}>
@@ -55,6 +60,7 @@ export default function Addupdatequestion(props) {
             name={i.name}
             value={question[i.name]}
             onChange={onchange}
+            onKeyUp={(e) => rtl(e)}
           />
         </div>
       ))}
