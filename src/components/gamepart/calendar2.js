@@ -314,7 +314,7 @@ export default function Calendar(props) {
                                       <div>{mtch.team2}</div>
                                     </div>
                                   </div>
-                                  {currentuser.isAdmin && (
+                                  {currentuser.isAdmin == 1 && (
                                     <div
                                       style={{
                                         display: "flex",
