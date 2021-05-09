@@ -376,15 +376,16 @@ export default function Betsofdomain(props) {
                       style={{
                         width: "100%",
                         display: "flex",
+                        flexDirection: "column",
                         justifyContent: "center",
                         alignItems: "center",
                         fontSize: 20,
                       }}
                     >
-                      {`No bets yet${
-                        currentuser.id == currentprofile.id &&
-                        `, go to Calendar to create your first bet`
-                      }`}
+                      <div>No bets yet</div>
+                      {currentuser.id == currentprofile.id && (
+                        <div>go to Calendar to create your first bet</div>
+                      )}
                     </div>
                   )}
                 </div>
