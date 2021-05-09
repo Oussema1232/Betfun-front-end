@@ -48,7 +48,7 @@ class CreateLeague extends Form {
           name: this.state.data.league,
           userId: this.props.userId,
           seasonId: this.props.seasonId,
-          genreId: 2,
+          genreId: 14,
           domainId: this.props.currentdomain.id,
         }
       );

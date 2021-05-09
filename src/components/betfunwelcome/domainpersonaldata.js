@@ -9,11 +9,11 @@ import Betleveldomainpersondata from "../../commun/betleveldomainpersondata";
 
 export default function Domainpersonaldata() {
   const dispatch = useDispatch();
-  
+
   const profiledomains = useSelector(
     (state) => state.betfundata.profiledomains.list
   );
-  
+
   const currentprofile = useSelector(
     (state) => state.betfundata.currentprofile.data
   );
@@ -22,7 +22,7 @@ export default function Domainpersonaldata() {
   const loadingstats = useSelector(
     (state) => state.betfundata.domainstats.loading
   );
- 
+
   const loadingprofiledomains = useSelector(
     (state) => state.betfundata.profiledomains.loading
   );
@@ -30,7 +30,7 @@ export default function Domainpersonaldata() {
   const errormessagestats = useSelector(
     (state) => state.betfundata.domainstats.errors.message
   );
-  
+
   const errormessageprofiledomains = useSelector(
     (state) => state.betfundata.profiledomains.errors.message
   );
@@ -187,7 +187,9 @@ export default function Domainpersonaldata() {
                 : "loading..."
             }
             points={selectedseasonvalue ? selectedseasonvalue.points : 0}
-            stillright={profiledomains[0] && (currentdomainId != profiledomains.length - 1)}
+            stillright={
+              profiledomains[0] && currentdomainId != profiledomains.length - 1
+            }
             stillleft={currentdomainId != 0}
             goLeft={() => goleft()}
             goRight={() => goright()}
@@ -219,7 +221,7 @@ export default function Domainpersonaldata() {
                 style={{
                   display: "flex",
                   minHeight: 50,
-                  marginTop:10,
+                  marginTop: 10,
                   width: "100%",
                   fontSize: 13,
                   fontWeight: "bold",
@@ -232,7 +234,7 @@ export default function Domainpersonaldata() {
                     color: "black",
                     flexDirection: "column",
                     display: "flex",
-                    
+
                     alignItems: "center",
                   }}
                 >
@@ -253,12 +255,18 @@ export default function Domainpersonaldata() {
                     color: "black",
                     flexDirection: "column",
                     display: "flex",
-                    
+
                     alignItems: "center",
                   }}
                 >
                   <div>Efficiency</div>
-                  <div style={{ fontSize: 11, fontWeight: "normal",textAlign: "center", }}>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      fontWeight: "normal",
+                      textAlign: "center",
+                    }}
+                  >
                     score / best score
                   </div>
                 </div>
@@ -306,7 +314,7 @@ export default function Domainpersonaldata() {
                 />
                 <AccuracyEfficiency
                   allseasons="No gamweweeks played"
-                  name="Gamweweeks"
+                  name="Gameweeks"
                   canselect={isthereseasons(domainstats.seasons) ? false : true}
                   value={gameweek}
                   accuracy={
