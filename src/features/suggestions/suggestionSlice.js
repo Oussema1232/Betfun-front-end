@@ -47,6 +47,7 @@ export const suggestionSlice = createSlice({
     },
     suggestionServerFail: (state, action) => {
       state.loading = false;
+      state.loadingpost = false;
     },
   },
 });
