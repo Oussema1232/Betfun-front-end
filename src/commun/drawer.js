@@ -92,6 +92,7 @@ export default function MyDrawer(props) {
               className="drawerItem"
               onClick={() => {
                 props.onclickItem && dispatch(props.onclickItem(c));
+                props.handleDrawerClose();
               }}
             >
               {c.icon && (
