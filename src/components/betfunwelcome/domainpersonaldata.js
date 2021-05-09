@@ -313,7 +313,7 @@ export default function Domainpersonaldata() {
                   list={domainstats.seasons}
                 />
                 <AccuracyEfficiency
-                  allseasons="No gamweweeks played"
+                  allseasons="No gameweeks played"
                   name="Gameweeks"
                   canselect={isthereseasons(domainstats.seasons) ? false : true}
                   value={gameweek}
