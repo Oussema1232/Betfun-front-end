@@ -148,16 +148,10 @@ export default function Calendar(props) {
         });
       }
     }
-
-    const state = { ...timeIsUp };
-    setTimeIsUp({
-      loadingverify: false,
-      ...state,
-    });
   };
 
   const goTocreateBet = async (matchtime) => {
-    await verifybet();
+    verifybet();
 
     if (timeIsUp.message) return setOpen(true);
 
