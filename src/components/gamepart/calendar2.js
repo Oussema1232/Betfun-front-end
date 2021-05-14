@@ -15,7 +15,7 @@ import { loadGameweeks } from "../../features/gameweeks/gameweekSlice.js";
 import { loadTeams } from "../../features/teams/teamSlice.js";
 
 import TabPanel from "../../commun/panelTab";
-
+import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
 import SkullCalendar from "../../commun/skulldata";
 import Updatematch from "../../commun/admin/updatematch";
 import Bingopost from "../../commun/admin/bingopost";
@@ -59,6 +59,7 @@ export default function Calendar(props) {
   const [gameweekvalue, setGameweekvalue] = React.useState({ nothing: "" });
   const [open, setOpen] = React.useState(false);
   const [timeIsUp, setTimeIsUp] = React.useState({
+    loadingverify: false,
     isUp: false,
     alreadycreated: false,
     errorverify: false,
@@ -108,6 +109,14 @@ export default function Calendar(props) {
   };
 
   const verifybet = async () => {
+    setTimeIsUp({
+      loadingverify: true,
+      isUp: false,
+      errorverify: false,
+      alreadycreated: false,
+      message: "",
+      messageverifyerror: "",
+    });
     try {
       const response = await http.post(`/bets/verifybet`, {
         userId: currentuser.id,
@@ -120,6 +129,7 @@ export default function Calendar(props) {
     } catch (err) {
       if (err.response && err.response.status == 400) {
         setTimeIsUp({
+          loadingverify: false,
           isUp: false,
           alreadycreated: false,
           errorverify: true,
@@ -128,19 +138,21 @@ export default function Calendar(props) {
         });
       }
     }
-  };
-
-  const goTocreateBet = (matchtime) => {
     setTimeIsUp({
+      loadingverify: false,
       isUp: false,
       errorverify: false,
       alreadycreated: false,
       message: "",
       messageverifyerror: "",
     });
+  };
+
+  const goTocreateBet = (matchtime) => {
     const message = verifybet();
     if (message) {
       return setTimeIsUp({
+        loadingverify: false,
         isUp: false,
         alreadycreated: true,
         message,
@@ -237,7 +249,11 @@ export default function Calendar(props) {
                       goTocreateBet(matches[0].days[0].matches[0].played_on)
                     }
                   >
-                    Create Bet
+                    {timeIsUp.loadingverify ? (
+                      <Spincrescentcomponenet size="1x" color="#fbfbfb" />
+                    ) : (
+                      "Create Bet"
+                    )}
                   </div>
                 )}
                 {currentuser.isAdmin == 1 && (
@@ -414,7 +430,7 @@ export default function Calendar(props) {
         >
           <Alert severity="warning">
             <AlertTitle>Time is Up</AlertTitle>
-            {timeIsUp.message ? timeIsUp.message : messageverifyerror}
+            {timeIsUp.message ? timeIsUp.message : timeIsUp.messageverifyerror}
           </Alert>
         </Snackbar>
       )}
