@@ -406,7 +406,7 @@ export default function Calendar(props) {
           )}
         </>
       )}
-      {(timeIsUp.isUp || errorverify || alreadycreated) && (
+      {(timeIsUp.isUp || timeIsUp.errorverify || timeIsUp.alreadycreated) && (
         <Snackbar
           open={open}
           onClose={handleClose}
