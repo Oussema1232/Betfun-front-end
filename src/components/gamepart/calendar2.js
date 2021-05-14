@@ -125,7 +125,14 @@ export default function Calendar(props) {
             ? gameweeks[0].id
             : gameweekvalue.id,
       });
-      return response.data.message;
+      setTimeIsUp({
+        loadingverify: false,
+        isUp: false,
+        errorverify: false,
+        alreadycreated: false,
+        message: response.data.message,
+        messageverifyerror: "",
+      });
     } catch (err) {
       if (err.response && err.response.status == 400) {
         setTimeIsUp({
@@ -149,20 +156,11 @@ export default function Calendar(props) {
   };
 
   const goTocreateBet = (matchtime) => {
-    const message = verifybet();
+    verifybet();
 
-    if (message) {
-      setOpen(true);
-      return setTimeIsUp({
-        loadingverify: false,
-        isUp: false,
-        alreadycreated: true,
-        message,
-        isUp: false,
-        messageverifyerror: "",
-        errorverify: false,
-      });
-    } else if (moment(matchtime).diff(moment(), "minutes") > 60) {
+    if (timeisUp.message) return setOpen(true);
+
+    if (moment(matchtime).diff(moment(), "minutes") > 60) {
       props.history.push(
         `/game/bet/bets/createbet/${currentuser.username}/${
           currentdomain.name
