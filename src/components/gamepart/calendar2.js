@@ -149,7 +149,7 @@ export default function Calendar(props) {
       }
     }
 
-    state = { ...timeIsUp };
+    const state = { ...timeIsUp };
     setTimeIsUp({
       loadingverify: false,
       ...state,
