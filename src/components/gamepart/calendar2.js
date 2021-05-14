@@ -134,7 +134,10 @@ export default function Calendar(props) {
         messageverifyerror: "",
       });
     } catch (err) {
-      if (err.response && err.response.status == 400) {
+      if (
+        err.response &&
+        (err.response.status == 400 || err.response.status == 403)
+      ) {
         setTimeIsUp({
           loadingverify: false,
           isUp: false,
@@ -145,13 +148,11 @@ export default function Calendar(props) {
         });
       }
     }
+
+    state = { ...timeIsUp };
     setTimeIsUp({
       loadingverify: false,
-      isUp: false,
-      errorverify: false,
-      alreadycreated: false,
-      message: "",
-      messageverifyerror: "",
+      ...state,
     });
   };
 
