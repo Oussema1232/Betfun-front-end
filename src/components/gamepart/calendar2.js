@@ -19,6 +19,7 @@ import TabPanel from "../../commun/panelTab";
 import SkullCalendar from "../../commun/skulldata";
 import Updatematch from "../../commun/admin/updatematch";
 import Bingopost from "../../commun/admin/bingopost";
+import http from "../../services/httpService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,7 +58,13 @@ export default function Calendar(props) {
   const classes = useStyles();
   const [gameweekvalue, setGameweekvalue] = React.useState({ nothing: "" });
   const [open, setOpen] = React.useState(false);
-  const [timeIsUp, setTimeIsUp] = React.useState({ isUp: false, message: "" });
+  const [timeIsUp, setTimeIsUp] = React.useState({
+    isUp: false,
+    alreadycreated: false,
+    errorverify: false,
+    message: "",
+    messageverifyerror: "",
+  });
 
   const dispatch = useDispatch();
   const gameweeks = useSelector((state) => state.betfundata.gameweeks.list);
@@ -100,10 +107,48 @@ export default function Calendar(props) {
     setOpen(false);
   };
 
-  const goTocreateBet = (matchtime) => {
-    setTimeIsUp({ isUp: false, message: "" });
+  const verifybet = async () => {
+    try {
+      const response = await http.post(`/bets/verifybet`, {
+        userId: currentuser.id,
+        gameweekId:
+          gameweeks[0] && !gameweekvalue.id
+            ? gameweeks[0].id
+            : gameweekvalue.id,
+      });
+      return response.data.message;
+    } catch (err) {
+      if (err.response && err.response.status == 400) {
+        setTimeIsUp({
+          isUp: false,
+          alreadycreated: false,
+          errorverify: true,
+          message: "",
+          messageverifyerror: err.response.data.message,
+        });
+      }
+    }
+  };
 
-    if (moment(matchtime).diff(moment(), "minutes") > 60) {
+  const goTocreateBet = (matchtime) => {
+    setTimeIsUp({
+      isUp: false,
+      errorverify: false,
+      alreadycreated: false,
+      message: "",
+      messageverifyerror: "",
+    });
+    const message = verifybet();
+    if (message) {
+      return setTimeIsUp({
+        isUp: false,
+        alreadycreated: true,
+        message,
+        isUp: false,
+        messageverifyerror: "",
+        errorverify: false,
+      });
+    } else if (moment(matchtime).diff(moment(), "minutes") > 60) {
       props.history.push(
         `/game/bet/bets/createbet/${currentuser.username}/${
           currentdomain.name
@@ -361,7 +406,7 @@ export default function Calendar(props) {
           )}
         </>
       )}
-      {timeIsUp.isUp && (
+      {(timeIsUp.isUp || errorverify || alreadycreated) && (
         <Snackbar
           open={open}
           onClose={handleClose}
@@ -369,7 +414,7 @@ export default function Calendar(props) {
         >
           <Alert severity="warning">
             <AlertTitle>Time is Up</AlertTitle>
-            {timeIsUp.message}
+            {timeIsUp.message ? timeIsUp.message : messageverifyerror}
           </Alert>
         </Snackbar>
       )}
