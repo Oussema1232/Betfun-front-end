@@ -150,7 +150,9 @@ export default function Calendar(props) {
 
   const goTocreateBet = (matchtime) => {
     const message = verifybet();
+
     if (message) {
+      setOpen(true);
       return setTimeIsUp({
         loadingverify: false,
         isUp: false,
@@ -173,12 +175,12 @@ export default function Calendar(props) {
         }`
       );
     } else {
+      setOpen(true);
       setTimeIsUp({
         isUp: true,
         message: "Time is up, You can't create a Bet",
       });
     }
-    setOpen(true);
   };
 
   return (
@@ -429,7 +431,7 @@ export default function Calendar(props) {
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
         >
           <Alert severity="warning">
-            <AlertTitle>Time is Up</AlertTitle>
+            <AlertTitle>{timeIsUp.isUp ? "Time is Up" : "Warning"}</AlertTitle>
             {timeIsUp.message ? timeIsUp.message : timeIsUp.messageverifyerror}
           </Alert>
         </Snackbar>
