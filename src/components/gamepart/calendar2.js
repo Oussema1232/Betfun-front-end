@@ -129,7 +129,7 @@ export default function Calendar(props) {
         loadingverify: false,
         isUp: false,
         errorverify: false,
-        alreadycreated: false,
+        alreadycreated: true,
         message: response.message,
         messageverifyerror: "",
       });
@@ -153,7 +153,7 @@ export default function Calendar(props) {
   const goTocreateBet = async (matchtime) => {
     await verifybet();
 
-    if (timeIsUp.message) return setOpen(true);
+    if (timeIsUp.alreadycreated) return setOpen(true);
 
     if (moment(matchtime).diff(moment(), "minutes") > 60) {
       props.history.push(
@@ -172,6 +172,10 @@ export default function Calendar(props) {
       setTimeIsUp({
         isUp: true,
         message: "Time is up, You can't create a Bet",
+        loadingverify: false,
+        alreadycreated: false,
+        errorverify: false,
+        messageverifyerror: "",
       });
     }
   };
