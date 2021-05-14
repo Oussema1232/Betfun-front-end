@@ -158,7 +158,7 @@ export default function Calendar(props) {
   const goTocreateBet = (matchtime) => {
     verifybet();
 
-    if (timeisUp.message) return setOpen(true);
+    if (timeIsUp.message) return setOpen(true);
 
     if (moment(matchtime).diff(moment(), "minutes") > 60) {
       props.history.push(
