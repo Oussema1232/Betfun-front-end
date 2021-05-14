@@ -151,7 +151,7 @@ export default function Calendar(props) {
   };
 
   const goTocreateBet = async (matchtime) => {
-    verifybet();
+    await verifybet();
 
     if (timeIsUp.message) return setOpen(true);
 
