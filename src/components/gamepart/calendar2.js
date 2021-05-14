@@ -130,7 +130,7 @@ export default function Calendar(props) {
         isUp: false,
         errorverify: false,
         alreadycreated: false,
-        message: response.data.message,
+        message: response.message,
         messageverifyerror: "",
       });
     } catch (err) {
@@ -159,7 +159,7 @@ export default function Calendar(props) {
   const goTocreateBet = (matchtime) => {
     verifybet();
 
-    if (timeIsUp.message || true) return setOpen(true);
+    if (timeIsUp.message) return setOpen(true);
 
     if (moment(matchtime).diff(moment(), "minutes") > 60) {
       props.history.push(
