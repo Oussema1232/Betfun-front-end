@@ -102,7 +102,18 @@ export default function Calendar(props) {
   const currentuser = useSelector((state) => state.betfundata.currentuser.data);
 
   useEffect(() => {
+    if (gameweeks[0]) {
+      dispatch(
+        postVerifybet({
+          userId: currentuser.id,
+          gameweekId: gameweeks[0].id,
+        })
+      );
+    }
+  }, [gameweeks]);
+  useEffect(() => {
     dispatch(setdefault());
+
     dispatch(
       loadGameweeks(`/${props.match.params.seasonId}/${currentdomain.id}`)
     );
