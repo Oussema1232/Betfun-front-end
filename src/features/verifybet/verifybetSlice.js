@@ -24,23 +24,25 @@ export const verifybetSlice = createSlice({
       state.loading = false;
       state.onsuccess.message = action.payload.message;
     },
-    
+
+    setdefault: (state, action) => {
+      state.onsuccess = {};
+      state.errors = {};
+    },
     verifybetServerFail: (state, action) => {
       state.loading = false;
     },
   },
 });
 
-const {
+export const {
   verifybetReceived,
   verifybetRequested,
   verifybetRequestFail,
   verifybetServerFail,
+  setdefault,
 } = verifybetSlice.actions;
 const url = config.verifybet;
-
-
-
 
 export const postVerifybet = (verifybet) => (dispatch, getState) => {
   return dispatch(
@@ -56,7 +58,4 @@ export const postVerifybet = (verifybet) => (dispatch, getState) => {
   );
 };
 
-
-
 export default verifybetSlice.reducer;
-

@@ -13,7 +13,10 @@ import Tab from "@material-ui/core/Tab";
 import { loadMatches, postBingos } from "../../features/matches/matcheSlice";
 import { loadGameweeks } from "../../features/gameweeks/gameweekSlice.js";
 import { loadTeams } from "../../features/teams/teamSlice.js";
-import { postVerifybet } from "../../features/verifybet/verifybetSlice.js";
+import {
+  postVerifybet,
+  setdefault,
+} from "../../features/verifybet/verifybetSlice.js";
 
 import TabPanel from "../../commun/panelTab";
 import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
@@ -99,6 +102,7 @@ export default function Calendar(props) {
   const currentuser = useSelector((state) => state.betfundata.currentuser.data);
 
   useEffect(() => {
+    dispatch(setdefault());
     dispatch(
       loadGameweeks(`/${props.match.params.seasonId}/${currentdomain.id}`)
     );
@@ -204,7 +208,10 @@ export default function Calendar(props) {
                     key={g.id}
                     label={g.name}
                     value={g.id}
-                    onClick={() => setGameweekvalue(g)}
+                    onClick={() => {
+                      setGameweekvalue(g);
+                      dispatch(setdefault());
+                    }}
                     className={classes.tab}
                   />
                 ))}
