@@ -59,12 +59,8 @@ export default function Calendar(props) {
   const [gameweekvalue, setGameweekvalue] = React.useState({ nothing: "" });
   const [open, setOpen] = React.useState(false);
   const [timeIsUp, setTimeIsUp] = React.useState({
-    loadingverify: false,
     isUp: false,
-    alreadycreated: false,
-    errorverify: false,
     message: "",
-    messageverifyerror: "",
   });
 
   const dispatch = useDispatch();
@@ -129,20 +125,20 @@ export default function Calendar(props) {
       })
     );
 
-    if (verifySuccess || verifyError) return setOpen(true);
 
     if (moment(matchtime).diff(moment(), "minutes") > 60) {
-      props.history.push(
+    if (verifySuccess || verifyError) {return setOpen(true);}    else{props.history.push(
         `/game/bet/bets/createbet/${currentuser.username}/${
           currentdomain.name
         }/${props.match.params.seasonname}/${
-          gameweeks[0] && !gameweekvalue.name
+              gameweeks[0] && !gameweekvalue.name
             ? gameweeks[0].name
             : gameweekvalue.name
         }/${currentuser.id}/${
           gameweeks[0] && !gameweekvalue.id ? gameweeks[0].id : gameweekvalue.id
         }`
-      );
+      );}
+      
     } else {
       setOpen(true);
       setTimeIsUp({

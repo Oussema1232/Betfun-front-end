@@ -93,7 +93,7 @@ export default function CreateBet(props) {
         })
       );
     } else {
-      setTimeIsUp({
+          setTimeIsUp({
         isUp: true,
         message: "Time is up, You can't Create a Bet",
       });
