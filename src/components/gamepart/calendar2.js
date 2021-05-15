@@ -62,6 +62,7 @@ export default function Calendar(props) {
     isUp: false,
     message: "",
   });
+  const [loadingverify, setLoadingverify] = React.useState(false);
 
   const dispatch = useDispatch();
   const gameweeks = useSelector((state) => state.betfundata.gameweeks.list);
@@ -88,9 +89,6 @@ export default function Calendar(props) {
   const verifySuccess = useSelector(
     (state) => state.betfundata.verifybet.onsuccess.message
   );
-  const loadingverify = useSelector(
-    (state) => state.betfundata.verifybet.loading
-  );
 
   const currentdomain = useSelector(
     (state) => state.betfundata.currentdomain.data
@@ -116,6 +114,7 @@ export default function Calendar(props) {
 
   const goTocreateBet = (matchtime) => {
     setOpen(false);
+    setLoadingverify(true);
     dispatch(
       postVerifybet({
         userId: currentuser.id,
@@ -128,6 +127,7 @@ export default function Calendar(props) {
 
     if (moment(matchtime).diff(moment(), "minutes") > 60) {
       if (verifySuccess || (verifyError && verifyError != "No bet")) {
+        setLoadingverify(false);
         return setOpen(true);
       } else {
         props.history.push(
@@ -221,7 +221,7 @@ export default function Calendar(props) {
                       goTocreateBet(matches[0].days[0].matches[0].played_on)
                     }
                   >
-                    {loadingverify ? (
+                    {loadingveify ? (
                       <Spincrescentcomponenet size="1x" color="#fbfbfb" />
                     ) : (
                       "Create Bet"
