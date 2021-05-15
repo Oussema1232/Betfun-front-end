@@ -221,7 +221,7 @@ export default function Calendar(props) {
                       goTocreateBet(matches[0].days[0].matches[0].played_on)
                     }
                   >
-                    {loadingveify ? (
+                    {loadingverify ? (
                       <Spincrescentcomponenet size="1x" color="#fbfbfb" />
                     ) : (
                       "Create Bet"
