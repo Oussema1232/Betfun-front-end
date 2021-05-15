@@ -114,7 +114,8 @@ export default function Calendar(props) {
     setOpen(false);
   };
 
-  const goTocreateBet = async (matchtime) => {
+  const goTocreateBet = (matchtime) => {
+    setOpen(false);
     dispatch(
       postVerifybet({
         userId: currentuser.id,
