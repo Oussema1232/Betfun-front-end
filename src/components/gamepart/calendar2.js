@@ -125,20 +125,24 @@ export default function Calendar(props) {
       })
     );
 
-
     if (moment(matchtime).diff(moment(), "minutes") > 60) {
-    if (verifySuccess || verifyError) {return setOpen(true);}    else{props.history.push(
-        `/game/bet/bets/createbet/${currentuser.username}/${
-          currentdomain.name
-        }/${props.match.params.seasonname}/${
-              gameweeks[0] && !gameweekvalue.name
-            ? gameweeks[0].name
-            : gameweekvalue.name
-        }/${currentuser.id}/${
-          gameweeks[0] && !gameweekvalue.id ? gameweeks[0].id : gameweekvalue.id
-        }`
-      );}
-      
+      if (verifySuccess || (verifyError && verifyError != "No bet")) {
+        return setOpen(true);
+      } else {
+        props.history.push(
+          `/game/bet/bets/createbet/${currentuser.username}/${
+            currentdomain.name
+          }/${props.match.params.seasonname}/${
+            gameweeks[0] && !gameweekvalue.name
+              ? gameweeks[0].name
+              : gameweekvalue.name
+          }/${currentuser.id}/${
+            gameweeks[0] && !gameweekvalue.id
+              ? gameweeks[0].id
+              : gameweekvalue.id
+          }`
+        );
+      }
     } else {
       setOpen(true);
       setTimeIsUp({
@@ -397,7 +401,7 @@ export default function Calendar(props) {
         >
           <Alert severity="warning">
             <AlertTitle>{timeIsUp.isUp ? "Time is Up" : "Warning"}</AlertTitle>
-            {verifyError
+            {verifyError && verifyError != "No bet"
               ? verifyError
               : verifySuccess
               ? verifySuccess
