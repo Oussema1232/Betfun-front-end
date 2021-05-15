@@ -119,15 +119,6 @@ export default function Calendar(props) {
   const goTocreateBet = (matchtime) => {
     setOpen(false);
     setLoadingverify(true);
-    dispatch(
-      postVerifybet({
-        userId: currentuser.id,
-        gameweekId:
-          gameweeks[0] && !gameweekvalue.id
-            ? gameweeks[0].id
-            : gameweekvalue.id,
-      })
-    );
 
     if (moment(matchtime).diff(moment(), "minutes") > 60) {
       if (verifySuccess || (verifyError && verifyError != "No bet")) {
@@ -211,6 +202,12 @@ export default function Calendar(props) {
                     onClick={() => {
                       setGameweekvalue(g);
                       dispatch(setdefault());
+                      dispatch(
+                        postVerifybet({
+                          userId: currentuser.id,
+                          gameweekId: g.id,
+                        })
+                      );
                     }}
                     className={classes.tab}
                   />
