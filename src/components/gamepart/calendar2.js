@@ -13,6 +13,7 @@ import Tab from "@material-ui/core/Tab";
 import { loadMatches, postBingos } from "../../features/matches/matcheSlice";
 import { loadGameweeks } from "../../features/gameweeks/gameweekSlice.js";
 import { loadTeams } from "../../features/teams/teamSlice.js";
+import { postverifybet } from "../../features/verifybet/verifybetSlice.js";
 
 import TabPanel from "../../commun/panelTab";
 import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
@@ -86,6 +87,16 @@ export default function Calendar(props) {
     (state) => state.betfundata.matches.errors.message
   );
 
+  const verifyError = useSelector(
+    (state) => state.betfundata.verifybet.errors.message
+  );
+  const verifySuccess = useSelector(
+    (state) => state.betfundata.verifybet.onsuccess.message
+  );
+  const loadingverify = useSelector(
+    (state) => state.betfundata.verifybet.loading
+  );
+
   const currentdomain = useSelector(
     (state) => state.betfundata.currentdomain.data
   );
@@ -108,52 +119,18 @@ export default function Calendar(props) {
     setOpen(false);
   };
 
-  const verifybet = async () => {
-    setTimeIsUp({
-      loadingverify: true,
-      isUp: false,
-      errorverify: false,
-      alreadycreated: false,
-      message: "",
-      messageverifyerror: "",
-    });
-    try {
-      const response = await http.post(`/bets/verifybet`, {
+  const goTocreateBet = async (matchtime) => {
+    dispatch(
+      postVerifybet({
         userId: currentuser.id,
         gameweekId:
           gameweeks[0] && !gameweekvalue.id
             ? gameweeks[0].id
             : gameweekvalue.id,
-      });
-      setTimeIsUp({
-        loadingverify: false,
-        isUp: false,
-        errorverify: false,
-        alreadycreated: true,
-        message: response.message,
-        messageverifyerror: "",
-      });
-    } catch (err) {
-      if (
-        err.response &&
-        (err.response.status == 400 || err.response.status == 403)
-      ) {
-        setTimeIsUp({
-          loadingverify: false,
-          isUp: false,
-          alreadycreated: false,
-          errorverify: true,
-          message: "",
-          messageverifyerror: err.response.data.message,
-        });
-      }
-    }
-  };
+      })
+    );
 
-  const goTocreateBet = async (matchtime) => {
-    await verifybet();
-
-    if (timeIsUp.alreadycreated) return setOpen(true);
+    if (verifySuccess || verifyError) return setOpen(true);
 
     if (moment(matchtime).diff(moment(), "minutes") > 60) {
       props.history.push(
@@ -172,10 +149,6 @@ export default function Calendar(props) {
       setTimeIsUp({
         isUp: true,
         message: "Time is up, You can't create a Bet",
-        loadingverify: false,
-        alreadycreated: false,
-        errorverify: false,
-        messageverifyerror: "",
       });
     }
   };
@@ -248,7 +221,7 @@ export default function Calendar(props) {
                       goTocreateBet(matches[0].days[0].matches[0].played_on)
                     }
                   >
-                    {timeIsUp.loadingverify ? (
+                    {loadingverify ? (
                       <Spincrescentcomponenet size="1x" color="#fbfbfb" />
                     ) : (
                       "Create Bet"
@@ -421,7 +394,7 @@ export default function Calendar(props) {
           )}
         </>
       )}
-      {(timeIsUp.isUp || timeIsUp.errorverify || timeIsUp.alreadycreated) && (
+      {(timeIsUp.isUp || verifySuccess || verifyError) && (
         <Snackbar
           open={open}
           onClose={handleClose}
@@ -429,7 +402,11 @@ export default function Calendar(props) {
         >
           <Alert severity="warning">
             <AlertTitle>{timeIsUp.isUp ? "Time is Up" : "Warning"}</AlertTitle>
-            {timeIsUp.message ? timeIsUp.message : timeIsUp.messageverifyerror}
+            {verifyError
+              ? verifyError
+              : verifySuccess
+              ? verifySuccess
+              : timeIsUp.message}
           </Alert>
         </Snackbar>
       )}

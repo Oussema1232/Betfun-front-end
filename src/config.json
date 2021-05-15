@@ -26,5 +26,6 @@
   "suggestions": "/suggestions",
   "domainstats": "/domainstats",
   "knowledgestats": "/knowledgestats/stats",
-  "knowledgecategories": "/categories"
+  "knowledgecategories": "/categories",
+  "verifybet":"/bets/verifybet"
 }

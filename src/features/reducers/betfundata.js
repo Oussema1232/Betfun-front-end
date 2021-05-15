@@ -28,6 +28,7 @@ import roundReducer from "../round/roundSlice.js";
 import suggestionReducer from "../suggestions/suggestionSlice.js";
 import domainstatsReducer from "../domainstats/domainstatsSlice.js";
 import knowledgestatsReducer from "../knowledgestats/knowledgestatsSlice.js";
+import verifybetReducer from "../verifybet/verifybetSlice.js";
 
 export default combineReducers({
   users: userReducer,
@@ -59,4 +60,5 @@ export default combineReducers({
   suggestions: suggestionReducer,
   domainstats: domainstatsReducer,
   knowledgestats: knowledgestatsReducer,
+  verifybet:verifybetReducer
 });

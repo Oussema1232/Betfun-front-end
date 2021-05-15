@@ -1,8 +1,9 @@
 import { combineReducers } from "redux";
 import betfundataReducer from "./betfundata";
 import { connectRouter } from "connected-react-router";
-import { persistReducer } from "redux-persist";
+import { persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage";
+
 
 
 const createRootReducer = (history) =>
