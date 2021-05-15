@@ -13,14 +13,13 @@ import Tab from "@material-ui/core/Tab";
 import { loadMatches, postBingos } from "../../features/matches/matcheSlice";
 import { loadGameweeks } from "../../features/gameweeks/gameweekSlice.js";
 import { loadTeams } from "../../features/teams/teamSlice.js";
-import { postverifybet } from "../../features/verifybet/verifybetSlice.js";
+import { postVerifybet } from "../../features/verifybet/verifybetSlice.js";
 
 import TabPanel from "../../commun/panelTab";
 import Spincrescentcomponenet from "../../commun/logos/spincrescentcomponent";
 import SkullCalendar from "../../commun/skulldata";
 import Updatematch from "../../commun/admin/updatematch";
 import Bingopost from "../../commun/admin/bingopost";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
