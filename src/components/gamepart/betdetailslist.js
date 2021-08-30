@@ -181,6 +181,7 @@ export default function BetdetailsList(props) {
                       guesseslist={guesseslist}
                       betdetail={betdetail}
                       showsmalldate={true}
+                      score={`${betdetail.goals1} - ${betdetail.goals2}`}
                       showresults={true}
                       initialValue={`'${betdetail.guess}'`}
                       updateguess={sousListBetdetailsUpdated}
