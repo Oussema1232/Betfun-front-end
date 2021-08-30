@@ -85,7 +85,7 @@ export default function KingComponent({ kings, countryId }) {
                 >
                   {k.gender == "Female"
                     ? `Queen ${k.username}`
-                    : `King ${k.username} mala bibi jika mala kaka`}
+                    : `King ${k.username}`}
                 </Link>
               </div>
 
@@ -115,7 +115,9 @@ export default function KingComponent({ kings, countryId }) {
                   boxSizing: "border-box",
                 }}
               >
-                {`${k.NTKing} Time(s)${k.sex == "Male" ? " King" : " Queen"}`}
+                {`${k.NTKing} Time(s)${
+                  k.gender == "Male" ? " King" : " Queen"
+                }`}
               </div>
             </motion.div>
           )}

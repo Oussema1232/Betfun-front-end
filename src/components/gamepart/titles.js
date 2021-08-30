@@ -140,10 +140,7 @@ export default function Titles(props) {
                 <div className="kingsqueentitle">Kings / Queens</div>
               </div>
               {kings[0] || true ? (
-                <KingsComponent
-                  kings={[sultan, sultan]}
-                  countryId={choosecountry}
-                />
+                <KingsComponent kings={kings} countryId={choosecountry} />
               ) : (
                 <div
                   style={{
